@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBox3D", "GreenBox3D\GreenBox3D.csproj", "{71950234-7A26-4173-87ED-E5E28061A33E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{A1540F77-7E6A-42D3-A6D1-74506E198572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBox3D.ContentPipeline", "GreenBox3D.ContentPipeline\GreenBox3D.ContentPipeline.csproj", "{3BD45E60-D6E2-41AF-9F7B-9033F702D1F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentCompilerFrontend", "ContentCompilerFrontend\ContentCompilerFrontend.csproj", "{BFDC7F31-85A8-491F-A071-899040DFCE4B}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "FrameworkDesign", "FrameworkDesign\FrameworkDesign.modelproj", "{649FA01E-DCDC-4D3E-BDD1-B88FF4FD4144}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B838EED4-8840-40F1-944F-3776FEFAA6D1}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71950234-7A26-4173-87ED-E5E28061A33E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71950234-7A26-4173-87ED-E5E28061A33E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71950234-7A26-4173-87ED-E5E28061A33E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71950234-7A26-4173-87ED-E5E28061A33E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1540F77-7E6A-42D3-A6D1-74506E198572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1540F77-7E6A-42D3-A6D1-74506E198572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1540F77-7E6A-42D3-A6D1-74506E198572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1540F77-7E6A-42D3-A6D1-74506E198572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD45E60-D6E2-41AF-9F7B-9033F702D1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD45E60-D6E2-41AF-9F7B-9033F702D1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD45E60-D6E2-41AF-9F7B-9033F702D1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD45E60-D6E2-41AF-9F7B-9033F702D1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDC7F31-85A8-491F-A071-899040DFCE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDC7F31-85A8-491F-A071-899040DFCE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDC7F31-85A8-491F-A071-899040DFCE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDC7F31-85A8-491F-A071-899040DFCE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{649FA01E-DCDC-4D3E-BDD1-B88FF4FD4144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{649FA01E-DCDC-4D3E-BDD1-B88FF4FD4144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{649FA01E-DCDC-4D3E-BDD1-B88FF4FD4144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{649FA01E-DCDC-4D3E-BDD1-B88FF4FD4144}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
