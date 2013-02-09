@@ -81,6 +81,7 @@ namespace GreenBox3D.ContentPipeline.Compiler
                 try
                 {
                     temporary = importer.Create().Import(stream, context);
+                    stream.Close();
                 }
                 catch (Exception ex)
                 {
@@ -126,7 +127,7 @@ namespace GreenBox3D.ContentPipeline.Compiler
                 // Write
                 try
                 {
-                    string newExtension = writer.GetType().GetCustomAttribute<ContentTypeWriterAttribute>().Extension;
+                    string newExtension = writer.Extension;
                     string buildPath = Path.Combine(OutputPath, Path.GetDirectoryName(content.RelativePath), Path.GetFileNameWithoutExtension(content.RelativePath)) + newExtension;
 
                     Directory.CreateDirectory(Path.GetDirectoryName(buildPath));

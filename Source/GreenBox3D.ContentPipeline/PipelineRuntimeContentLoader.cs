@@ -91,6 +91,7 @@ namespace GreenBox3D.ContentPipeline
                 try
                 {
                     temporary = importer.Create().Import(stream, context);
+                    stream.Close();
                 }
                 catch (Exception ex)
                 {
