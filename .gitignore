@@ -1,8 +1,10 @@
 /packages
+/DebugBuild
 *.suo
 bin
 obj
 *.exe
 *.dll
+*.pdb
 *.cache
 *.user
