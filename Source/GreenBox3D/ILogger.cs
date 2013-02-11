@@ -8,8 +8,11 @@ namespace GreenBox3D
 {
     public interface ILogger
     {
-        void LogMessage(string format, params object[] args);
-        void LogWarning(string format, params object[] args);
-        void LogError(string format, params object[] args);
+        void Message(string format, params object[] args);
+        void MessageEx(string text, Exception exception);
+        void Warning(string format, params object[] args);
+        void WarningEx(string text, Exception exception);
+        void Error(string format, params object[] args);
+        void ErrorEx(string text, Exception exception);
     }
 }

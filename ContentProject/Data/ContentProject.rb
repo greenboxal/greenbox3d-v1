@@ -16,4 +16,7 @@
 # end
 #
 
-content 'Logo.png'
+content 'HumanRightsLogo_CO.jpg' do |f|
+	#f['transparency_key'] = [255,255,255]
+	f['create_mimaps'] = false
+end

@@ -16,6 +16,7 @@ using GreenBox3D;
 using GreenBox3D.ContentPipeline.Compiler;
 using GreenBox3D.Graphics;
 using GreenBox3D.Input;
+using GreenBox3D.Math;
 
 namespace TestApp
 {
@@ -42,13 +43,15 @@ namespace TestApp
             base.Initialize();
         }
 
+        private Texture2D tex;
         protected override void LoadContent()
         {
-            
+            tex = Content.LoadContent<Texture2D>("Data/HumanRightsLogo_CO");
         }
 
         protected override void Render(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
         }
 
         protected override void Update(GameTime gameTime)

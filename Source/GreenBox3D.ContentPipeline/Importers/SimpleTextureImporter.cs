@@ -11,12 +11,12 @@ using GreenBox3D.ContentPipeline.Graphics;
 
 namespace GreenBox3D.ContentPipeline.Importers
 {
-    [ContentImporter(".bmp", ".jpg", ".png", ".gif", ".tga", DisplayName = "Texture Importer", DefaultProcessor = "TextureProcessor")]
-    public class TextureImporter : ContentImporter<TextureContent>
+    [ContentImporter(".bmp", ".jpg", ".png", ".gif", DisplayName = "Simple Texture2D Importer", DefaultProcessor = "SimpleTextureProcessor")]
+    public class SimpleTextureImporter : ContentImporter<Bitmap>
     {
-        public override TextureContent Import(Stream stream, BuildContext context)
+        public override Bitmap Import(Stream stream, BuildContext context)
         {
-            return null;
+            return new Bitmap(stream);
         }
     }
 }

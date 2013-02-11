@@ -50,7 +50,7 @@ namespace GreenBox3D.Graphics
                     handle.Free();
             }
 
-            if (GL.GetError() != ErrorCode.NoError)
+            if (GL.GetError() == ErrorCode.NoError)
                 LevelCount++;
             else
                 throw new OpenGLException();

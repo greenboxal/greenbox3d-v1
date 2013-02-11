@@ -58,6 +58,10 @@
       <Private>True</Private>
       <HintPath>..\packages\IronRuby.1.1.3\Lib\Microsoft.Scripting.Metadata.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\opentk_unoffical.1.1.788.3121\lib\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -85,15 +89,15 @@
     <Compile Include="Graphics\MipmapChainCollection.cs" />
     <Compile Include="Graphics\PixelBitmapContent.cs" />
     <Compile Include="Graphics\Texture2DContent.cs" />
-    <Compile Include="Importers\TextureImporter.cs" />
+    <Compile Include="Importers\SimpleTextureImporter.cs" />
     <Compile Include="Compiler\IPipelineProject.cs" />
     <Compile Include="Compiler\IPipelineProjectConsumer.cs" />
-    <Compile Include="Loaders\TextureLoader.cs" />
+    <Compile Include="Loaders\Texture2DLoader.cs" />
     <Compile Include="Graphics\TextureContent.cs" />
     <Compile Include="Compiler\PipelineCompiler.cs" />
     <Compile Include="Compiler\BuildContext.cs" />
     <Compile Include="PipelineManager.cs" />
-    <Compile Include="Processors\TextureProcessor.cs" />
+    <Compile Include="Processors\SimpleTextureProcessor.cs" />
     <Compile Include="Compiler\PipelineProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compiler\ScriptManager.cs" />
@@ -106,7 +110,9 @@
       <Name>GreenBox3D</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphics\DevIL\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

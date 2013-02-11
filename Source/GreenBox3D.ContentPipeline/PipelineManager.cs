@@ -71,7 +71,7 @@ namespace GreenBox3D.ContentPipeline
                         Loaders[descriptor.Loadee] = descriptor;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // TODO: Do something men
                 }
@@ -86,15 +86,6 @@ namespace GreenBox3D.ContentPipeline
             {
                 processor.Writer = QueryWriterByType(processor.Output);
                 processor.Loader = QueryLoaderByType(processor.Output);
-            }
-
-            foreach (LoaderDescriptor loader in loaders)
-            {
-                foreach (ImporterDescriptor importer in Importers)
-                {
-                    if (importer.DefaultProcessor == null || importer.DefaultProcessor.Output != loader.Loadee)
-                        continue;
-                }
             }
         }
 

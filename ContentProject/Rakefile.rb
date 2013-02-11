@@ -7,7 +7,6 @@ namespace :content do
 	task :build do
 		project = PipelineProject.new 'ContentProject.rb'
 		compiler = PipelineCompiler.new project
-		compiler.logger = ConsoleLogger.new
 		compiler.output_path = 'Output'
 		compiler.compile
 	end

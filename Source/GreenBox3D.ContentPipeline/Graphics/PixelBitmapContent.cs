@@ -6,12 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GreenBox3D.Graphics;
+using GreenBox3D.Math;
+
+using IronRuby.Builtins;
 
 namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class PixelBitmapContent<T> : BitmapContent where T : struct
     {
-        private T[] _data;
+        private readonly T[] _data;
 
         public PixelBitmapContent(int width, int height)
             : base(width, height)
@@ -22,6 +25,14 @@ namespace GreenBox3D.ContentPipeline.Graphics
         public override bool TryGetFormat(out SurfaceFormat format)
         {
             format = SurfaceFormat.Color;
+
+            if (typeof(T) == typeof(byte))
+                format = SurfaceFormat.Alpha8;
+            else if (typeof(T) == typeof(Color) || typeof(T) == typeof(Vector4))
+                format = SurfaceFormat.Color;
+            else
+                return false;
+
             return true;
         }
 
@@ -61,6 +72,11 @@ namespace GreenBox3D.ContentPipeline.Graphics
             handle.Free();
 
             return data;
+        }
+
+        public override void MakeTransparent(Color color)
+        {
+            throw new NotImplementedException();
         }
 
         public void ReplaceColor(T originalColor, T newColor)

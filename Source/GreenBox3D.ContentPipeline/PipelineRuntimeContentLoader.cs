@@ -13,17 +13,16 @@ namespace GreenBox3D.ContentPipeline
 {
     internal class PipelineRuntimeContentLoader : IRuntimeContentLoader, IPipelineProjectConsumer
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(PipelineRuntimeContentLoader));
+
         private readonly IPipelineProject _project;
         private readonly Dictionary<string, ContentDescriptor> _fileMap;
         private readonly Dictionary<string, Tuple<LoaderDescriptor, object, BuildContext>> _processorCache;
-
-        private readonly ILogger _logger;
 
         public PipelineRuntimeContentLoader(IPipelineProject project)
         {
             _fileMap = new Dictionary<string, ContentDescriptor>(StringComparer.InvariantCultureIgnoreCase);
             _processorCache = new Dictionary<string, Tuple<LoaderDescriptor, object, BuildContext>>(StringComparer.InvariantCultureIgnoreCase);
-            _logger = new ConsoleLogger();
             _project = project;
             _project.Consume(this);
         }
@@ -72,7 +71,7 @@ namespace GreenBox3D.ContentPipeline
 
                     if (importer == null)
                     {
-                        _logger.LogError("Invalid importer '{0}' for {1}", context.Descriptor["importer"], filename);
+                        Logger.Error("Invalid importer '{0}' for {1}", context.Descriptor["importer"], filename);
                         return null;
                     }
                 }
@@ -82,7 +81,7 @@ namespace GreenBox3D.ContentPipeline
 
                     if (importer == null)
                     {
-                        _logger.LogError("No valid importer was found for {1}", filename);
+                        Logger.Error("No valid importer was found for {0}", filename);
                         return null;
                     }
                 }
@@ -95,7 +94,7 @@ namespace GreenBox3D.ContentPipeline
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("An exception ocurred importing {0}: {1}", filename, ex);
+                    Logger.Error("An exception ocurred importing {0}: {1}", filename, ex);
                     return null;
                 }
 
@@ -109,7 +108,7 @@ namespace GreenBox3D.ContentPipeline
 
                     if (processor == null)
                     {
-                        _logger.LogError("No valid processor was found for {1}", filename);
+                        Logger.Error("No valid processor was found for {1}", filename);
                         return null;
                     }
                 }
@@ -121,7 +120,7 @@ namespace GreenBox3D.ContentPipeline
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("An exception ocurred processing {0}: {1}", filename, ex);
+                    Logger.Error("An exception ocurred processing {0}: {1}", filename, ex);
                     return null;
                 }
 
@@ -137,7 +136,7 @@ namespace GreenBox3D.ContentPipeline
             }
             catch (Exception ex)
             {
-                _logger.LogError("An exception ocurred building {0}: {1}", filename, ex);
+                Logger.Error("An exception ocurred building {0}: {1}", filename, ex);
                 return null;
             }
 
@@ -149,7 +148,7 @@ namespace GreenBox3D.ContentPipeline
             BuildContext context = new BuildContext();
 
             context.Descriptor = content;
-            context.Logger = _logger;
+            context.Logger = Logger;
 
             return context;
         }
