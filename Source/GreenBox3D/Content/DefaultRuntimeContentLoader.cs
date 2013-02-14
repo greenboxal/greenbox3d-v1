@@ -49,6 +49,9 @@ namespace GreenBox3D.Content
             IContentTypeReader reader = (IContentTypeReader)Activator.CreateInstance(descriptor.Type);
             Stream stream = FileManager.OpenFile(filename + descriptor.Extension);
 
+            if (stream == null)
+                return null;
+
             object result = reader.Load(manager, stream);
 
             if (result != null)

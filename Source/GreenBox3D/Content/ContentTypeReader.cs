@@ -12,8 +12,15 @@ namespace GreenBox3D.Content
 {
     public abstract class ContentTypeReader<T> : IContentTypeReader
     {
+        public string Magic { get; protected set; }
+        public Version Version { get; protected set; }
+
         protected abstract T Load(ContentManager manager, ContentReader reader);
-        protected abstract bool CheckHeader(ContentHeader header);
+
+        protected virtual bool CheckHeader(ContentHeader header)
+        {
+            return header.Magic == Magic && header.Version <= Version;
+        }
 
         object IContentTypeReader.Load(ContentManager manager, Stream stream)
         {
@@ -23,7 +30,7 @@ namespace GreenBox3D.Content
             byte msize = reader.ReadByte();
             byte[] mbytes = reader.ReadBytes(msize);
             string magic = Encoding.UTF8.GetString(mbytes);
-            Version version = new Version(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
+            Version version = new Version(reader.ReadInt32(), reader.ReadInt32());
             Encoding encoding = Encoding.UTF8;
 
             if ((flags & 1) == 1)

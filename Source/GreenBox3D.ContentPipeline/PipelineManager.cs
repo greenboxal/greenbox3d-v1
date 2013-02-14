@@ -15,15 +15,19 @@ namespace GreenBox3D.ContentPipeline
         private static readonly List<ImporterDescriptor> Importers;
         private static readonly Dictionary<string, ImporterDescriptor> ImporterLookup;
         private static readonly Dictionary<string, ProcessorDescriptor> Processors;
-        private static readonly Dictionary<Type, WriterDescriptor> Writers;
-        private static readonly Dictionary<Type, LoaderDescriptor> Loaders;
+        private static readonly Dictionary<Type, WriterDescriptor> OutputWriters;
+        private static readonly Dictionary<Type, LoaderDescriptor> OutputLoaders;
+        private static readonly Dictionary<Type, WriterDescriptor> InstanceWriters;
+        private static readonly Dictionary<Type, LoaderDescriptor> InstanceLoaders;
 
         static PipelineManager()
         {
             Importers = new List<ImporterDescriptor>();
             Processors = new Dictionary<string, ProcessorDescriptor>();
-            Writers = new Dictionary<Type, WriterDescriptor>();
-            Loaders = new Dictionary<Type, LoaderDescriptor>();
+            OutputWriters = new Dictionary<Type, WriterDescriptor>();
+            OutputLoaders = new Dictionary<Type, LoaderDescriptor>();
+            InstanceWriters = new Dictionary<Type, WriterDescriptor>();
+            InstanceLoaders = new Dictionary<Type, LoaderDescriptor>();
             ImporterLookup = new Dictionary<string, ImporterDescriptor>();
 
             ScanAssembly(typeof(PipelineManager).Assembly);
@@ -33,7 +37,6 @@ namespace GreenBox3D.ContentPipeline
         {
             List<ImporterDescriptor> importers = new List<ImporterDescriptor>();
             List<ProcessorDescriptor> processors = new List<ProcessorDescriptor>();
-            List<LoaderDescriptor> loaders = new List<LoaderDescriptor>();
 
             foreach (Type type in assembly.GetExportedTypes())
             {
@@ -61,14 +64,17 @@ namespace GreenBox3D.ContentPipeline
                     }
                     else if (Attribute.IsDefined(type, typeof(ContentTypeWriterAttribute)))
                     {
-                        Writers.Add(type.BaseType.GenericTypeArguments[0], new WriterDescriptor(type));
+                        WriterDescriptor descriptor = new WriterDescriptor(type);
+
+                        OutputWriters[type.BaseType.GenericTypeArguments[0]] = descriptor;
+                        InstanceWriters.Add(type, descriptor);
                     }
                     else if (Attribute.IsDefined(type, typeof(ContentLoaderAttribute)))
                     {
                         LoaderDescriptor descriptor = new LoaderDescriptor(type);
 
-                        loaders.Add(descriptor);
-                        Loaders[descriptor.Loadee] = descriptor;
+                        OutputLoaders[descriptor.Loadee] = descriptor;
+                        InstanceLoaders.Add(type, descriptor);
                     }
                 }
                 catch (Exception)
@@ -84,8 +90,10 @@ namespace GreenBox3D.ContentPipeline
 
             foreach (ProcessorDescriptor processor in processors)
             {
-                processor.Writer = QueryWriterByType(processor.Output);
-                processor.Loader = QueryLoaderByType(processor.Output);
+                ContentProcessorAttribute info = processor.Type.GetCustomAttribute<ContentProcessorAttribute>();
+
+                processor.Writer = info.Writer != null ? QueryWriterByInstanceType(info.Writer) : QueryWriterByOutputType(processor.Output);
+                processor.Loader = info.Loader != null ? QueryLoaderByInstanceType(info.Loader) : QueryLoaderByOutputType(processor.Output);
             }
         }
 
@@ -115,20 +123,34 @@ namespace GreenBox3D.ContentPipeline
             return processor;
         }
 
-        public static WriterDescriptor QueryWriterByType(Type type)
+        public static WriterDescriptor QueryWriterByOutputType(Type type)
         {
             WriterDescriptor writer;
-            Writers.TryGetValue(type, out writer);
+            OutputWriters.TryGetValue(type, out writer);
             return writer;
         }
 
-        public static LoaderDescriptor QueryLoaderByType(Type type)
+        public static LoaderDescriptor QueryLoaderByOutputType(Type type)
         {
             LoaderDescriptor loader;
-            Loaders.TryGetValue(type, out loader);
+            OutputLoaders.TryGetValue(type, out loader);
             return loader;
         }
 
+        public static WriterDescriptor QueryWriterByInstanceType(Type type)
+        {
+            WriterDescriptor writer;
+            InstanceWriters.TryGetValue(type, out writer);
+            return writer;
+        }
+
+        public static LoaderDescriptor QueryLoaderByInstanceType(Type type)
+        {
+            LoaderDescriptor loader;
+            InstanceLoaders.TryGetValue(type, out loader);
+            return loader;
+        }
+        
         #endregion
     }
 }

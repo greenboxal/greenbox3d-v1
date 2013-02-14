@@ -15,21 +15,20 @@ namespace GreenBox3D.ContentPipeline
 {
     public abstract class ContentTypeWriter<TInput> : IContentTypeWriter
     {
-        public ContentHeader Header { get; private set; }
         public bool ShouldCompress { get; set; }
 
-        protected ContentTypeWriter(ContentHeader header)
-        {
-            Header = header;
-        }
-
         protected abstract void Write(ContentWriter stream, TInput input, BuildContext context);
+        protected abstract ContentHeader GetHeader(TInput input, BuildContext context);
 
         void IContentTypeWriter.Write(Stream stream, object input, BuildContext context)
         {
+            ContentHeader header = GetHeader((TInput)input, context);
             BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8, true);
-            bool cenc = !Header.Encoding.Equals(Encoding.UTF8);
+            bool cenc = !header.Encoding.Equals(Encoding.UTF8);
             byte flags = 0;
+
+            if (context.Descriptor["compress_output"] != null)
+                ShouldCompress = (bool)context.Descriptor["compress_output"];
 
             if (cenc)
                 flags |= 1;
@@ -38,22 +37,20 @@ namespace GreenBox3D.ContentPipeline
                 flags |= 2;
 
             writer.Write(flags);
-            writer.Write((byte)Header.Magic.Length);
-            writer.Write(Encoding.UTF8.GetBytes(Header.Magic));
-            writer.Write(Header.Version.Major);
-            writer.Write(Header.Version.Minor);
-            writer.Write(Header.Version.Build);
-            writer.Write(Header.Version.Revision);
+            writer.Write((byte)header.Magic.Length);
+            writer.Write(Encoding.UTF8.GetBytes(header.Magic));
+            writer.Write(header.Version.Major);
+            writer.Write(header.Version.Minor);
 
             if (cenc)
-                writer.Write(Header.Encoding.CodePage);
+                writer.Write(header.Encoding.CodePage);
 
             Stream ms = new MemoryStream();
 
             if (ShouldCompress)
                 ms = new DeflateStream(ms, CompressionMode.Compress);
 
-            var cw = new ContentWriter(ms, Header.Encoding);
+            var cw = new ContentWriter(ms, header.Encoding);
             Write(cw, (TInput)input, context);
             cw.Close();
 

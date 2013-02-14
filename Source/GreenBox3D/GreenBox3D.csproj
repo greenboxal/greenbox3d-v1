@@ -54,6 +54,7 @@
     <Compile Include="Content\DefaultRuntimeContentLoader.cs" />
     <Compile Include="Content\IContentTypeReader.cs" />
     <Compile Include="ConsoleLogRouter.cs" />
+    <Compile Include="Content\Loaders\Texture2DLoader.cs" />
     <Compile Include="DefaultLogger.cs" />
     <Compile Include="GameTime.cs" />
     <Compile Include="Audio\AudioEmitter.cs" />

@@ -10,6 +10,14 @@ namespace GreenBox3D.ContentPipeline
     public sealed class ContentProcessorAttribute : Attribute
     {
         public string DisplayName { get; set; }
+        public Type Writer { get; set; }
+        public Type Loader { get; set; }
+
+        public ContentProcessorAttribute(Type writer)
+        {
+            Writer = writer;
+        }
+
     }
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]

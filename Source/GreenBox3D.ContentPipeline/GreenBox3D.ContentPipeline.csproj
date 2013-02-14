@@ -77,6 +77,7 @@
     <Compile Include="ContentProcessor.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="ContentTypeWriter.cs" />
+    <Compile Include="Graphics\TextureHelpers.cs" />
     <Compile Include="IContentImporter.cs" />
     <Compile Include="IContentLoader.cs" />
     <Compile Include="IContentProcessor.cs" />
@@ -89,15 +90,15 @@
     <Compile Include="Graphics\MipmapChainCollection.cs" />
     <Compile Include="Graphics\PixelBitmapContent.cs" />
     <Compile Include="Graphics\Texture2DContent.cs" />
-    <Compile Include="Importers\SimpleTextureImporter.cs" />
+    <Compile Include="Importers\TextureImporter.cs" />
     <Compile Include="Compiler\IPipelineProject.cs" />
     <Compile Include="Compiler\IPipelineProjectConsumer.cs" />
-    <Compile Include="Loaders\Texture2DLoader.cs" />
+    <Compile Include="Loaders\TextureLoader.cs" />
     <Compile Include="Graphics\TextureContent.cs" />
     <Compile Include="Compiler\PipelineCompiler.cs" />
     <Compile Include="Compiler\BuildContext.cs" />
     <Compile Include="PipelineManager.cs" />
-    <Compile Include="Processors\SimpleTextureProcessor.cs" />
+    <Compile Include="Processors\TextureProcessor.cs" />
     <Compile Include="Compiler\PipelineProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compiler\ScriptManager.cs" />
@@ -110,9 +111,7 @@
       <Name>GreenBox3D</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\DevIL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

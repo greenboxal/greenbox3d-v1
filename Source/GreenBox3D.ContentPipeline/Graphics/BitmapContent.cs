@@ -22,7 +22,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
 
         public abstract bool TryGetFormat(out SurfaceFormat format);
         public abstract void SetPixelData(byte[] sourceData);
+        public abstract void SetPixelData(IntPtr sourceData, int len);
         public abstract byte[] GetPixelData();
-        public abstract void MakeTransparent(Color color);
     }
 }

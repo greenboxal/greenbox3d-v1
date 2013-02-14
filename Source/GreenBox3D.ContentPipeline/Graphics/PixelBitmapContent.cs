@@ -51,6 +51,28 @@ namespace GreenBox3D.ContentPipeline.Graphics
             handle.Free();
         }
 
+        public override void SetPixelData(IntPtr sourceData, int len)
+        {
+            if (Marshal.SizeOf(typeof(T)) * _data.Length != len)
+                throw new ArgumentException("Data don't fit expected size", "sourceData");
+
+            GCHandle handle = GCHandle.Alloc(_data, GCHandleType.Pinned);
+            unsafe
+            {
+                int i;
+                byte* src = (byte*)sourceData;
+                byte* dst = (byte*)handle.AddrOfPinnedObject();
+
+                // TODO: Faster
+                for (i = 0; i + sizeof(IntPtr) <= len; i += sizeof(IntPtr))
+                    *((IntPtr*)&dst[i]) = *((IntPtr*)&src[i]);
+
+                for (; i < len; i++)
+                    dst[i] = src[i];
+            }
+            handle.Free();
+        }
+
         public T GetPixel(int x, int y)
         {
             return _data[y * Width + x];
@@ -67,16 +89,11 @@ namespace GreenBox3D.ContentPipeline.Graphics
         {
             byte[] data = new byte[Marshal.SizeOf(typeof(T)) * _data.Length];
 
-            GCHandle handle = GCHandle.Alloc(data, GCHandleType.Pinned);
+            GCHandle handle = GCHandle.Alloc(_data, GCHandleType.Pinned);
             Marshal.Copy(handle.AddrOfPinnedObject(), data, 0, data.Length);
             handle.Free();
 
             return data;
-        }
-
-        public override void MakeTransparent(Color color)
-        {
-            throw new NotImplementedException();
         }
 
         public void ReplaceColor(T originalColor, T newColor)

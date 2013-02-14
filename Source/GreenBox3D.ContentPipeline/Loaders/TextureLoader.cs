@@ -12,10 +12,13 @@ using GreenBox3D.Graphics;
 namespace GreenBox3D.ContentPipeline.Loaders
 {
     [ContentLoader]
-    public class Texture2DLoader : ContentLoader<Texture2DContent, Texture2D>
+    public class TextureLoader : ContentLoader<TextureContent, Texture>
     {
-        public override Texture2D Load(ContentManager manager, Texture2DContent input, BuildContext context)
+        public override Texture Load(ContentManager manager, TextureContent input, BuildContext context)
         {
+            if (!(input is Texture2DContent))
+                return null;
+
             SurfaceFormat format;
 
             if (!input.Faces[0][0].TryGetFormat(out format))

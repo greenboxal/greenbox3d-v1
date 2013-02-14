@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GreenBox3D;
+using GreenBox3D.Content;
 using GreenBox3D.ContentPipeline.Compiler;
 using GreenBox3D.Graphics;
 using GreenBox3D.Input;
@@ -29,8 +30,10 @@ namespace TestApp
             GraphicsDeviceManager.PreferredBackBufferWidth = 1280;
             GraphicsDeviceManager.PreferredBackBufferHeight = 720;
 
+            FileManager.RegisterLoader(new FolderFileLoader("./Output/"));
+
 #if DEBUG
-            GreenBox3D.ContentPipeline.PipelineManager.RegisterJustInDesignExtensions(new PipelineProject("ContentProject.rb"));
+            //GreenBox3D.ContentPipeline.PipelineManager.RegisterJustInDesignExtensions(new PipelineProject("ContentProject.rb"));
 #endif
         }
 
