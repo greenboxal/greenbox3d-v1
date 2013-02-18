@@ -18,13 +18,14 @@ namespace GreenBox3D.ContentPipeline.Processors
     {
         public override TextureContent Process(TextureContent input, BuildContext context)
         {
-            if (context.Descriptor["transparency_key"] != null)
+            dynamic properties = context.Descriptor.Properties;
+
+            if (properties.TransparencyKey != null)
             {
-                dynamic tkey = context.Descriptor["transparency_key"];
-                TextureHelpers.MakeTransparent(input, new Color(tkey[0], tkey[1], tkey[2]));
+                TextureHelpers.MakeTransparent(input, new Color(properties.TransparencyKey[0], properties.TransparencyKey[1], properties.TransparencyKey[2]));
             }
 
-            if (context.Descriptor["create_mimaps"] == true)
+            if (properties.CreateMipmaps == true)
                 input.GenerateMipmaps(true);
 
             input.Validate();

@@ -11,6 +11,6 @@ namespace GreenBox3D.ContentPipeline
 {
     public interface IContentImporter
     {
-        object Import(Stream stream, BuildContext context);
+        object Import(string filename, BuildContext context);
     }
 }

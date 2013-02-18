@@ -33,7 +33,7 @@ namespace GreenBox3D.Content
             _readers = new Dictionary<Type, ReaderDescriptor>();
 
             foreach (ReaderDescriptor descriptor in from assembly in references.Select(Assembly.Load) 
-                                                    from type in assembly.GetExportedTypes() 
+                                                    from type in assembly.GetTypes() 
                                                     where Attribute.IsDefined(type, typeof(ContentTypeReaderAttribute)) 
                                                     select new ReaderDescriptor(type))
                 _readers.Add(descriptor.Loadee, descriptor);

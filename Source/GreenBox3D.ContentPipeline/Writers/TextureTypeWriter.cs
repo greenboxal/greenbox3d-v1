@@ -14,6 +14,18 @@ namespace GreenBox3D.ContentPipeline.Writers
     [ContentTypeWriter(Extension = ".tex")]
     public class TextureTypeWriter : ContentTypeWriter<TextureContent>
     {
+        protected override ContentHeader GetHeader(TextureContent input, BuildContext context)
+        {
+            Type type = input.GetType();
+
+            ShouldCompress = true;
+
+            if (type == typeof(Texture2DContent))
+                return new ContentHeader("TEX2", new Version(1, 0));
+
+            throw new NotSupportedException("Invalid TextureContent type");
+        }
+
         protected override void Write(ContentWriter stream, TextureContent input, BuildContext context)
         {
             Type type = input.GetType();
@@ -45,16 +57,6 @@ namespace GreenBox3D.ContentPipeline.Writers
                     stream.Write(data);
                 }
             }
-        }
-
-        protected override ContentHeader GetHeader(TextureContent input, BuildContext context)
-        {
-            Type type = input.GetType();
-
-            if (type == typeof(Texture2DContent))
-                return new ContentHeader("TEX2", new Version(1, 0));
-            
-            throw new NotSupportedException("Invalid TextureContent type");
         }
     }
 }

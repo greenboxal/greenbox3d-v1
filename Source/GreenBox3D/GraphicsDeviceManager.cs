@@ -106,6 +106,7 @@ namespace GreenBox3D
         //        GraphicsDevice to raise these events without help?
         internal void OnDeviceCreated(EventArgs e)
         {
+            EffectManager.Intiailize(_graphicsDevice);
             Raise(DeviceCreated, e);
         }
 

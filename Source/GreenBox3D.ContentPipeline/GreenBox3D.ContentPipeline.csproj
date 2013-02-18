@@ -73,16 +73,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler\ContentDescriptor.cs" />
+    <Compile Include="Compiler\OpenStruct.cs" />
     <Compile Include="ContentImporter.cs" />
     <Compile Include="ContentProcessor.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="ContentTypeWriter.cs" />
+    <Compile Include="Graphics\CompiledPass.cs" />
+    <Compile Include="Graphics\CompiledPassCollection.cs" />
+    <Compile Include="Graphics\CompiledShaderContent.cs" />
+    <Compile Include="Graphics\CompiledShaderEntry.cs" />
+    <Compile Include="Graphics\ShaderCompiler.cs" />
+    <Compile Include="Graphics\ShaderContent.cs" />
+    <Compile Include="Graphics\ShaderEntry.cs" />
+    <Compile Include="Graphics\ShaderPass.cs" />
+    <Compile Include="Graphics\ShaderPassCollection.cs" />
+    <Compile Include="Graphics\ShaderSource.cs" />
+    <Compile Include="Graphics\ShaderSourceCollection.cs" />
+    <Compile Include="Graphics\ShaderVariable.cs" />
+    <Compile Include="Graphics\ShaderVariableCollection.cs" />
     <Compile Include="Graphics\TextureHelpers.cs" />
     <Compile Include="IContentImporter.cs" />
     <Compile Include="IContentLoader.cs" />
     <Compile Include="IContentProcessor.cs" />
     <Compile Include="IContentTypeWriter.cs" />
+    <Compile Include="Importers\ShaderImporter.cs" />
+    <Compile Include="Loaders\ShaderLoader.cs" />
     <Compile Include="PipelineRuntimeContentLoader.cs" />
+    <Compile Include="Processors\ShaderProcessor.cs" />
     <Compile Include="Writers\ContentWriter.cs" />
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Graphics\BitmapContent.cs" />
@@ -103,6 +120,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compiler\ScriptManager.cs" />
     <Compile Include="Descriptors.cs" />
+    <Compile Include="Writers\ShaderTypeWriter.cs" />
     <Compile Include="Writers\TextureTypeWriter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +131,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Graphics\ShaderCompiler.rb" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -33,7 +33,7 @@ namespace TestApp
             FileManager.RegisterLoader(new FolderFileLoader("./Output/"));
 
 #if DEBUG
-            //GreenBox3D.ContentPipeline.PipelineManager.RegisterJustInDesignExtensions(new PipelineProject("ContentProject.rb"));
+            GreenBox3D.ContentPipeline.PipelineManager.RegisterJustInDesignExtensions(new PipelineProject("ContentProject.rb"));
 #endif
         }
 
@@ -46,10 +46,10 @@ namespace TestApp
             base.Initialize();
         }
 
-        private Texture2D tex;
+        private Effect effect;
         protected override void LoadContent()
         {
-            tex = Content.LoadContent<Texture2D>("Data/HumanRightsLogo_CO");
+            effect = EffectManager.LoadEffect("Simple/Simple");
         }
 
         protected override void Render(GameTime gameTime)

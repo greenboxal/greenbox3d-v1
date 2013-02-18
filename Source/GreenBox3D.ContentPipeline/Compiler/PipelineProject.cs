@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 
 using Microsoft.Scripting.Hosting;
@@ -71,12 +72,12 @@ namespace GreenBox3D.ContentPipeline.Compiler
 
         private void DSLContent(string path, dynamic handler)
         {
-            ContentDescriptor props = new ContentDescriptor(_projectBase, Path.Combine(_currentRelative, path));
+            ContentDescriptor descriptor = new ContentDescriptor(_projectBase, Path.Combine(_currentRelative, path));
 
             if (handler != null)
-                handler.call(props);
+                handler.call(descriptor.Properties);
 
-            _consumer.AddContent(props);
+            _consumer.AddContent(descriptor);
         }
     }
 }

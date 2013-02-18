@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -38,7 +39,7 @@ namespace GreenBox3D.ContentPipeline
             if (!_fileMap.TryGetValue(filename, out descriptor))
                 return null;
 
-            object result = Compile(manager, filename, descriptor);;
+            object result = Compile(manager, filename, descriptor);
 
             if (result != null)
                 manager.CacheObject(filename, result);
@@ -57,21 +58,18 @@ namespace GreenBox3D.ContentPipeline
             ProcessorDescriptor processor = null;
             LoaderDescriptor loader;
             object temporary;
-            Stream stream;
+            var props = context.Descriptor.Properties;
 
             try
             {
-                // Open File
-                stream = new FileStream(content.Path, FileMode.Open);
-
                 // Create Importer
-                if (context.Descriptor["importer"] != null)
+                if (props.Importer != null)
                 {
-                    importer = PipelineManager.QueryImporterByName(context.Descriptor["importer"].ToString());
+                    importer = PipelineManager.QueryImporterByName(props.Importer);
 
                     if (importer == null)
                     {
-                        Logger.Error("Invalid importer '{0}' for {1}", context.Descriptor["importer"], filename);
+                        Logger.Error("Invalid importer '{0}' for {1}", props.Importer, filename);
                         return null;
                     }
                 }
@@ -81,7 +79,7 @@ namespace GreenBox3D.ContentPipeline
 
                     if (importer == null)
                     {
-                        Logger.Error("No valid importer was found for {0}", filename);
+                        Logger.Error("No valid importer was found for {1}", filename);
                         return null;
                     }
                 }
@@ -89,8 +87,7 @@ namespace GreenBox3D.ContentPipeline
                 // Import
                 try
                 {
-                    temporary = importer.Create().Import(stream, context);
-                    stream.Close();
+                    temporary = importer.Create().Import(content.Path, context);
                 }
                 catch (Exception ex)
                 {
@@ -99,8 +96,8 @@ namespace GreenBox3D.ContentPipeline
                 }
 
                 // Create Processor
-                if (context.Descriptor["processor"] != null)
-                    processor = PipelineManager.QueryProcessorByName(context.Descriptor["processor"].ToString());
+                if (props.Processor != null)
+                    processor = PipelineManager.QueryProcessorByName(props.Processor);
 
                 if (processor == null)
                 {
@@ -130,7 +127,7 @@ namespace GreenBox3D.ContentPipeline
 
                 if (temporary != null)
                 {
-                    _processorCache.Add(normalized, new Tuple<LoaderDescriptor, object, BuildContext>(loader, temporary, context));
+                    _processorCache[normalized] = new Tuple<LoaderDescriptor, object, BuildContext>(loader, temporary, context);
                     return temporary;
                 }
             }

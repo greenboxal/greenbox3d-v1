@@ -38,7 +38,7 @@ namespace GreenBox3D.ContentPipeline
             List<ImporterDescriptor> importers = new List<ImporterDescriptor>();
             List<ProcessorDescriptor> processors = new List<ProcessorDescriptor>();
 
-            foreach (Type type in assembly.GetExportedTypes())
+            foreach (Type type in assembly.GetTypes())
             {
                 try
                 {

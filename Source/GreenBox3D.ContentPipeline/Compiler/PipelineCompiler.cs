@@ -48,21 +48,19 @@ namespace GreenBox3D.ContentPipeline.Compiler
             ProcessorDescriptor processor = null;
             WriterDescriptor writer;
             object temporary;
-            Stream stream;
+            var props = context.Descriptor.Properties;
 
             try
             {
-                // Open File
-                stream = new FileStream(content.Path, FileMode.Open);
 
                 // Create Importer
-                if (context.Descriptor["importer"] != null)
+                if (props.Importer != null)
                 {
-                    importer = PipelineManager.QueryImporterByName(context.Descriptor["importer"].ToString());
+                    importer = PipelineManager.QueryImporterByName(props.Importer);
 
                     if (importer == null)
                     {
-                        Logger.Error("Invalid importer '{0}' for {1}", context.Descriptor["importer"], filename);
+                        Logger.Error("Invalid importer '{0}' for {1}", props.Importer, filename);
                         return;
                     }
                 }
@@ -80,8 +78,7 @@ namespace GreenBox3D.ContentPipeline.Compiler
                 // Import
                 try
                 {
-                    temporary = importer.Create().Import(stream, context);
-                    stream.Close();
+                    temporary = importer.Create().Import(content.Path, context);
                 }
                 catch (Exception ex)
                 {
@@ -90,8 +87,8 @@ namespace GreenBox3D.ContentPipeline.Compiler
                 }
 
                 // Create Processor
-                if (context.Descriptor["processor"] != null)
-                    processor = PipelineManager.QueryProcessorByName(context.Descriptor["processor"].ToString());
+                if (props.Processor != null)
+                    processor = PipelineManager.QueryProcessorByName(props.Processor);
                 
                 if (processor == null)
                 {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams"
   dslVersion="1.0.0.0"
   Id="23d7d58c-57d3-4016-aacc-c1d672351ce4"
   name="FrameworkDesign" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -33,15 +33,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="59b4c6d7-a422-4df0-93e1-b0c94a8c3b60"
-            name="Singleton"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="02eb65a5-dc24-4c5d-b54d-d1f7f280ef6f" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="6fd81e9f-4c1e-479f-aea2-eb2ff3cff91b" />
         <ownedAttributesInternal>
@@ -226,15 +217,6 @@
         name="IFactory"
         isAbstract="false"
         isLeaf="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="35a6df74-ffc8-48f8-a672-b2cec14ad4fc"
-            name="IFactory"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="2f9956cd-2235-4f8a-8b73-1f45b0b9572d" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="34fbf122-f14e-438a-99e9-ce444f5162b7" />
         <ownedOperations>
@@ -259,15 +241,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="aa2f7699-dffa-48eb-9bfb-dd98792a0672"
-            name="AbstractFactory"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="fa01de25-2d3f-41bd-b0da-c420c6f3db22" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="0b90f1ff-a0f9-4742-b325-96d83981f783" />
         <suppliersInternal>
@@ -405,15 +378,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="c212f3f3-68c8-4c5f-a941-0899133fc23a"
-            name="AbstractProduct"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="01762477-d40a-417d-aa22-386974bb85ba" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="e78e6877-5ca9-4e79-9150-cea02226ef2d" />
       </class>
@@ -425,15 +389,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="ecdd9898-4e57-4078-b2a2-814b0bfbbb4a"
-            name="Product"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="307b3b83-0501-499c-9849-45bc5ca1c720" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="5a860183-8434-4fa5-9578-dd383c8eefeb" />
         <generalsInternal>
@@ -457,15 +412,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="34f03af3-f6af-4ee2-9230-458924ae498d"
-            name="Adapter"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="593e34fb-8350-45bf-af7b-b0e6335944dc" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="fc915c51-bc0e-40a6-97dc-67d17efce73f" />
         <generalsInternal>
@@ -567,15 +513,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="8166cfe4-abd7-42e6-9bd8-a8a8fb7e67db"
-            name="Adaptee"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="70ad9940-2079-4ba1-9af6-2fe3cf258545" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="3857c0e1-a186-45a4-a6a5-8d3d2699c640" />
       </class>
@@ -610,15 +547,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="ed24c2e6-d16b-4547-ad38-4ecd663ade5a"
-            name="ConcretePrototype"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="664f3378-b69a-4077-a102-a8d39b060fda" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="89be5e92-053a-49e3-af45-dca23e236919" />
         <suppliersInternal>
@@ -654,15 +582,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="99cfbd07-a43f-4ac0-a3d5-537d0df5243f"
-            name="ConcretePrototype"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="cf0d8f42-5881-436f-b65e-f842e86e5b63" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="d849ed99-77b6-43de-9f71-0712ddec00fb" />
         <suppliersInternal>
@@ -721,15 +640,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="47f4b34b-294e-4d2f-9df5-788d0bcb1c2e"
-            name="Abstraction"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="3ca748f9-5d32-44af-94a7-d69e32ae73f0" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="921ad453-39c1-4d55-a68c-a5dcefa196cd" />
         <targetEnds>
@@ -790,15 +700,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="2ec5ceab-ec4c-4ae8-889a-63980c3aa4a3"
-            name="RefinedAbstraction"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="7f7eb7e7-4b9a-4011-a5ce-4440f507f7fd" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="7afe03dd-17d9-4307-9d12-fb5446083e78" />
         <generalsInternal>
@@ -870,15 +771,6 @@
         name="IRefinedAbstraction"
         isAbstract="false"
         isLeaf="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="e78f32fe-2bee-4ff4-9523-4374105af771"
-            name="IRefinedAbstraction"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="1372bbdb-3f37-4d6a-8b07-061ee70aae73" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="2c288871-e781-4023-bbd7-9ec7b8a220f4" />
         <generalsInternal>
@@ -901,15 +793,6 @@
         name="IAbstraction"
         isAbstract="false"
         isLeaf="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="f86848e8-2047-4b5d-bab4-e47556da39dd"
-            name="IAbstraction"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="68b88b48-4bd2-4d66-b46c-0f2fd63c1fe3" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="9e5e8307-dba7-4a3f-a1d1-f4eedfdf6fae" />
       </Interface>
@@ -921,15 +804,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="a0be64a2-2b57-41a2-866f-5ba085eff618"
-            name="AbstractService"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="4e6b5b14-988e-40ff-907b-55364e438d43" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="4d17c92b-ad8f-447b-bc9d-628a2a7fab6c" />
       </class>
@@ -941,15 +815,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="119cf1ec-74da-4d7c-a8d2-2406e52e81bf"
-            name="ConcreteService"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="2dea13a7-f90e-48f2-85e8-d03f077d7f57" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="1c59dcfa-8f93-491a-9139-040d90e7f5c3" />
         <generalsInternal>
@@ -973,15 +838,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="af91995c-c5e6-490a-be16-7c1bbbefd29b"
-            name="AbstractWrapper"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="315ba440-a7e8-4a9a-b57f-71b3e3d0eec6" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="fe50d513-a9a8-414c-b78f-17869cf2b863" />
         <generalsInternal>
@@ -1005,15 +861,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="e84f9363-021b-419d-8883-c9faff67afdd"
-            name="ConcreteWrapper"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="6151ceba-ecd2-434e-89e5-bd0529fa7096" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="852e79c2-15e2-4245-b247-b113507d09c7" />
         <generalsInternal>
@@ -1037,15 +884,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="b786f079-3c7c-4e9e-a2f0-d5c5cc271111"
-            name="Director"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="30e76256-e2e5-440b-8ebb-3b4f436fcdba" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="f90542c5-93db-416e-a26c-7457cef8d56b" />
         <targetEnds>
@@ -1106,15 +944,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="632adc0e-56b4-47da-b520-5e1888cc3b6b"
-            name="Builder"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="94acdf28-f612-4e5f-a386-f3cc2b3ea232" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="6462f74c-1bd0-4934-97e7-5eb78d42e57e" />
         <ownedOperationsInternal>
@@ -1139,15 +968,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="8398659b-6357-4a51-b5f2-178dc8ecd28a"
-            name="ConcreteBuilder"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="0c821d4f-07da-4f66-9786-dfd741c1e990" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="967bb0a3-c91f-44d8-b127-54c7065c107d" />
         <suppliersInternal>
@@ -1195,15 +1015,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="b2a0b75b-b401-4ec9-ade8-dc455edd272a"
-            name="Product"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="d0ce3221-2dec-4e87-8dd9-dcd885e46c9e" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="49ed30de-de6f-4e48-af80-aafef21510aa" />
       </class>
@@ -1215,15 +1026,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="31b11d94-6968-4f1f-8549-9a59cadc1dad"
-            name="Context"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="4a5ac305-51d8-4920-9345-1b526b18547f" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="f657f861-b3d1-411f-9c83-fc87914c7902" />
         <targetEnds>
@@ -1302,15 +1104,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="4e9a0858-97a1-465c-8098-2a1bd03f96bd"
-            name="ContextState"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="98f002cc-f22a-43c3-a164-491546e36514" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="67bb006c-61e7-4a1b-88d2-5871566e9b9b" />
         <ownedOperationsInternal>
@@ -1346,15 +1139,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="42233bd1-c803-4d6c-b441-8cd8a87ade11"
-            name="ConcreteState"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="e784e880-906d-4578-b60f-eeef14f14619" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="5e1dd181-cc90-47d4-8b0f-828a4f065e11" />
         <generalsInternal>
@@ -1378,15 +1162,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="f4e4c764-720d-41a4-87d5-d1529bf65cdf"
-            name="ConcreteState"
-            profile="GoFDesignPatterns">
-            <elementDefinition
-              Id="2a6f4d02-8091-45cc-bfde-a46f0e4e3651" />
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
         <elementDefinition
           Id="5a8364fe-1c72-4e6c-968f-880b55683e77" />
         <generalsInternal>

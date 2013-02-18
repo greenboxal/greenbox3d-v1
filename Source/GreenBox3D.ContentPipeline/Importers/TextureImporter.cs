@@ -16,11 +16,13 @@ namespace GreenBox3D.ContentPipeline.Importers
     [ContentImporter(".bmp", ".jpg", ".png", ".gif", DisplayName = "Texture Importer", DefaultProcessor = "TextureProcessor")]
     public class TextureImporter : ContentImporter<TextureContent>
     {
-        public override TextureContent Import(Stream stream, BuildContext context)
+        public override TextureContent Import(string filename, BuildContext context)
         {
             Texture2DContent texture = new Texture2DContent();
+            FileStream stream = new FileStream(filename, FileMode.Open);
 
             texture.Faces[0] = CreateBitmapContent(SurfaceFormat.Color, new Bitmap(stream));
+            stream.Close();
 
             return texture;
         }

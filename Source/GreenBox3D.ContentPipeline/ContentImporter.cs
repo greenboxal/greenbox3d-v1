@@ -11,11 +11,11 @@ namespace GreenBox3D.ContentPipeline
 {
     public abstract class ContentImporter<TOutput> : IContentImporter
     {
-        public abstract TOutput Import(Stream stream, BuildContext context);
+        public abstract TOutput Import(string filename, BuildContext context);
 
-        object IContentImporter.Import(Stream stream, BuildContext context)
+        object IContentImporter.Import(string filename, BuildContext context)
         {
-            return Import(stream, context);
+            return Import(filename, context);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GreenBox3D.ContentPipeline
 {
     public abstract class ContentTypeWriter<TInput> : IContentTypeWriter
     {
-        public bool ShouldCompress { get; set; }
+        public bool? ShouldCompress { get; set; }
 
         protected abstract void Write(ContentWriter stream, TInput input, BuildContext context);
         protected abstract ContentHeader GetHeader(TInput input, BuildContext context);
@@ -27,13 +27,13 @@ namespace GreenBox3D.ContentPipeline
             bool cenc = !header.Encoding.Equals(Encoding.UTF8);
             byte flags = 0;
 
-            if (context.Descriptor["compress_output"] != null)
-                ShouldCompress = (bool)context.Descriptor["compress_output"];
+            if (!ShouldCompress.HasValue)
+                ShouldCompress = (bool)(context.Descriptor.Properties.CompressOutput ?? false);
 
             if (cenc)
                 flags |= 1;
 
-            if (ShouldCompress)
+            if (ShouldCompress.GetValueOrDefault(false))
                 flags |= 2;
 
             writer.Write(flags);
@@ -45,14 +45,18 @@ namespace GreenBox3D.ContentPipeline
             if (cenc)
                 writer.Write(header.Encoding.CodePage);
 
-            Stream ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream();
+            Stream s = ms;
 
-            if (ShouldCompress)
-                ms = new DeflateStream(ms, CompressionMode.Compress);
+            if (ShouldCompress.GetValueOrDefault(false))
+                s = new DeflateStream(ms, CompressionMode.Compress, true);
 
-            var cw = new ContentWriter(ms, header.Encoding);
+            var cw = new ContentWriter(s, header.Encoding);
             Write(cw, (TInput)input, context);
             cw.Close();
+
+            if (s != ms)
+                s.Close();
 
             ContentCrc32 crc32 = new ContentCrc32();
             ms.Position = 0;
