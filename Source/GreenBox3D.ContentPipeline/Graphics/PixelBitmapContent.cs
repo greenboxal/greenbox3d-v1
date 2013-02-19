@@ -47,7 +47,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
                 throw new ArgumentException("Data don't fit expected size", "sourceData");
 
             GCHandle handle = GCHandle.Alloc(_data, GCHandleType.Pinned);
-            Marshal.Copy(sourceData, 0, handle.AddrOfPinnedObject(), sourceData.Length);
+            Marshal.Copy(sourceData, 0, Marshal.UnsafeAddrOfPinnedArrayElement(_data, 0), sourceData.Length);
             handle.Free();
         }
 
@@ -61,7 +61,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
             {
                 int i;
                 byte* src = (byte*)sourceData;
-                byte* dst = (byte*)handle.AddrOfPinnedObject();
+                byte* dst = (byte*)Marshal.UnsafeAddrOfPinnedArrayElement(_data, 0);
 
                 // TODO: Faster
                 for (i = 0; i + sizeof(IntPtr) <= len; i += sizeof(IntPtr))

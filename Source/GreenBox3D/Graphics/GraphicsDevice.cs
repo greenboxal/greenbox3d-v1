@@ -37,6 +37,8 @@ namespace GreenBox3D.Graphics
 
             PresentationParameters = new PresentationParameters();
             PresentationParameters.DepthStencilFormat = DepthFormat.Depth24;
+
+            Textures = new TextureCollection();
         }
 
         #endregion
@@ -61,6 +63,8 @@ namespace GreenBox3D.Graphics
                 GL.DepthRange(value.MinDepth, value.MaxDepth);
             }
         }
+
+        public TextureCollection Textures { get; private set; }
 
         #endregion
 

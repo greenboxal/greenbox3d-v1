@@ -8,7 +8,6 @@ namespace GreenBox3D.Graphics
 {
     public enum EffectParameterType
     {
-        Void,
         Bool,
         Int32,
         Single,

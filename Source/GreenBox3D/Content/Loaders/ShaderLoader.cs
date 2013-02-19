@@ -59,7 +59,7 @@ namespace GreenBox3D.Content.Loaders
 
                 for (int j = 0; j < passCount; j++)
                 {
-                    shader.Passes.Add(new ShaderPass(reader.ReadString(), reader.ReadString()));
+                    shader.Passes.Add(new ShaderPass(manager.GraphicsDevice, reader.ReadString(), reader.ReadString()));
                 }
 
                 shaders.Add(shader);

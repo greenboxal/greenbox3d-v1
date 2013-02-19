@@ -8,7 +8,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GreenBox3D.Graphics.Shading
 {
-    public class ShaderPass
+    public class ShaderPass : GraphicsResource
     {
         public int ProgramID { get; set; }
         public int VertexShader { get; set; }
@@ -19,7 +19,8 @@ namespace GreenBox3D.Graphics.Shading
         public bool Created { get; private set; }
         public bool IsValid { get; private set; }
 
-        public ShaderPass(string vertex, string pixel)
+        public ShaderPass(GraphicsDevice device, string vertex, string pixel)
+            : base(device)
         {
             ProgramID = -1;
             VertexShader = -1;
@@ -73,6 +74,15 @@ namespace GreenBox3D.Graphics.Shading
                 throw new Exception(GL.GetProgramInfoLog(ProgramID));
 
             IsValid = true;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            GL.DeleteProgram(ProgramID);
+            GL.DeleteShader(VertexShader);
+            GL.DeleteShader(PixelShader);
+
+            base.Dispose(disposing);
         }
     }
 }

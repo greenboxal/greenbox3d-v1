@@ -31,7 +31,7 @@ namespace GreenBox3D.ContentPipeline.Loaders
                     shader.Parameters.Add(new ShaderParameter(var.Name, var.Type, var.Size));
 
                 foreach (CompiledPass pass in entry.Passes)
-                    shader.Passes.Add(new ShaderPass(pass.VertexShader, pass.PixelShader));
+                    shader.Passes.Add(new ShaderPass(manager.GraphicsDevice, pass.VertexShader, pass.PixelShader));
 
                 shaders.Add(shader);
             }

@@ -59,7 +59,7 @@ namespace GreenBox3D.Graphics
 
         public static Effect LoadEffect(string name)
         {
-            return new Effect(_contentManager.GraphicsDevice, LoadShader(name));
+            return new Effect(LoadShader(name));
         }
     }
 }

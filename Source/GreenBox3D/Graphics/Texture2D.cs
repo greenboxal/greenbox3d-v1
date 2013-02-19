@@ -41,7 +41,7 @@ namespace GreenBox3D.Graphics
             
             try
             {
-                GL.TexImage2D(TextureTarget.Texture2D, level, InternalFormat, Width, Height, 0, PixelFormat, PixelType, handle.AddrOfPinnedObject() + offset * Marshal.SizeOf(typeof(T)));
+                GL.TexImage2D(TextureTarget.Texture2D, level, InternalFormat, Width, Height, 0, PixelFormat, PixelType, Marshal.UnsafeAddrOfPinnedArrayElement(data, offset));
                 _hasTexture = true;
             }
             finally

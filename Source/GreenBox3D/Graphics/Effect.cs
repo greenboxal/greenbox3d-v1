@@ -8,21 +8,23 @@ using GreenBox3D.Graphics.Shading;
 
 namespace GreenBox3D.Graphics
 {
-    public class Effect : GraphicsResource
+    public class Effect
     {
         private readonly Shader _shader;
 
         public EffectParameterCollection Parameters { get; private set; }
         public EffectPassCollection Passes { get; private set; }
 
-        internal Effect(GraphicsDevice device, Shader shader)
-            : base(device)
+        internal byte[] ParameterData { get; set; }
+
+        internal Effect(Shader shader)
         {
             _shader = shader;
+            ParameterData = new byte[_shader.ParametersSize];
 
             EffectParameter[] parameters = new EffectParameter[_shader.Parameters.Count];
             for (int i = 0; i < _shader.Parameters.Count; i++)
-                parameters[i] = new EffectParameter(_shader.Parameters[i]);
+                parameters[i] = new EffectParameter(this, _shader.Parameters[i]);
 
             EffectPass[] passes = new EffectPass[_shader.Passes.Count];
             for (int i = 0; i < _shader.Passes.Count; i++)
@@ -30,14 +32,20 @@ namespace GreenBox3D.Graphics
 
             Parameters = new EffectParameterCollection(parameters);
             Passes = new EffectPassCollection(passes);
-        }
 
-        protected override void Dispose(bool disposing)
-        {
             foreach (EffectParameter parameter in Parameters)
-                parameter.Dispose();
+            {
+                if (parameter.Class == EffectParameterClass.Sampler)
+                {
+                    int count = parameter.Parameter.Count == 0 ? 1 : parameter.Parameter.Count;
+                    int[] units = new int[count];
 
-            base.Dispose(disposing);
+                    for (int i = 0; i < count; i++)
+                        units[i] = parameter.Parameter.TextureUnit + i;
+
+                    parameter.SetValue(count);
+                }
+            }
         }
     }
 }

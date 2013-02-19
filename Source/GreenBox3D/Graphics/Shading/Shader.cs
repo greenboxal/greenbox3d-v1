@@ -13,8 +13,10 @@ namespace GreenBox3D.Graphics.Shading
         public string Name { get; private set; }
         public int Version { get; set; }
         public string Fallback { get; set; }
-        public ShaderParameterCollection Parameters { get; private set; }
         public ShaderPassCollection Passes { get; private set; }
+
+        public ShaderParameterCollection Parameters { get; private set; }
+        public int ParametersSize { get; private set; }
 
         public bool Created { get; private set; }
         public bool IsValid { get; private set; }
@@ -43,8 +45,28 @@ namespace GreenBox3D.Graphics.Shading
 
             if (IsValid)
             {
+                int textureCounter = 0;
+
                 foreach (ShaderParameter parameter in Parameters)
+                {
+                    parameter.Offset = ParametersSize;
                     parameter.Slot = GL.GetUniformLocation(Passes[0].ProgramID, "u" + parameter.Name);
+                    ParametersSize += parameter.ByteSize;
+
+                    if (parameter.Class == EffectParameterClass.Sampler)
+                    {
+                        int count = parameter.Count == 0 ? 1 : parameter.Count;
+                        parameter.TextureUnit = textureCounter;
+
+                        if (textureCounter + count > GraphicsDevice.Textures.Count)
+                        {
+                            IsValid = false;
+                            break;
+                        }
+
+                        textureCounter += count;
+                    }
+                }
             }
 
             Created = true;
