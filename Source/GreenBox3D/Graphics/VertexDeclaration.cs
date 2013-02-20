@@ -84,18 +84,44 @@ namespace GreenBox3D.Graphics
 
         internal void Bind(GraphicsDevice graphicsDevice, IntPtr source)
         {
-            if (_lastUsed == this && _lastUsedPointer == source)
+            if (_lastUsed == this && _lastUsedPointer == source && _lastUsedShader == graphicsDevice.ActiveShader)
                 return;
+
+            for (int i = 0; i < graphicsDevice.ActiveShader.Input.Length; i++)
+            {
+                VertexElement element = null;
+                ShaderInput input = graphicsDevice.ActiveShader.Input[i];
+
+                for (int j = 0; j < _vertexElements.Length; j++)
+                {
+                    if (_vertexElements[j].VertexElementUsage == input.Usage && _vertexElements[j].UsageIndex == input.UsageIndex)
+                    {
+                        element = _vertexElements[j];
+                        break;
+                    }
+                }
+
+                if (element != null)
+                {
+                    GL.EnableVertexAttribArray(input.Index);
+                    GL.VertexAttribPointer(input.Index, element.ElementCount, element.VertexAttribPointerType, !element.IsNormalized, VertexStride, source + element.Offset);
+                }
+                else
+                {
+                    GL.DisableVertexAttribArray(input.Index);
+                }
+            }
 
             foreach (VertexElement element in _vertexElements)
             {
                 int index = graphicsDevice.ActiveShader.GetInputIndex(element.VertexElementUsage, element.UsageIndex);
 
                 if (index == -1)
-                    continue;
-
-                GL.EnableVertexAttribArray(index);
-                GL.VertexAttribPointer(index, element.ElementCount, element.VertexAttribPointerType, !element.IsNormalized, VertexStride, source + element.Offset);
+                {
+                }
+                else
+                {
+                }
             }
 
             _lastUsed = this;
