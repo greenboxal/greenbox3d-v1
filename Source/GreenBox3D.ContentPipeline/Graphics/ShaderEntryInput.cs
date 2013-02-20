@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +17,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class ShaderEntryInput
     {
-        public VertexElementUsage Usage { get; private set; }
-        public int UsageIndex { get; private set; }
-        public ShaderVariable Variable { get; private set; }
+        #region Constructors and Destructors
 
         public ShaderEntryInput(VertexElementUsage usage, int usageIndex, ShaderVariable variable)
         {
@@ -20,5 +25,15 @@ namespace GreenBox3D.ContentPipeline.Graphics
             UsageIndex = usageIndex;
             Variable = variable;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public VertexElementUsage Usage { get; private set; }
+        public int UsageIndex { get; private set; }
+        public ShaderVariable Variable { get; private set; }
+
+        #endregion
     }
 }

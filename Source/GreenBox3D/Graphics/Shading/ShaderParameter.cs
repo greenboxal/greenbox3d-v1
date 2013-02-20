@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,24 +17,13 @@ namespace GreenBox3D.Graphics.Shading
 {
     public class ShaderParameter
     {
-        public unsafe delegate void ApplyDelegate(byte* ptr);
-
-        public string Name { get; private set; }
-
-        public EffectParameterType Type { get; private set; }
-        public EffectParameterClass Class { get; private set; }
-
-        public int RowCount { get; private set; }
-        public int ColumnCount { get; private set; }
-
-        public int Count { get; private set; }
-        public int ByteSize { get; private set; }
-
-        public int Offset { get; set; }
-        public int Slot { get; set; }
-        public int TextureUnit { get; set; }
+        #region Fields
 
         public ApplyDelegate Apply;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ShaderParameter(string name, string glslType, int size)
         {
@@ -252,7 +248,47 @@ namespace GreenBox3D.Graphics.Shading
             ByteSize = RowCount * ColumnCount * (Type == EffectParameterType.Double ? 8 : 4);
         }
 
+        #endregion
+
+        #region Delegates
+
+        public unsafe delegate void ApplyDelegate(byte* ptr);
+
+        #endregion
+
+        #region Public Properties
+
+        public int ByteSize { get; private set; }
+        public EffectParameterClass Class { get; private set; }
+        public int ColumnCount { get; private set; }
+        public int Count { get; private set; }
+        public string Name { get; private set; }
+        public int Offset { get; set; }
+        public int RowCount { get; private set; }
+        public int Slot { get; set; }
+        public int TextureUnit { get; set; }
+        public EffectParameterType Type { get; private set; }
+
+        #endregion
+
+        #region Methods
+
         private unsafe void Apply1B(byte* ptr)
+        {
+            GL.Uniform1(Slot, Count == 0 ? 1 : Count, (int*)ptr);
+        }
+
+        private unsafe void Apply1D(byte* ptr)
+        {
+            GL.Uniform1(Slot, Count == 0 ? 1 : Count, (double*)ptr);
+        }
+
+        private unsafe void Apply1F(byte* ptr)
+        {
+            GL.Uniform1(Slot, Count == 0 ? 1 : Count, (float*)ptr);
+        }
+
+        private unsafe void Apply1I(byte* ptr)
         {
             GL.Uniform1(Slot, Count == 0 ? 1 : Count, (int*)ptr);
         }
@@ -262,7 +298,37 @@ namespace GreenBox3D.Graphics.Shading
             GL.Uniform2(Slot, Count == 0 ? 1 : Count, (int*)ptr);
         }
 
+        private unsafe void Apply2D(byte* ptr)
+        {
+            GL.Uniform2(Slot, Count == 0 ? 1 : Count, (double*)ptr);
+        }
+
+        private unsafe void Apply2F(byte* ptr)
+        {
+            GL.Uniform2(Slot, Count == 0 ? 1 : Count, (float*)ptr);
+        }
+
+        private unsafe void Apply2I(byte* ptr)
+        {
+            GL.Uniform2(Slot, Count == 0 ? 1 : Count, (int*)ptr);
+        }
+
         private unsafe void Apply3B(byte* ptr)
+        {
+            GL.Uniform3(Slot, Count == 0 ? 1 : Count, (int*)ptr);
+        }
+
+        private unsafe void Apply3D(byte* ptr)
+        {
+            GL.Uniform3(Slot, Count == 0 ? 1 : Count, (double*)ptr);
+        }
+
+        private unsafe void Apply3F(byte* ptr)
+        {
+            GL.Uniform3(Slot, Count == 0 ? 1 : Count, (float*)ptr);
+        }
+
+        private unsafe void Apply3I(byte* ptr)
         {
             GL.Uniform3(Slot, Count == 0 ? 1 : Count, (int*)ptr);
         }
@@ -272,19 +338,9 @@ namespace GreenBox3D.Graphics.Shading
             GL.Uniform4(Slot, Count == 0 ? 1 : Count, (int*)ptr);
         }
 
-        private unsafe void Apply1F(byte* ptr)
+        private unsafe void Apply4D(byte* ptr)
         {
-            GL.Uniform1(Slot, Count == 0 ? 1 : Count, (float*)ptr);
-        }
-
-        private unsafe void Apply2F(byte* ptr)
-        {
-            GL.Uniform2(Slot, Count == 0 ? 1 : Count, (float*)ptr);
-        }
-
-        private unsafe void Apply3F(byte* ptr)
-        {
-            GL.Uniform3(Slot, Count == 0 ? 1 : Count, (float*)ptr);
+            GL.Uniform4(Slot, Count == 0 ? 1 : Count, (double*)ptr);
         }
 
         private unsafe void Apply4F(byte* ptr)
@@ -292,49 +348,9 @@ namespace GreenBox3D.Graphics.Shading
             GL.Uniform4(Slot, Count == 0 ? 1 : Count, (float*)ptr);
         }
 
-        private unsafe void Apply1I(byte* ptr)
-        {
-            GL.Uniform1(Slot, Count == 0 ? 1 : Count, (int*)ptr);
-        }
-
-        private unsafe void Apply2I(byte* ptr)
-        {
-            GL.Uniform2(Slot, Count == 0 ? 1 : Count, (int*)ptr);
-        }
-
-        private unsafe void Apply3I(byte* ptr)
-        {
-            GL.Uniform3(Slot, Count == 0 ? 1 : Count, (int*)ptr);
-        }
-
         private unsafe void Apply4I(byte* ptr)
         {
             GL.Uniform4(Slot, Count == 0 ? 1 : Count, (int*)ptr);
-        }
-
-        private unsafe void Apply1D(byte* ptr)
-        {
-            GL.Uniform1(Slot, Count == 0 ? 1 : Count, (double*)ptr);
-        }
-
-        private unsafe void Apply2D(byte* ptr)
-        {
-            GL.Uniform2(Slot, Count == 0 ? 1 : Count, (double*)ptr);
-        }
-
-        private unsafe void Apply3D(byte* ptr)
-        {
-            GL.Uniform3(Slot, Count == 0 ? 1 : Count, (double*)ptr);
-        }
-
-        private unsafe void Apply4D(byte* ptr)
-        {
-            GL.Uniform4(Slot, Count == 0 ? 1 : Count, (double*)ptr);
-        }
-
-        private unsafe void ApplyMatrix3F(byte* ptr)
-        {
-            GL.UniformMatrix3(Slot, Count == 0 ? 1 : Count, false, (float*)ptr);
         }
 
         private unsafe void ApplyMatrix3D(byte* ptr)
@@ -342,14 +358,21 @@ namespace GreenBox3D.Graphics.Shading
             GL.UniformMatrix3(Slot, Count == 0 ? 1 : Count, false, (double*)ptr);
         }
 
-        private unsafe void ApplyMatrix4F(byte* ptr)
+        private unsafe void ApplyMatrix3F(byte* ptr)
         {
-            GL.UniformMatrix4(Slot, Count == 0 ? 1 : Count, false, (float*)ptr);
+            GL.UniformMatrix3(Slot, Count == 0 ? 1 : Count, false, (float*)ptr);
         }
 
         private unsafe void ApplyMatrix4D(byte* ptr)
         {
             GL.UniformMatrix4(Slot, Count == 0 ? 1 : Count, false, (double*)ptr);
         }
+
+        private unsafe void ApplyMatrix4F(byte* ptr)
+        {
+            GL.UniformMatrix4(Slot, Count == 0 ? 1 : Count, false, (float*)ptr);
+        }
+
+        #endregion
     }
 }

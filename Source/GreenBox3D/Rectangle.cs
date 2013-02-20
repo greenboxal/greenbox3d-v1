@@ -86,10 +86,10 @@ namespace GreenBox3D
         {
             if (value1.Intersects(value2))
             {
-                int right_side = System.Math.Min(value1.X + value1.Width, value2.X + value2.Width);
-                int left_side = System.Math.Max(value1.X, value2.X);
-                int top_side = System.Math.Max(value1.Y, value2.Y);
-                int bottom_side = System.Math.Min(value1.Y + value1.Height, value2.Y + value2.Height);
+                int right_side = Math.Min(value1.X + value1.Width, value2.X + value2.Width);
+                int left_side = Math.Max(value1.X, value2.X);
+                int top_side = Math.Max(value1.Y, value2.Y);
+                int bottom_side = Math.Min(value1.Y + value1.Height, value2.Y + value2.Height);
                 result = new Rectangle(left_side, top_side, right_side - left_side, bottom_side - top_side);
             }
             else
@@ -98,17 +98,17 @@ namespace GreenBox3D
 
         public static Rectangle Union(Rectangle value1, Rectangle value2)
         {
-            int x = System.Math.Min(value1.X, value2.X);
-            int y = System.Math.Min(value1.Y, value2.Y);
-            return new Rectangle(x, y, System.Math.Max(value1.Right, value2.Right) - x, System.Math.Max(value1.Bottom, value2.Bottom) - y);
+            int x = Math.Min(value1.X, value2.X);
+            int y = Math.Min(value1.Y, value2.Y);
+            return new Rectangle(x, y, Math.Max(value1.Right, value2.Right) - x, Math.Max(value1.Bottom, value2.Bottom) - y);
         }
 
         public static void Union(ref Rectangle value1, ref Rectangle value2, out Rectangle result)
         {
-            result.X = System.Math.Min(value1.X, value2.X);
-            result.Y = System.Math.Min(value1.Y, value2.Y);
-            result.Width = System.Math.Max(value1.Right, value2.Right) - result.X;
-            result.Height = System.Math.Max(value1.Bottom, value2.Bottom) - result.Y;
+            result.X = Math.Min(value1.X, value2.X);
+            result.Y = Math.Min(value1.Y, value2.Y);
+            result.Width = Math.Max(value1.Right, value2.Right) - result.X;
+            result.Height = Math.Max(value1.Bottom, value2.Bottom) - result.Y;
         }
 
         public static bool operator ==(Rectangle a, Rectangle b)

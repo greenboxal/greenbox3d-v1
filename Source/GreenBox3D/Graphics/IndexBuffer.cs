@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,8 +18,13 @@ namespace GreenBox3D.Graphics
 {
     public class IndexBuffer : HardwareBuffer
     {
+        #region Fields
+
         internal DrawElementsType DrawElementsType;
-        public IndexElementSize IndexElementSize { get; private set; }
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public IndexBuffer(GraphicsDevice graphicsDevice, IndexElementSize indexElementSize, int indexCount, BufferUsage usage)
             : base(graphicsDevice, BufferTarget.ElementArrayBuffer, GetElementSizeInBytes(indexElementSize), indexCount, usage)
@@ -37,6 +49,16 @@ namespace GreenBox3D.Graphics
             : this(graphicsDevice, GetElementSizeFromType(elementType), indexCount, usage)
         {
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public IndexElementSize IndexElementSize { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         private static IndexElementSize GetElementSizeFromType(Type type)
         {
@@ -67,5 +89,7 @@ namespace GreenBox3D.Graphics
                     throw new NotSupportedException();
             }
         }
+
+        #endregion
     }
 }

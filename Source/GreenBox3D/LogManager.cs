@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +15,14 @@ namespace GreenBox3D
 {
     public static class LogManager
     {
+        #region Static Fields
+
         private static readonly List<ILogRouter> Routers;
         private static Type _loggerType;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         static LogManager()
         {
@@ -21,14 +34,18 @@ namespace GreenBox3D
 #endif
         }
 
-        public static void RegisterRouter(ILogRouter router)
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static void Error(string format, params object[] args)
         {
-            Routers.Add(router);
+            Log(LogLevel.Error, string.Format(format, args));
         }
 
-        public static void SetLogger(Type type)
+        public static void ErrorEx(string message, Exception exception)
         {
-            _loggerType = type;
+            LogEx(LogLevel.Error, message, exception);
         }
 
         public static ILogger GetLogger(Type type, string customName = null)
@@ -58,6 +75,16 @@ namespace GreenBox3D
             LogEx(LogLevel.Message, message, exception);
         }
 
+        public static void RegisterRouter(ILogRouter router)
+        {
+            Routers.Add(router);
+        }
+
+        public static void SetLogger(Type type)
+        {
+            _loggerType = type;
+        }
+
         public static void Warning(string format, params object[] args)
         {
             Log(LogLevel.Warning, string.Format(format, args));
@@ -68,14 +95,6 @@ namespace GreenBox3D
             LogEx(LogLevel.Warning, message, exception);
         }
 
-        public static void Error(string format, params object[] args)
-        {
-            Log(LogLevel.Error, string.Format(format, args));
-        }
-
-        public static void ErrorEx(string message, Exception exception)
-        {
-            LogEx(LogLevel.Error, message, exception);
-        }
+        #endregion
     }
 }

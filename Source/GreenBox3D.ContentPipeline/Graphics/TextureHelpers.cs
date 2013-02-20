@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +17,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
 {
     public static class TextureHelpers
     {
-        public static bool IsCompletePixelType(Type type)
-        {
-            return type == typeof(Vector4) || type == typeof(Color);
-        }
+        #region Public Methods and Operators
 
         public static bool IsCompleteFormat(Type type)
         {
@@ -23,6 +27,11 @@ namespace GreenBox3D.ContentPipeline.Graphics
         public static bool IsCompleteFormat(SurfaceFormat format)
         {
             return format == SurfaceFormat.Color || format == SurfaceFormat.Vector4;
+        }
+
+        public static bool IsCompletePixelType(Type type)
+        {
+            return type == typeof(Vector4) || type == typeof(Color);
         }
 
         public static void MakeTransparent(TextureContent texture, Color color)
@@ -35,5 +44,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
                     ((PixelBitmapContent<Color>)bitmap).ReplaceColor(color, Color.Transparent);
             }
         }
+
+        #endregion
     }
 }

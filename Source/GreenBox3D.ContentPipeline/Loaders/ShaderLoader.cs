@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +23,8 @@ namespace GreenBox3D.ContentPipeline.Loaders
     [ContentLoader]
     internal class ShaderLoader : ContentLoader<CompiledShaderContent, ShaderCollection>
     {
+        #region Public Methods and Operators
+
         public override ShaderCollection Load(ContentManager manager, CompiledShaderContent input, BuildContext context)
         {
             ShaderCollection shaders = new ShaderCollection();
@@ -30,7 +39,7 @@ namespace GreenBox3D.ContentPipeline.Loaders
                 shader.Input = new ShaderInput[entry.Input.Count];
                 for (int i = 0; i < shader.Input.Length; i++)
                     shader.Input[i] = new ShaderInput(i, entry.Input[i].Usage, entry.Input[i].UsageIndex);
-                
+
                 foreach (ShaderVariable var in entry.Parameters)
                     shader.Parameters.Add(new ShaderParameter(var.Name, var.Type, var.Size));
 
@@ -42,5 +51,7 @@ namespace GreenBox3D.ContentPipeline.Loaders
 
             return shaders;
         }
+
+        #endregion
     }
 }

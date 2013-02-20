@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,20 +19,21 @@ namespace GreenBox3D.Graphics
 {
     public class VertexDeclaration
     {
+        #region Static Fields
+
         private static VertexDeclaration _lastUsed;
         private static IntPtr _lastUsedPointer;
         private static Shader _lastUsedShader;
 
-        public static void ResetLastUsedCache()
-        {
-            _lastUsed = null;
-            _lastUsedPointer = IntPtr.Zero;
-            _lastUsedShader = null;
-        }
+        #endregion
+
+        #region Fields
 
         private readonly VertexElement[] _vertexElements;
 
-        public int VertexStride { get; private set; }
+        #endregion
+
+        #region Constructors and Destructors
 
         public VertexDeclaration(int vertexStride, VertexElement[] elements)
         {
@@ -38,6 +46,16 @@ namespace GreenBox3D.Graphics
         {
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public int VertexStride { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
         public static VertexDeclaration FromType(Type elementType)
         {
             IVertexType vertexType = Activator.CreateInstance(elementType) as IVertexType;
@@ -48,20 +66,21 @@ namespace GreenBox3D.Graphics
             return vertexType.VertexDeclaration;
         }
 
+        public static void ResetLastUsedCache()
+        {
+            _lastUsed = null;
+            _lastUsedPointer = IntPtr.Zero;
+            _lastUsedShader = null;
+        }
+
         public VertexElement[] GetVertexElements()
         {
             return _vertexElements;
         }
 
-        private static int CalculateStride(IEnumerable<VertexElement> elements)
-        {
-            int stride = 0;
+        #endregion
 
-            foreach (VertexElement element in elements)
-                stride = Math.Max(stride, element.Offset + element.SizeInBytes);
-
-            return stride;
-        }
+        #region Methods
 
         internal void Bind(GraphicsDevice graphicsDevice, IntPtr source)
         {
@@ -83,5 +102,17 @@ namespace GreenBox3D.Graphics
             _lastUsedPointer = source;
             _lastUsedShader = graphicsDevice.ActiveShader;
         }
+
+        private static int CalculateStride(IEnumerable<VertexElement> elements)
+        {
+            int stride = 0;
+
+            foreach (VertexElement element in elements)
+                stride = Math.Max(stride, element.Offset + element.SizeInBytes);
+
+            return stride;
+        }
+
+        #endregion
     }
 }

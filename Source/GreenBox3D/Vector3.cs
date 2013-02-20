@@ -142,13 +142,13 @@ namespace GreenBox3D
         {
             float result;
             DistanceSquared(ref vector1, ref vector2, out result);
-            return (float)System.Math.Sqrt(result);
+            return (float)Math.Sqrt(result);
         }
 
         public static void Distance(ref Vector3 value1, ref Vector3 value2, out float result)
         {
             DistanceSquared(ref value1, ref value2, out result);
-            result = (float)System.Math.Sqrt(result);
+            result = (float)Math.Sqrt(result);
         }
 
         public static float DistanceSquared(Vector3 value1, Vector3 value2)
@@ -541,7 +541,7 @@ namespace GreenBox3D
         {
             float result;
             DistanceSquared(ref this, ref zero, out result);
-            return (float)System.Math.Sqrt(result);
+            return (float)Math.Sqrt(result);
         }
 
         public float LengthSquared()

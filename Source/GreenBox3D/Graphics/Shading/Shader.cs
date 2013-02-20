@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +17,7 @@ namespace GreenBox3D.Graphics.Shading
 {
     public class Shader : GraphicsResource
     {
-        public string Name { get; private set; }
-        public int Version { get; set; }
-        public string Fallback { get; set; }
-
-        public ShaderInput[] Input { get; set; }
-        public ShaderPassCollection Passes { get; private set; }
-
-        public ShaderParameterCollection Parameters { get; private set; }
-        public int ParametersSize { get; private set; }
-
-        public bool Created { get; private set; }
-        public bool IsValid { get; private set; }
+        #region Constructors and Destructors
 
         public Shader(GraphicsDevice graphicsDevice, string name)
             : base(graphicsDevice)
@@ -34,6 +30,24 @@ namespace GreenBox3D.Graphics.Shading
             Created = false;
             IsValid = false;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public bool Created { get; private set; }
+        public string Fallback { get; set; }
+        public ShaderInput[] Input { get; set; }
+        public bool IsValid { get; private set; }
+        public string Name { get; private set; }
+        public ShaderParameterCollection Parameters { get; private set; }
+        public int ParametersSize { get; private set; }
+        public ShaderPassCollection Passes { get; private set; }
+        public int Version { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void Create()
         {
@@ -77,10 +91,14 @@ namespace GreenBox3D.Graphics.Shading
         public int GetInputIndex(VertexElementUsage usage, int usageIndex)
         {
             foreach (ShaderInput input in Input)
+            {
                 if (input.Usage == usage && input.UsageIndex == usageIndex)
                     return input.Index;
+            }
 
             return -1;
         }
+
+        #endregion
     }
 }

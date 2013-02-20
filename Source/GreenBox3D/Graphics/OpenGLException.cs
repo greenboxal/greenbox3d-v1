@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +16,7 @@ namespace GreenBox3D.Graphics
 {
     public class OpenGLException : Exception
     {
-        public ErrorCode Error { get; private set; }
+        #region Constructors and Destructors
 
         public OpenGLException()
         {
@@ -21,10 +28,22 @@ namespace GreenBox3D.Graphics
             Error = error;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public ErrorCode Error { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
         public override string ToString()
         {
             // TODO: Better information?
             return Error.ToString();
         }
+
+        #endregion
     }
 }

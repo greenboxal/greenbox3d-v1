@@ -13,7 +13,13 @@ namespace GreenBox3D
     [Serializable]
     public struct Color : IEquatable<Color>
     {
+        #region Fields
+
         private uint _packedValue;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public Color(uint packedValue)
         {
@@ -98,33 +104,10 @@ namespace GreenBox3D
             A = (byte)MathHelper.Clamp(alpha * 255, Byte.MinValue, Byte.MaxValue);
         }
 
-        public byte B { get { return (byte)(_packedValue >> 16); } set { _packedValue = (_packedValue & 0xff00ffff) | (uint)(value << 16); } }
-        public byte G { get { return (byte)(_packedValue >> 8); } set { _packedValue = (_packedValue & 0xffff00ff) | ((uint)(value << 8)); } }
-        public byte R { get { return (byte)(_packedValue); } set { _packedValue = (_packedValue & 0xffffff00) | value; } }
-        public byte A { get { return (byte)(_packedValue >> 24); } set { _packedValue = (_packedValue & 0x00ffffff) | ((uint)(value << 24)); } }
+        #endregion
 
-        public static bool operator ==(Color a, Color b)
-        {
-            return (a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B);
-        }
+        #region Public Properties
 
-        public static bool operator !=(Color a, Color b)
-        {
-            return !(a == b);
-        }
-
-        public override int GetHashCode()
-        {
-            return _packedValue.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            return ((obj is Color) && Equals((Color)obj));
-        }
-
-        public static Color TransparentBlack { get { return new Color(0); } }
-        public static Color Transparent { get { return new Color(0); } }
         public static Color AliceBlue { get { return new Color(0xfffff8f0); } }
         public static Color AntiqueWhite { get { return new Color(0xffd7ebfa); } }
         public static Color Aqua { get { return new Color(0xffffff00); } }
@@ -192,8 +175,8 @@ namespace GreenBox3D
         public static Color LightCoral { get { return new Color(0xff8080f0); } }
         public static Color LightCyan { get { return new Color(0xffffffe0); } }
         public static Color LightGoldenrodYellow { get { return new Color(0xffd2fafa); } }
-        public static Color LightGreen { get { return new Color(0xff90ee90); } }
         public static Color LightGray { get { return new Color(0xffd3d3d3); } }
+        public static Color LightGreen { get { return new Color(0xff90ee90); } }
         public static Color LightPink { get { return new Color(0xffc1b6ff); } }
         public static Color LightSalmon { get { return new Color(0xff7aa0ff); } }
         public static Color LightSeaGreen { get { return new Color(0xffaab220); } }
@@ -258,6 +241,8 @@ namespace GreenBox3D
         public static Color Teal { get { return new Color(0xff808000); } }
         public static Color Thistle { get { return new Color(0xffd8bfd8); } }
         public static Color Tomato { get { return new Color(0xff4763ff); } }
+        public static Color Transparent { get { return new Color(0); } }
+        public static Color TransparentBlack { get { return new Color(0); } }
         public static Color Turquoise { get { return new Color(0xffd0e040); } }
         public static Color Violet { get { return new Color(0xffee82ee); } }
         public static Color Wheat { get { return new Color(0xffb3def5); } }
@@ -265,6 +250,25 @@ namespace GreenBox3D
         public static Color WhiteSmoke { get { return new Color(0xfff5f5f5); } }
         public static Color Yellow { get { return new Color(0xff00ffff); } }
         public static Color YellowGreen { get { return new Color(0xff32cd9a); } }
+        public byte A { get { return (byte)(_packedValue >> 24); } set { _packedValue = (_packedValue & 0x00ffffff) | ((uint)(value << 24)); } }
+        public byte B { get { return (byte)(_packedValue >> 16); } set { _packedValue = (_packedValue & 0xff00ffff) | (uint)(value << 16); } }
+        public byte G { get { return (byte)(_packedValue >> 8); } set { _packedValue = (_packedValue & 0xffff00ff) | ((uint)(value << 8)); } }
+        public UInt32 PackedValue { get { return _packedValue; } set { _packedValue = value; } }
+        public byte R { get { return (byte)(_packedValue); } set { _packedValue = (_packedValue & 0xffffff00) | value; } }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static Color FromNonPremultiplied(Vector4 vector)
+        {
+            return new Color(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+        }
+
+        public static Color FromNonPremultiplied(int r, int g, int b, int a)
+        {
+            return new Color((byte)(r * a / 255), (byte)(g * a / 255), (byte)(b * a / 255), a);
+        }
 
         public static Color Lerp(Color value1, Color value2, Single amount)
         {
@@ -286,9 +290,39 @@ namespace GreenBox3D
             return new Color(red, green, blue, alpha);
         }
 
+        public static bool operator ==(Color a, Color b)
+        {
+            return (a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B);
+        }
+
+        public static bool operator !=(Color a, Color b)
+        {
+            return !(a == b);
+        }
+
         public static Color operator *(Color value, float scale)
         {
             return Multiply(value, scale);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return ((obj is Color) && Equals((Color)obj));
+        }
+
+        public bool Equals(Color other)
+        {
+            return PackedValue == other.PackedValue;
+        }
+
+        public override int GetHashCode()
+        {
+            return _packedValue.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[Color: R={0}, G={1}, B={2}, A={3}, PackedValue={4}]", R, G, B, A, PackedValue);
         }
 
         public Vector3 ToVector3()
@@ -299,30 +333,6 @@ namespace GreenBox3D
         public Vector4 ToVector4()
         {
             return new Vector4(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
-        }
-
-        public UInt32 PackedValue { get { return _packedValue; } set { _packedValue = value; } }
-
-        public override string ToString()
-        {
-            return string.Format("[Color: R={0}, G={1}, B={2}, A={3}, PackedValue={4}]", R, G, B, A, PackedValue);
-        }
-
-        public static Color FromNonPremultiplied(Vector4 vector)
-        {
-            return new Color(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
-        }
-
-        public static Color FromNonPremultiplied(int r, int g, int b, int a)
-        {
-            return new Color((byte)(r * a / 255), (byte)(g * a / 255), (byte)(b * a / 255), a);
-        }
-
-        #region IEquatable<Color> Members
-
-        public bool Equals(Color other)
-        {
-            return PackedValue == other.PackedValue;
         }
 
         #endregion

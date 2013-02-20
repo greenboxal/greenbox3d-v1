@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +18,17 @@ namespace GreenBox3D.Content.Loaders
     [ContentTypeReader(Extension = ".tex")]
     public class Texture2DLoader : ContentTypeReader<Texture2D>
     {
+        #region Constructors and Destructors
+
         public Texture2DLoader()
         {
             Magic = "TEX2";
             Version = new Version(1, 0);
         }
+
+        #endregion
+
+        #region Methods
 
         protected override Texture2D Load(ContentManager manager, ContentReader reader)
         {
@@ -31,5 +44,7 @@ namespace GreenBox3D.Content.Loaders
 
             return texture;
         }
+
+        #endregion
     }
 }

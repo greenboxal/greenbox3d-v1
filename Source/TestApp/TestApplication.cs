@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 using GreenBox3D;
 using GreenBox3D.Content;
+using GreenBox3D.ContentPipeline;
 using GreenBox3D.ContentPipeline.Compiler;
 using GreenBox3D.Graphics;
 using GreenBox3D.Input;
@@ -22,6 +23,14 @@ namespace TestApp
 {
     public class TestApplication : Game
     {
+        #region Fields
+
+        private Effect _effect;
+        private IndexBuffer _indices;
+        private VertexBuffer _vertices;
+
+        #endregion
+
         #region Constructors and Destructors
 
         public TestApplication()
@@ -32,7 +41,7 @@ namespace TestApp
             FileManager.RegisterLoader(new FolderFileLoader("./Output/"));
 
 #if DEBUG
-            GreenBox3D.ContentPipeline.PipelineManager.RegisterJustInDesignExtensions(new PipelineProject("ContentProject.rb"));
+            PipelineManager.RegisterJustInDesignExtensions(new PipelineProject("ContentProject.rb"));
 #endif
         }
 
@@ -45,20 +54,16 @@ namespace TestApp
             base.Initialize();
         }
 
-        private Effect _effect;
-        private IndexBuffer _indices;
-        private VertexBuffer _vertices;
         protected override void LoadContent()
         {
             _effect = EffectManager.LoadEffect("Simple/Simple");
-            
+
             int[] indices = new[] { 0, 1, 2 };
             VertexPositionNormalColor[] positions = new[]
-            {
-                new VertexPositionNormalColor(new Vector3(0.75f, 0.75f, 0.0f), new Vector3(), new Color(255, 0, 0)), 
-                new VertexPositionNormalColor(new Vector3(0.75f, -0.75f, 0.0f), new Vector3(), new Color(0, 255, 0)),
-                new VertexPositionNormalColor(new Vector3(-0.75f, -0.75f, 0.0f), new Vector3(), new Color(0, 0, 255)),
-            };
+                                                    {
+                                                        new VertexPositionNormalColor(new Vector3(0.75f, 0.75f, 0.0f), new Vector3(), new Color(255, 0, 0)), new VertexPositionNormalColor(new Vector3(0.75f, -0.75f, 0.0f), new Vector3(), new Color(0, 255, 0)),
+                                                        new VertexPositionNormalColor(new Vector3(-0.75f, -0.75f, 0.0f), new Vector3(), new Color(0, 0, 255)),
+                                                    };
 
             _indices = new IndexBuffer(GraphicsDevice, IndexElementSize.ThirtyTwoBits, indices.Length, BufferUsage.StaticDraw);
             _indices.SetData(indices);

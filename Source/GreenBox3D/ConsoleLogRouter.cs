@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +15,8 @@ namespace GreenBox3D
 {
     public class ConsoleLogRouter : ILogRouter
     {
+        #region Public Methods and Operators
+
         public void Output(LogLevel level, string text)
         {
             Console.WriteLine("{0} {1}", GetPrefix(level), text);
@@ -17,6 +26,10 @@ namespace GreenBox3D
         {
             Console.WriteLine("{0} {1}\n", GetPrefix(level), text);
         }
+
+        #endregion
+
+        #region Methods
 
         private static string GetPrefix(LogLevel level)
         {
@@ -32,5 +45,7 @@ namespace GreenBox3D
 
             return "[LOG]"; // Never should happen
         }
+
+        #endregion
     }
 }

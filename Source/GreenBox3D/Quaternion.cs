@@ -161,8 +161,8 @@ namespace GreenBox3D
         {
             Quaternion quaternion;
             float num2 = angle * 0.5f;
-            float num = (float)System.Math.Sin(num2);
-            float num3 = (float)System.Math.Cos(num2);
+            float num = (float)Math.Sin(num2);
+            float num3 = (float)Math.Cos(num2);
             quaternion.X = axis.X * num;
             quaternion.Y = axis.Y * num;
             quaternion.Z = axis.Z * num;
@@ -173,8 +173,8 @@ namespace GreenBox3D
         public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Quaternion result)
         {
             float num2 = angle * 0.5f;
-            float num = (float)System.Math.Sin(num2);
-            float num3 = (float)System.Math.Cos(num2);
+            float num = (float)Math.Sin(num2);
+            float num3 = (float)Math.Cos(num2);
             result.X = axis.X * num;
             result.Y = axis.Y * num;
             result.Z = axis.Z * num;
@@ -187,7 +187,7 @@ namespace GreenBox3D
             Quaternion quaternion = new Quaternion();
             if (num8 > 0f)
             {
-                float num = (float)System.Math.Sqrt((num8 + 1f));
+                float num = (float)Math.Sqrt((num8 + 1f));
                 quaternion.W = num * 0.5f;
                 num = 0.5f / num;
                 quaternion.X = (matrix.M23 - matrix.M32) * num;
@@ -197,7 +197,7 @@ namespace GreenBox3D
             }
             if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
             {
-                float num7 = (float)System.Math.Sqrt((((1f + matrix.M11) - matrix.M22) - matrix.M33));
+                float num7 = (float)Math.Sqrt((((1f + matrix.M11) - matrix.M22) - matrix.M33));
                 float num4 = 0.5f / num7;
                 quaternion.X = 0.5f * num7;
                 quaternion.Y = (matrix.M12 + matrix.M21) * num4;
@@ -207,7 +207,7 @@ namespace GreenBox3D
             }
             if (matrix.M22 > matrix.M33)
             {
-                float num6 = (float)System.Math.Sqrt((((1f + matrix.M22) - matrix.M11) - matrix.M33));
+                float num6 = (float)Math.Sqrt((((1f + matrix.M22) - matrix.M11) - matrix.M33));
                 float num3 = 0.5f / num6;
                 quaternion.X = (matrix.M21 + matrix.M12) * num3;
                 quaternion.Y = 0.5f * num6;
@@ -215,7 +215,7 @@ namespace GreenBox3D
                 quaternion.W = (matrix.M31 - matrix.M13) * num3;
                 return quaternion;
             }
-            float num5 = (float)System.Math.Sqrt((((1f + matrix.M33) - matrix.M11) - matrix.M22));
+            float num5 = (float)Math.Sqrt((((1f + matrix.M33) - matrix.M11) - matrix.M22));
             float num2 = 0.5f / num5;
             quaternion.X = (matrix.M31 + matrix.M13) * num2;
             quaternion.Y = (matrix.M32 + matrix.M23) * num2;
@@ -230,7 +230,7 @@ namespace GreenBox3D
             float num8 = (matrix.M11 + matrix.M22) + matrix.M33;
             if (num8 > 0f)
             {
-                float num = (float)System.Math.Sqrt((num8 + 1f));
+                float num = (float)Math.Sqrt((num8 + 1f));
                 result.W = num * 0.5f;
                 num = 0.5f / num;
                 result.X = (matrix.M23 - matrix.M32) * num;
@@ -239,7 +239,7 @@ namespace GreenBox3D
             }
             else if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
             {
-                float num7 = (float)System.Math.Sqrt((((1f + matrix.M11) - matrix.M22) - matrix.M33));
+                float num7 = (float)Math.Sqrt((((1f + matrix.M11) - matrix.M22) - matrix.M33));
                 float num4 = 0.5f / num7;
                 result.X = 0.5f * num7;
                 result.Y = (matrix.M12 + matrix.M21) * num4;
@@ -248,7 +248,7 @@ namespace GreenBox3D
             }
             else if (matrix.M22 > matrix.M33)
             {
-                float num6 = (float)System.Math.Sqrt((((1f + matrix.M22) - matrix.M11) - matrix.M33));
+                float num6 = (float)Math.Sqrt((((1f + matrix.M22) - matrix.M11) - matrix.M33));
                 float num3 = 0.5f / num6;
                 result.X = (matrix.M21 + matrix.M12) * num3;
                 result.Y = 0.5f * num6;
@@ -257,7 +257,7 @@ namespace GreenBox3D
             }
             else
             {
-                float num5 = (float)System.Math.Sqrt((((1f + matrix.M33) - matrix.M11) - matrix.M22));
+                float num5 = (float)Math.Sqrt((((1f + matrix.M33) - matrix.M11) - matrix.M22));
                 float num2 = 0.5f / num5;
                 result.X = (matrix.M31 + matrix.M13) * num2;
                 result.Y = (matrix.M32 + matrix.M23) * num2;
@@ -270,14 +270,14 @@ namespace GreenBox3D
         {
             Quaternion quaternion;
             float num9 = roll * 0.5f;
-            float num6 = (float)System.Math.Sin(num9);
-            float num5 = (float)System.Math.Cos(num9);
+            float num6 = (float)Math.Sin(num9);
+            float num5 = (float)Math.Cos(num9);
             float num8 = pitch * 0.5f;
-            float num4 = (float)System.Math.Sin(num8);
-            float num3 = (float)System.Math.Cos(num8);
+            float num4 = (float)Math.Sin(num8);
+            float num3 = (float)Math.Cos(num8);
             float num7 = yaw * 0.5f;
-            float num2 = (float)System.Math.Sin(num7);
-            float num = (float)System.Math.Cos(num7);
+            float num2 = (float)Math.Sin(num7);
+            float num = (float)Math.Cos(num7);
             quaternion.X = ((num * num4) * num5) + ((num2 * num3) * num6);
             quaternion.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
             quaternion.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
@@ -288,14 +288,14 @@ namespace GreenBox3D
         public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Quaternion result)
         {
             float num9 = roll * 0.5f;
-            float num6 = (float)System.Math.Sin(num9);
-            float num5 = (float)System.Math.Cos(num9);
+            float num6 = (float)Math.Sin(num9);
+            float num5 = (float)Math.Cos(num9);
             float num8 = pitch * 0.5f;
-            float num4 = (float)System.Math.Sin(num8);
-            float num3 = (float)System.Math.Cos(num8);
+            float num4 = (float)Math.Sin(num8);
+            float num3 = (float)Math.Cos(num8);
             float num7 = yaw * 0.5f;
-            float num2 = (float)System.Math.Sin(num7);
-            float num = (float)System.Math.Cos(num7);
+            float num2 = (float)Math.Sin(num7);
+            float num = (float)Math.Cos(num7);
             result.X = ((num * num4) * num5) + ((num2 * num3) * num6);
             result.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
             result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
@@ -401,7 +401,7 @@ namespace GreenBox3D
                 quaternion.W = (num2 * quaternion1.W) - (num * quaternion2.W);
             }
             float num4 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-            float num3 = 1f / ((float)System.Math.Sqrt(num4));
+            float num3 = 1f / ((float)Math.Sqrt(num4));
             quaternion.X *= num3;
             quaternion.Y *= num3;
             quaternion.Z *= num3;
@@ -429,7 +429,7 @@ namespace GreenBox3D
                 result.W = (num2 * quaternion1.W) - (num * quaternion2.W);
             }
             float num4 = (((result.X * result.X) + (result.Y * result.Y)) + (result.Z * result.Z)) + (result.W * result.W);
-            float num3 = 1f / ((float)System.Math.Sqrt(num4));
+            float num3 = 1f / ((float)Math.Sqrt(num4));
             result.X *= num3;
             result.Y *= num3;
             result.Z *= num3;
@@ -518,7 +518,7 @@ namespace GreenBox3D
         {
             Quaternion quaternion2;
             float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-            float num = 1f / ((float)System.Math.Sqrt(num2));
+            float num = 1f / ((float)Math.Sqrt(num2));
             quaternion2.X = quaternion.X * num;
             quaternion2.Y = quaternion.Y * num;
             quaternion2.Z = quaternion.Z * num;
@@ -529,7 +529,7 @@ namespace GreenBox3D
         public static void Normalize(ref Quaternion quaternion, out Quaternion result)
         {
             float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-            float num = 1f / ((float)System.Math.Sqrt(num2));
+            float num = 1f / ((float)Math.Sqrt(num2));
             result.X = quaternion.X * num;
             result.Y = quaternion.Y * num;
             result.Z = quaternion.Z * num;
@@ -556,10 +556,10 @@ namespace GreenBox3D
             }
             else
             {
-                float num5 = (float)System.Math.Acos(num4);
-                float num6 = (float)(1.0 / System.Math.Sin(num5));
-                num3 = ((float)System.Math.Sin(((1f - num) * num5))) * num6;
-                num2 = flag ? (((float)-System.Math.Sin((num * num5))) * num6) : (((float)System.Math.Sin((num * num5))) * num6);
+                float num5 = (float)Math.Acos(num4);
+                float num6 = (float)(1.0 / Math.Sin(num5));
+                num3 = ((float)Math.Sin(((1f - num) * num5))) * num6;
+                num2 = flag ? (((float)-Math.Sin((num * num5))) * num6) : (((float)Math.Sin((num * num5))) * num6);
             }
             quaternion.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
             quaternion.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
@@ -587,10 +587,10 @@ namespace GreenBox3D
             }
             else
             {
-                float num5 = (float)System.Math.Acos(num4);
-                float num6 = (float)(1.0 / System.Math.Sin(num5));
-                num3 = ((float)System.Math.Sin(((1f - num) * num5))) * num6;
-                num2 = flag ? (((float)-System.Math.Sin((num * num5))) * num6) : (((float)System.Math.Sin((num * num5))) * num6);
+                float num5 = (float)Math.Acos(num4);
+                float num6 = (float)(1.0 / Math.Sin(num5));
+                num3 = ((float)Math.Sin(((1f - num) * num5))) * num6;
+                num2 = flag ? (((float)-Math.Sin((num * num5))) * num6) : (((float)Math.Sin((num * num5))) * num6);
             }
             result.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
             result.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
@@ -742,7 +742,7 @@ namespace GreenBox3D
         public float Length()
         {
             float num = (((X * X) + (Y * Y)) + (Z * Z)) + (W * W);
-            return (float)System.Math.Sqrt(num);
+            return (float)Math.Sqrt(num);
         }
 
         public float LengthSquared()
@@ -753,7 +753,7 @@ namespace GreenBox3D
         public void Normalize()
         {
             float num2 = (((X * X) + (Y * Y)) + (Z * Z)) + (W * W);
-            float num = 1f / ((float)System.Math.Sqrt(num2));
+            float num = 1f / ((float)Math.Sqrt(num2));
             X *= num;
             Y *= num;
             Z *= num;

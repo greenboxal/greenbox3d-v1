@@ -254,7 +254,7 @@ namespace GreenBox3D
             if (num < 0.0001f)
                 vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             else
-                Vector3.Multiply(ref vector, (1f / ((float)System.Math.Sqrt(num))), out vector);
+                Vector3.Multiply(ref vector, (1f / ((float)Math.Sqrt(num))), out vector);
             Vector3.Cross(ref cameraUpVector, ref vector, out vector3);
             vector3.Normalize();
             Vector3.Cross(ref vector, ref vector3, out vector2);
@@ -290,25 +290,25 @@ namespace GreenBox3D
             if (num2 < 0.0001f)
                 vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             else
-                Vector3.Multiply(ref vector2, (1f / ((float)System.Math.Sqrt(num2))), out vector2);
+                Vector3.Multiply(ref vector2, (1f / ((float)Math.Sqrt(num2))), out vector2);
             Vector3 vector4 = rotateAxis;
             Vector3.Dot(ref rotateAxis, ref vector2, out num);
-            if (System.Math.Abs(num) > 0.9982547f)
+            if (Math.Abs(num) > 0.9982547f)
             {
                 if (objectForwardVector.HasValue)
                 {
                     vector = objectForwardVector.Value;
                     Vector3.Dot(ref rotateAxis, ref vector, out num);
-                    if (System.Math.Abs(num) > 0.9982547f)
+                    if (Math.Abs(num) > 0.9982547f)
                     {
                         num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-                        vector = (System.Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
+                        vector = (Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
                     }
                 }
                 else
                 {
                     num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-                    vector = (System.Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
+                    vector = (Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
                 }
                 Vector3.Cross(ref rotateAxis, ref vector, out vector3);
                 vector3.Normalize();
@@ -354,25 +354,25 @@ namespace GreenBox3D
             if (num2 < 0.0001f)
                 vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             else
-                Vector3.Multiply(ref vector2, (1f / ((float)System.Math.Sqrt(num2))), out vector2);
+                Vector3.Multiply(ref vector2, (1f / ((float)Math.Sqrt(num2))), out vector2);
             Vector3 vector4 = rotateAxis;
             Vector3.Dot(ref rotateAxis, ref vector2, out num);
-            if (System.Math.Abs(num) > 0.9982547f)
+            if (Math.Abs(num) > 0.9982547f)
             {
                 if (objectForwardVector.HasValue)
                 {
                     vector = objectForwardVector.Value;
                     Vector3.Dot(ref rotateAxis, ref vector, out num);
-                    if (System.Math.Abs(num) > 0.9982547f)
+                    if (Math.Abs(num) > 0.9982547f)
                     {
                         num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-                        vector = (System.Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
+                        vector = (Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
                     }
                 }
                 else
                 {
                     num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
-                    vector = (System.Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
+                    vector = (Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
                 }
                 Vector3.Cross(ref rotateAxis, ref vector, out vector3);
                 vector3.Normalize();
@@ -410,8 +410,8 @@ namespace GreenBox3D
             float x = axis.X;
             float y = axis.Y;
             float z = axis.Z;
-            float num2 = (float)System.Math.Sin(angle);
-            float num = (float)System.Math.Cos(angle);
+            float num2 = (float)Math.Sin(angle);
+            float num = (float)Math.Cos(angle);
             float num11 = x * x;
             float num10 = y * y;
             float num9 = z * z;
@@ -442,8 +442,8 @@ namespace GreenBox3D
             float x = axis.X;
             float y = axis.Y;
             float z = axis.Z;
-            float num2 = (float)System.Math.Sin(angle);
-            float num = (float)System.Math.Cos(angle);
+            float num2 = (float)Math.Sin(angle);
+            float num = (float)Math.Cos(angle);
             float num11 = x * x;
             float num10 = y * y;
             float num9 = z * z;
@@ -739,7 +739,7 @@ namespace GreenBox3D
                 throw new ArgumentException("farPlaneDistance <= 0");
             if (nearPlaneDistance >= farPlaneDistance)
                 throw new ArgumentException("nearPlaneDistance >= farPlaneDistance");
-            float num = 1f / ((float)System.Math.Tan((fieldOfView * 0.5f)));
+            float num = 1f / ((float)Math.Tan((fieldOfView * 0.5f)));
             float num9 = num / aspectRatio;
             matrix.M11 = num9;
             matrix.M12 = matrix.M13 = matrix.M14 = 0f;
@@ -763,7 +763,7 @@ namespace GreenBox3D
                 throw new ArgumentException("farPlaneDistance <= 0");
             if (nearPlaneDistance >= farPlaneDistance)
                 throw new ArgumentException("nearPlaneDistance >= farPlaneDistance");
-            float num = 1f / ((float)System.Math.Tan((fieldOfView * 0.5f)));
+            float num = 1f / ((float)Math.Tan((fieldOfView * 0.5f)));
             float num9 = num / aspectRatio;
             result.M11 = num9;
             result.M12 = result.M13 = result.M14 = 0f;
@@ -880,8 +880,8 @@ namespace GreenBox3D
         {
             Matrix returnMatrix = Identity;
 
-            var val1 = (float)System.Math.Cos(radians);
-            var val2 = (float)System.Math.Sin(radians);
+            var val1 = (float)Math.Cos(radians);
+            var val2 = (float)Math.Sin(radians);
 
             returnMatrix.M22 = val1;
             returnMatrix.M23 = val2;
@@ -895,8 +895,8 @@ namespace GreenBox3D
         {
             result = Identity;
 
-            var val1 = (float)System.Math.Cos(radians);
-            var val2 = (float)System.Math.Sin(radians);
+            var val1 = (float)Math.Cos(radians);
+            var val2 = (float)Math.Sin(radians);
 
             result.M22 = val1;
             result.M23 = val2;
@@ -908,8 +908,8 @@ namespace GreenBox3D
         {
             Matrix returnMatrix = Identity;
 
-            var val1 = (float)System.Math.Cos(radians);
-            var val2 = (float)System.Math.Sin(radians);
+            var val1 = (float)Math.Cos(radians);
+            var val2 = (float)Math.Sin(radians);
 
             returnMatrix.M11 = val1;
             returnMatrix.M13 = -val2;
@@ -923,8 +923,8 @@ namespace GreenBox3D
         {
             result = Identity;
 
-            var val1 = (float)System.Math.Cos(radians);
-            var val2 = (float)System.Math.Sin(radians);
+            var val1 = (float)Math.Cos(radians);
+            var val2 = (float)Math.Sin(radians);
 
             result.M11 = val1;
             result.M13 = -val2;
@@ -936,8 +936,8 @@ namespace GreenBox3D
         {
             Matrix returnMatrix = Identity;
 
-            var val1 = (float)System.Math.Cos(radians);
-            var val2 = (float)System.Math.Sin(radians);
+            var val1 = (float)Math.Cos(radians);
+            var val2 = (float)Math.Sin(radians);
 
             returnMatrix.M11 = val1;
             returnMatrix.M12 = val2;
@@ -951,8 +951,8 @@ namespace GreenBox3D
         {
             result = Identity;
 
-            var val1 = (float)System.Math.Cos(radians);
-            var val2 = (float)System.Math.Sin(radians);
+            var val1 = (float)Math.Cos(radians);
+            var val2 = (float)Math.Sin(radians);
 
             result.M11 = val1;
             result.M12 = val2;
@@ -1823,13 +1823,13 @@ namespace GreenBox3D
             translation.Y = M42;
             translation.Z = M43;
 
-            float xs = (System.Math.Sign(M11 * M12 * M13 * M14) < 0) ? -1f : 1f;
-            float ys = (System.Math.Sign(M21 * M22 * M23 * M24) < 0) ? -1f : 1f;
-            float zs = (System.Math.Sign(M31 * M32 * M33 * M34) < 0) ? -1f : 1f;
+            float xs = (Math.Sign(M11 * M12 * M13 * M14) < 0) ? -1f : 1f;
+            float ys = (Math.Sign(M21 * M22 * M23 * M24) < 0) ? -1f : 1f;
+            float zs = (Math.Sign(M31 * M32 * M33 * M34) < 0) ? -1f : 1f;
 
-            scale.X = xs * (float)System.Math.Sqrt(M11 * M11 + M12 * M12 + M13 * M13);
-            scale.Y = ys * (float)System.Math.Sqrt(M21 * M21 + M22 * M22 + M23 * M23);
-            scale.Z = zs * (float)System.Math.Sqrt(M31 * M31 + M32 * M32 + M33 * M33);
+            scale.X = xs * (float)Math.Sqrt(M11 * M11 + M12 * M12 + M13 * M13);
+            scale.Y = ys * (float)Math.Sqrt(M21 * M21 + M22 * M22 + M23 * M23);
+            scale.Z = zs * (float)Math.Sqrt(M31 * M31 + M32 * M32 + M33 * M33);
 
             if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
             {

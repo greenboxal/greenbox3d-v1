@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +18,14 @@ namespace GreenBox3D.Graphics
 {
     public class TextureCollection : IReadOnlyCollection<Texture>
     {
-        private readonly Texture[] _textures;
-        private readonly BitArray _array;
+        #region Fields
 
-        public int Count { get { return _textures.Length; } }
+        private readonly BitArray _array;
+        private readonly Texture[] _textures;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         internal TextureCollection()
         {
@@ -24,6 +35,16 @@ namespace GreenBox3D.Graphics
             _array = new BitArray(size, false);
             _textures = new Texture[size];
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public int Count { get { return _textures.Length; } }
+
+        #endregion
+
+        #region Public Indexers
 
         public Texture this[int index]
         {
@@ -50,6 +71,28 @@ namespace GreenBox3D.Graphics
             }
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        public IEnumerator<Texture> GetEnumerator()
+        {
+            return ((IEnumerable<Texture>)_textures).GetEnumerator();
+        }
+
+        #endregion
+
+        #region Explicit Interface Methods
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion
+
+        #region Methods
+
         internal void Apply()
         {
             for (int i = 0; i < _textures.Length; i++)
@@ -67,14 +110,6 @@ namespace GreenBox3D.Graphics
             }
         }
 
-        public IEnumerator<Texture> GetEnumerator()
-        {
-            return ((IEnumerable<Texture>)_textures).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        #endregion
     }
 }

@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -12,15 +19,14 @@ namespace GreenBox3D.Content
 {
     public abstract class ContentTypeReader<T> : IContentTypeReader
     {
+        #region Public Properties
+
         public string Magic { get; protected set; }
         public Version Version { get; protected set; }
 
-        protected abstract T Load(ContentManager manager, ContentReader reader);
+        #endregion
 
-        protected virtual bool CheckHeader(ContentHeader header)
-        {
-            return header.Magic == Magic && header.Version <= Version;
-        }
+        #region Explicit Interface Methods
 
         object IContentTypeReader.Load(ContentManager manager, Stream stream)
         {
@@ -68,5 +74,18 @@ namespace GreenBox3D.Content
                 return Load(manager, new ContentReader(cr, encoding));
             }
         }
+
+        #endregion
+
+        #region Methods
+
+        protected virtual bool CheckHeader(ContentHeader header)
+        {
+            return header.Magic == Magic && header.Version <= Version;
+        }
+
+        protected abstract T Load(ContentManager manager, ContentReader reader);
+
+        #endregion
     }
 }

@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,10 +18,13 @@ namespace GreenBox3D.Graphics
 {
     public class Texture2D : Texture
     {
+        #region Fields
+
         private bool _hasTexture;
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        #endregion
+
+        #region Constructors and Destructors
 
         public Texture2D(GraphicsDevice graphicsDevice, SurfaceFormat format, int width, int height)
             : base(graphicsDevice, format)
@@ -30,6 +40,17 @@ namespace GreenBox3D.Graphics
         {
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public int Height { get; private set; }
+        public int Width { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
         public void SetData<T>(int level, T[] data, int offset) where T : struct
         {
             Create();
@@ -38,7 +59,7 @@ namespace GreenBox3D.Graphics
                 throw new ArgumentException("Level can be higher than the actual LevelCount", "level");
 
             GCHandle handle = GCHandle.Alloc(data, GCHandleType.Pinned);
-            
+
             try
             {
                 GL.TexImage2D(TextureTarget.Texture2D, level, InternalFormat, Width, Height, 0, PixelFormat, PixelType, Marshal.UnsafeAddrOfPinnedArrayElement(data, offset));
@@ -61,6 +82,10 @@ namespace GreenBox3D.Graphics
             SetData(0, data, 0);
         }
 
+        #endregion
+
+        #region Methods
+
         internal override void Create(bool texImage = false)
         {
             if (TextureID == -1)
@@ -77,5 +102,7 @@ namespace GreenBox3D.Graphics
                 _hasTexture = true;
             }
         }
+
+        #endregion
     }
 }

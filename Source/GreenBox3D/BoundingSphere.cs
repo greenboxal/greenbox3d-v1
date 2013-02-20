@@ -98,8 +98,8 @@ namespace GreenBox3D
             }
 
             //else find center of new sphere and radius
-            float leftRadius = System.Math.Max(original.Radius - distance, additional.Radius);
-            float Rightradius = System.Math.Max(original.Radius + distance, additional.Radius);
+            float leftRadius = Math.Max(original.Radius - distance, additional.Radius);
+            float Rightradius = Math.Max(original.Radius + distance, additional.Radius);
             ocenterToaCenter = ocenterToaCenter + (((leftRadius - Rightradius) / (2 * ocenterToaCenter.Length())) * ocenterToaCenter);
             //oCenterToResultCenter
 
@@ -324,10 +324,10 @@ namespace GreenBox3D
             sphere.Center = Vector3.Transform(Center, matrix);
             sphere.Radius = Radius
                             * ((float)
-                               System.Math.Sqrt(
-                                   System.Math.Max(
+                               Math.Sqrt(
+                                   Math.Max(
                                        ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13),
-                                       System.Math.Max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33)))));
+                                       Math.Max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33)))));
             return sphere;
         }
 
@@ -336,10 +336,10 @@ namespace GreenBox3D
             result.Center = Vector3.Transform(Center, matrix);
             result.Radius = Radius
                             * ((float)
-                               System.Math.Sqrt(
-                                   System.Math.Max(
+                               Math.Sqrt(
+                                   Math.Max(
                                        ((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13),
-                                       System.Math.Max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33)))));
+                                       Math.Max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33)))));
         }
 
         #endregion

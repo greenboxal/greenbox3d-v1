@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,13 +18,16 @@ namespace GreenBox3D.Graphics
 {
     public abstract class HardwareBuffer : GraphicsResource
     {
+        #region Fields
+
         internal int BufferID;
-        internal int ElementSize;
         internal BufferTarget BufferTarget;
         internal BufferUsageHint BufferUsageHint;
+        internal int ElementSize;
 
-        public BufferUsage BufferUsage { get; private set; }
-        public int ElementCount { get; private set; }
+        #endregion
+
+        #region Constructors and Destructors
 
         internal HardwareBuffer(GraphicsDevice graphicsDevice, BufferTarget bufferTarget, int elementSize, int elementCount, BufferUsage usage)
             : base(graphicsDevice)
@@ -60,19 +70,16 @@ namespace GreenBox3D.Graphics
             }
         }
 
-        internal void Create()
-        {
-            if (BufferID == -1)
-            {
-                GL.GenBuffers(1, out BufferID);
+        #endregion
 
-                if (BufferID == -1)
-                    throw new OpenGLException();
+        #region Public Properties
 
-                Bind();
-                GL.BufferData(BufferTarget, (IntPtr)(ElementSize * ElementCount), IntPtr.Zero, BufferUsageHint);
-            }
-        }
+        public BufferUsage BufferUsage { get; private set; }
+        public int ElementCount { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void SetData<T>(T[] data) where T : struct
         {
@@ -97,9 +104,27 @@ namespace GreenBox3D.Graphics
             handle.Free();
         }
 
+        #endregion
+
+        #region Methods
+
         internal void Bind()
         {
             GL.BindBuffer(BufferTarget, BufferID);
+        }
+
+        internal void Create()
+        {
+            if (BufferID == -1)
+            {
+                GL.GenBuffers(1, out BufferID);
+
+                if (BufferID == -1)
+                    throw new OpenGLException();
+
+                Bind();
+                GL.BufferData(BufferTarget, (IntPtr)(ElementSize * ElementCount), IntPtr.Zero, BufferUsageHint);
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -112,5 +137,7 @@ namespace GreenBox3D.Graphics
 
             base.Dispose(disposing);
         }
+
+        #endregion
     }
 }

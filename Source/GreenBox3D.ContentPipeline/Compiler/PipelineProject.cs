@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
@@ -9,18 +16,20 @@ namespace GreenBox3D.ContentPipeline.Compiler
 {
     public class PipelineProject : IPipelineProject
     {
-        private readonly string _projectPath;
+        #region Fields
+
         private readonly string _projectBase;
-
+        private readonly string _projectPath;
         // Loading helpers
-        private string _currentBase;
-        private string _currentRelative;
         private readonly ScriptScope _scope;
-
         // Consumer logic
         private IPipelineProjectConsumer _consumer;
+        private string _currentBase;
+        private string _currentRelative;
 
-        public string ProjectBase { get { return _projectBase; } }
+        #endregion
+
+        #region Constructors and Destructors
 
         public PipelineProject(string filename)
         {
@@ -32,17 +41,44 @@ namespace GreenBox3D.ContentPipeline.Compiler
             SetupDSL();
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public string ProjectBase { get { return _projectBase; } }
+
+        #endregion
+
+        #region Public Methods and Operators
+
         public void Consume(IPipelineProjectConsumer consumer)
         {
             _consumer = consumer;
             LoadProjectInternal("", _projectPath);
         }
 
-        private void SetupDSL()
+        #endregion
+
+        #region Methods
+
+        private void DSLContent(string path, dynamic handler)
         {
-            _scope.SetMethod("import", new Action<string>(DSLImport));
-            _scope.SetMethod("reference", new Action<string>(DSLReference));
-            _scope.SetMethodWithBlock("content", new Action<string, dynamic>(DSLContent));
+            ContentDescriptor descriptor = new ContentDescriptor(_projectBase, Path.Combine(_currentRelative, path));
+
+            if (handler != null)
+                handler.call(descriptor.Properties);
+
+            _consumer.AddContent(descriptor);
+        }
+
+        private void DSLImport(string path)
+        {
+            LoadProjectInternal(path, Path.Combine(_currentBase, path, "ContentProject.rb"));
+        }
+
+        private void DSLReference(string path)
+        {
+            _consumer.AddReference(path);
         }
 
         private void LoadProjectInternal(string rel, string filename)
@@ -60,24 +96,13 @@ namespace GreenBox3D.ContentPipeline.Compiler
             _currentBase = oldBase;
         }
 
-        private void DSLImport(string path)
+        private void SetupDSL()
         {
-            LoadProjectInternal(path, Path.Combine(_currentBase, path, "ContentProject.rb"));
+            _scope.SetMethod("import", new Action<string>(DSLImport));
+            _scope.SetMethod("reference", new Action<string>(DSLReference));
+            _scope.SetMethodWithBlock("content", new Action<string, dynamic>(DSLContent));
         }
 
-        private void DSLReference(string path)
-        {
-            _consumer.AddReference(path);
-        }
-
-        private void DSLContent(string path, dynamic handler)
-        {
-            ContentDescriptor descriptor = new ContentDescriptor(_projectBase, Path.Combine(_currentRelative, path));
-
-            if (handler != null)
-                handler.call(descriptor.Properties);
-
-            _consumer.AddContent(descriptor);
-        }
+        #endregion
     }
 }

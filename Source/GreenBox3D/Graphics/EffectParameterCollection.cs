@@ -1,4 +1,12 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -10,7 +18,13 @@ namespace GreenBox3D.Graphics
 {
     public class EffectParameterCollection : IReadOnlyCollection<EffectParameter>
     {
+        #region Fields
+
         private readonly OrderedDictionary _dictionary;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         internal EffectParameterCollection(EffectParameter[] parameters)
         {
@@ -20,10 +34,22 @@ namespace GreenBox3D.Graphics
                 _dictionary.Add(parameter.Name, parameter);
         }
 
-        public int Count
-        {
-            get { return _dictionary.Count; }
-        }
+        #endregion
+
+        #region Public Properties
+
+        public int Count { get { return _dictionary.Count; } }
+
+        #endregion
+
+        #region Public Indexers
+
+        public EffectParameter this[int index] { get { return (EffectParameter)_dictionary[index]; } }
+        public EffectParameter this[string index] { get { return (EffectParameter)_dictionary[index]; } }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public IEnumerator<EffectParameter> GetEnumerator()
         {
@@ -31,19 +57,15 @@ namespace GreenBox3D.Graphics
                 yield return (EffectParameter)_dictionary[i];
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        #endregion
+
+        #region Explicit Interface Methods
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        public EffectParameter this[int index]
-        {
-            get { return (EffectParameter)_dictionary[index]; }
-        }
-
-        public EffectParameter this[string index]
-        {
-            get { return (EffectParameter)_dictionary[index]; }
-        }
+        #endregion
     }
 }

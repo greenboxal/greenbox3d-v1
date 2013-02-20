@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,13 +19,19 @@ namespace GreenBox3D.ContentPipeline
 {
     public static class PipelineManager
     {
-        private static readonly List<ImporterDescriptor> Importers;
+        #region Static Fields
+
         private static readonly Dictionary<string, ImporterDescriptor> ImporterLookup;
-        private static readonly Dictionary<string, ProcessorDescriptor> Processors;
-        private static readonly Dictionary<Type, WriterDescriptor> OutputWriters;
-        private static readonly Dictionary<Type, LoaderDescriptor> OutputLoaders;
-        private static readonly Dictionary<Type, WriterDescriptor> InstanceWriters;
+        private static readonly List<ImporterDescriptor> Importers;
         private static readonly Dictionary<Type, LoaderDescriptor> InstanceLoaders;
+        private static readonly Dictionary<Type, WriterDescriptor> InstanceWriters;
+        private static readonly Dictionary<Type, LoaderDescriptor> OutputLoaders;
+        private static readonly Dictionary<Type, WriterDescriptor> OutputWriters;
+        private static readonly Dictionary<string, ProcessorDescriptor> Processors;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         static PipelineManager()
         {
@@ -31,6 +44,62 @@ namespace GreenBox3D.ContentPipeline
             ImporterLookup = new Dictionary<string, ImporterDescriptor>();
 
             ScanAssembly(typeof(PipelineManager).Assembly);
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static ImporterDescriptor QueryImporterByExtension(string extension)
+        {
+            ImporterDescriptor importer;
+            ImporterLookup.TryGetValue(extension, out importer);
+            return importer;
+        }
+
+        public static ImporterDescriptor QueryImporterByName(string name)
+        {
+            return Importers.FirstOrDefault(importer => importer.Type.Name == name);
+        }
+
+        public static LoaderDescriptor QueryLoaderByInstanceType(Type type)
+        {
+            LoaderDescriptor loader;
+            InstanceLoaders.TryGetValue(type, out loader);
+            return loader;
+        }
+
+        public static LoaderDescriptor QueryLoaderByOutputType(Type type)
+        {
+            LoaderDescriptor loader;
+            OutputLoaders.TryGetValue(type, out loader);
+            return loader;
+        }
+
+        public static ProcessorDescriptor QueryProcessorByName(string name)
+        {
+            ProcessorDescriptor processor;
+            Processors.TryGetValue(name, out processor);
+            return processor;
+        }
+
+        public static WriterDescriptor QueryWriterByInstanceType(Type type)
+        {
+            WriterDescriptor writer;
+            InstanceWriters.TryGetValue(type, out writer);
+            return writer;
+        }
+
+        public static WriterDescriptor QueryWriterByOutputType(Type type)
+        {
+            WriterDescriptor writer;
+            OutputWriters.TryGetValue(type, out writer);
+            return writer;
+        }
+
+        public static void RegisterJustInDesignExtensions(IPipelineProject project)
+        {
+            ContentManager.Loader = new PipelineRuntimeContentLoader(project);
         }
 
         public static void ScanAssembly(Assembly assembly)
@@ -84,9 +153,7 @@ namespace GreenBox3D.ContentPipeline
             }
 
             foreach (ImporterDescriptor importer in importers)
-            {
                 importer.DefaultProcessor = QueryProcessorByName(importer.Type.GetCustomAttribute<ContentImporterAttribute>().DefaultProcessor);
-            }
 
             foreach (ProcessorDescriptor processor in processors)
             {
@@ -97,60 +164,6 @@ namespace GreenBox3D.ContentPipeline
             }
         }
 
-        public static void RegisterJustInDesignExtensions(IPipelineProject project)
-        {
-            ContentManager.Loader = new PipelineRuntimeContentLoader(project);
-        }
-
-        #region Query
-
-        public static ImporterDescriptor QueryImporterByName(string name)
-        {
-            return Importers.FirstOrDefault(importer => importer.Type.Name == name);
-        }
-
-        public static ImporterDescriptor QueryImporterByExtension(string extension)
-        {
-            ImporterDescriptor importer;
-            ImporterLookup.TryGetValue(extension, out importer);
-            return importer;
-        }
-
-        public static ProcessorDescriptor QueryProcessorByName(string name)
-        {
-            ProcessorDescriptor processor;
-            Processors.TryGetValue(name, out processor);
-            return processor;
-        }
-
-        public static WriterDescriptor QueryWriterByOutputType(Type type)
-        {
-            WriterDescriptor writer;
-            OutputWriters.TryGetValue(type, out writer);
-            return writer;
-        }
-
-        public static LoaderDescriptor QueryLoaderByOutputType(Type type)
-        {
-            LoaderDescriptor loader;
-            OutputLoaders.TryGetValue(type, out loader);
-            return loader;
-        }
-
-        public static WriterDescriptor QueryWriterByInstanceType(Type type)
-        {
-            WriterDescriptor writer;
-            InstanceWriters.TryGetValue(type, out writer);
-            return writer;
-        }
-
-        public static LoaderDescriptor QueryLoaderByInstanceType(Type type)
-        {
-            LoaderDescriptor loader;
-            InstanceLoaders.TryGetValue(type, out loader);
-            return loader;
-        }
-        
         #endregion
     }
 }

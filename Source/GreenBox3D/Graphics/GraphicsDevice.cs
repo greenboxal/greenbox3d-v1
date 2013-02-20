@@ -23,14 +23,13 @@ namespace GreenBox3D.Graphics
     {
         #region Fields
 
-        private GraphicsDeviceManager _owner;
-        private Viewport _viewport;
+        internal Shader ActiveShader;
         private IndexBuffer _indices;
         private bool _indicesDirty;
+        private GraphicsDeviceManager _owner;
         private VertexBuffer _vertices;
         private bool _verticesDirty;
-
-        internal Shader ActiveShader;
+        private Viewport _viewport;
 
         #endregion
 
@@ -53,7 +52,21 @@ namespace GreenBox3D.Graphics
 
         #region Public Properties
 
+        public IndexBuffer Indices
+        {
+            get { return _indices; }
+            set
+            {
+                if (_indices != value)
+                {
+                    _indicesDirty = true;
+                    _indices = value;
+                }
+            }
+        }
+
         public PresentationParameters PresentationParameters { get; private set; }
+        public TextureCollection Textures { get; private set; }
 
         public Viewport Viewport
         {
@@ -68,22 +81,7 @@ namespace GreenBox3D.Graphics
                 //else
 
                 GL.Viewport(value.X, PresentationParameters.BackBufferHeight - value.Y - value.Height, value.Width, value.Height);
-               // GL.DepthRange(value.MinDepth, value.MaxDepth);
-            }
-        }
-
-        public TextureCollection Textures { get; private set; }
-
-        public IndexBuffer Indices
-        {
-            get { return _indices; }
-            set
-            {
-                if (_indices != value)
-                {
-                    _indicesDirty = true;
-                    _indices = value;
-                }
+                // GL.DepthRange(value.MinDepth, value.MaxDepth);
             }
         }
 
@@ -99,7 +97,7 @@ namespace GreenBox3D.Graphics
         public void Clear(ClearOptions options)
         {
             ClearBufferMask mask = 0;
-            
+
             if ((options & ClearOptions.DepthBuffer) != 0)
                 mask |= ClearBufferMask.DepthBufferBit;
 
@@ -120,25 +118,6 @@ namespace GreenBox3D.Graphics
 
         public void Dispose()
         {
-        }
-
-        public void Initialize()
-        {
-            _viewport = new Viewport(0, 0, PresentationParameters.BackBufferWidth, PresentationParameters.BackBufferHeight);
-        }
-
-        public void Present()
-        {
-            GL.Flush();
-        }
-
-        public void SetVertexBuffer(VertexBuffer vertexBuffer)
-        {
-            if (_vertices != vertexBuffer)
-            {
-                _vertices = vertexBuffer;
-                _verticesDirty = true;
-            }
         }
 
         public void DrawIndexedPrimitives(PrimitiveType primitiveType, int baseVertex, int numVertices, int startIndex, int primitiveCount)
@@ -173,28 +152,6 @@ namespace GreenBox3D.Graphics
             GL.DrawArrays(GetBeginMode(primitiveType), startVertex, primitiveCount);
         }
 
-
-        public void DrawUserPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int primitiveCount) where T : struct, IVertexType
-        {
-            if (ActiveShader == null)
-                throw new InvalidOperationException("An Effect must be applied before calling this method");
-
-            VertexDeclaration vertexDeclaration = VertexDeclaration.FromType(typeof(T));
-            SetRenderingState(false, false);
-
-            GCHandle handle = GCHandle.Alloc(vertexData, GCHandleType.Pinned);
-            IntPtr arrayStart = Marshal.UnsafeAddrOfPinnedArrayElement(vertexData, 0);
-
-            if (vertexOffset > 0)
-                arrayStart = new IntPtr(arrayStart.ToInt32() + (vertexOffset * vertexDeclaration.VertexStride));
-
-            vertexDeclaration.Bind(this, arrayStart);
-
-            GL.DrawArrays(GetBeginMode(primitiveType), vertexOffset, primitiveCount);
-
-            handle.Free();
-        }
-
         public void DrawUserIndexedPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int vertexCount, int[] indexData, int indexOffset, int primitiveCount) where T : IVertexType
         {
             if (ActiveShader == null)
@@ -220,20 +177,49 @@ namespace GreenBox3D.Graphics
             handle.Free();
         }
 
+        public void DrawUserPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int primitiveCount) where T : struct, IVertexType
+        {
+            if (ActiveShader == null)
+                throw new InvalidOperationException("An Effect must be applied before calling this method");
+
+            VertexDeclaration vertexDeclaration = VertexDeclaration.FromType(typeof(T));
+            SetRenderingState(false, false);
+
+            GCHandle handle = GCHandle.Alloc(vertexData, GCHandleType.Pinned);
+            IntPtr arrayStart = Marshal.UnsafeAddrOfPinnedArrayElement(vertexData, 0);
+
+            if (vertexOffset > 0)
+                arrayStart = new IntPtr(arrayStart.ToInt32() + (vertexOffset * vertexDeclaration.VertexStride));
+
+            vertexDeclaration.Bind(this, arrayStart);
+
+            GL.DrawArrays(GetBeginMode(primitiveType), vertexOffset, primitiveCount);
+
+            handle.Free();
+        }
+
+        public void Initialize()
+        {
+            _viewport = new Viewport(0, 0, PresentationParameters.BackBufferWidth, PresentationParameters.BackBufferHeight);
+        }
+
+        public void Present()
+        {
+            GL.Flush();
+        }
+
+        public void SetVertexBuffer(VertexBuffer vertexBuffer)
+        {
+            if (_vertices != vertexBuffer)
+            {
+                _vertices = vertexBuffer;
+                _verticesDirty = true;
+            }
+        }
+
         #endregion
 
-        private void SetRenderingState(bool setIndex = true, bool setVertex = true)
-        {
-            if (setIndex && _indicesDirty)
-                GL.BindBuffer(BufferTarget.ElementArrayBuffer, _indices.BufferID);
-            else
-                GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
-
-            if (setVertex && _verticesDirty)
-                GL.BindBuffer(BufferTarget.ArrayBuffer, _vertices.BufferID);
-            else
-                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-        }
+        #region Methods
 
         private static BeginMode GetBeginMode(PrimitiveType primitiveType)
         {
@@ -268,5 +254,20 @@ namespace GreenBox3D.Graphics
                     throw new NotSupportedException();
             }
         }
+
+        private void SetRenderingState(bool setIndex = true, bool setVertex = true)
+        {
+            if (setIndex && _indicesDirty)
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, _indices.BufferID);
+            else
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+
+            if (setVertex && _verticesDirty)
+                GL.BindBuffer(BufferTarget.ArrayBuffer, _vertices.BufferID);
+            else
+                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        }
+
+        #endregion
     }
 }

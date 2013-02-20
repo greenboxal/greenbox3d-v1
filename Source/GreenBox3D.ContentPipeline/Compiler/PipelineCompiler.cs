@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -9,10 +16,13 @@ namespace GreenBox3D.ContentPipeline.Compiler
 {
     public class PipelineCompiler : IPipelineProjectConsumer
     {
+        #region Static Fields
+
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(PipelineCompiler));
 
-        public IPipelineProject Project { get; private set; }
-        public string OutputPath { get; set; }
+        #endregion
+
+        #region Constructors and Destructors
 
         public PipelineCompiler(IPipelineProject project)
         {
@@ -20,22 +30,28 @@ namespace GreenBox3D.ContentPipeline.Compiler
             OutputPath = project.ProjectBase;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public string OutputPath { get; set; }
+        public IPipelineProject Project { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
         public void Compile()
         {
             Project.Consume(this);
         }
 
-        void IPipelineProjectConsumer.AddReference(string name)
-        {
-            Assembly assembly = Assembly.Load(new AssemblyName(name));
-
-            if (assembly == null)
-                return;
-
-            PipelineManager.ScanAssembly(assembly);
-        }
+        #endregion
 
         // TODO: Improve resolving algorithm 
+
+        #region Explicit Interface Methods
+
         void IPipelineProjectConsumer.AddContent(ContentDescriptor content)
         {
             string extension = Path.GetExtension(content.Path);
@@ -52,7 +68,6 @@ namespace GreenBox3D.ContentPipeline.Compiler
 
             try
             {
-
                 // Create Importer
                 if (props.Importer != null)
                 {
@@ -89,7 +104,7 @@ namespace GreenBox3D.ContentPipeline.Compiler
                 // Create Processor
                 if (props.Processor != null)
                     processor = PipelineManager.QueryProcessorByName(props.Processor);
-                
+
                 if (processor == null)
                 {
                     processor = importer.DefaultProcessor;
@@ -144,6 +159,20 @@ namespace GreenBox3D.ContentPipeline.Compiler
             }
         }
 
+        void IPipelineProjectConsumer.AddReference(string name)
+        {
+            Assembly assembly = Assembly.Load(new AssemblyName(name));
+
+            if (assembly == null)
+                return;
+
+            PipelineManager.ScanAssembly(assembly);
+        }
+
+        #endregion
+
+        #region Methods
+
         private BuildContext CreateBuildContext(ContentDescriptor descriptor)
         {
             BuildContext context = new BuildContext();
@@ -153,5 +182,7 @@ namespace GreenBox3D.ContentPipeline.Compiler
 
             return context;
         }
+
+        #endregion
     }
 }

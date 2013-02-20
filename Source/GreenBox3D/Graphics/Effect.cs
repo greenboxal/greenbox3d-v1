@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +17,13 @@ namespace GreenBox3D.Graphics
 {
     public class Effect
     {
+        #region Fields
+
         internal readonly Shader Shader;
 
-        public EffectParameterCollection Parameters { get; private set; }
-        public EffectPassCollection Passes { get; private set; }
+        #endregion
 
-        internal byte[] ParameterData { get; set; }
+        #region Constructors and Destructors
 
         internal Effect(Shader shader)
         {
@@ -47,5 +55,20 @@ namespace GreenBox3D.Graphics
                 }
             }
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public EffectParameterCollection Parameters { get; private set; }
+        public EffectPassCollection Passes { get; private set; }
+
+        #endregion
+
+        #region Properties
+
+        internal byte[] ParameterData { get; set; }
+
+        #endregion
     }
 }

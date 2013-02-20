@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,15 +17,15 @@ namespace GreenBox3D.Graphics
 {
     public class VertexElement
     {
-        internal VertexAttribPointerType VertexAttribPointerType;
-        internal bool IsNormalized;
-        internal int ElementCount;
+        #region Fields
 
-        public int Offset { get; private set; }
-        public VertexElementFormat VertexElementFormat { get; private set; }
-        public VertexElementUsage VertexElementUsage { get; private set; }
-        public int UsageIndex { get; private set; }
-        public int SizeInBytes { get; private set; }
+        internal int ElementCount;
+        internal bool IsNormalized;
+        internal VertexAttribPointerType VertexAttribPointerType;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public VertexElement(int offset, VertexElementFormat elementFormat, VertexElementUsage elementUsage, int usageIndex = 0)
         {
@@ -96,5 +103,17 @@ namespace GreenBox3D.Graphics
                     break;
             }
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public int Offset { get; private set; }
+        public int SizeInBytes { get; private set; }
+        public int UsageIndex { get; private set; }
+        public VertexElementFormat VertexElementFormat { get; private set; }
+        public VertexElementUsage VertexElementUsage { get; private set; }
+
+        #endregion
     }
 }

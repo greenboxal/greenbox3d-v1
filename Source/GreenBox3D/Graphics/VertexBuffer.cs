@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,7 +18,7 @@ namespace GreenBox3D.Graphics
 {
     public class VertexBuffer : HardwareBuffer
     {
-        public VertexDeclaration VertexDeclaration { get; private set; }
+        #region Constructors and Destructors
 
         public VertexBuffer(GraphicsDevice graphicsDevice, VertexDeclaration vertexDeclaration, int vertexCount, BufferUsage usage)
             : base(graphicsDevice, BufferTarget.ArrayBuffer, vertexDeclaration.VertexStride, vertexCount, usage)
@@ -23,5 +30,13 @@ namespace GreenBox3D.Graphics
             : this(graphicsDevice, VertexDeclaration.FromType(elementType), vertexCount, usage)
         {
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public VertexDeclaration VertexDeclaration { get; private set; }
+
+        #endregion
     }
 }

@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -16,6 +23,8 @@ namespace GreenBox3D.ContentPipeline.Importers
     [ContentImporter(".bmp", ".jpg", ".png", ".gif", DisplayName = "Texture Importer", DefaultProcessor = "TextureProcessor")]
     public class TextureImporter : ContentImporter<TextureContent>
     {
+        #region Public Methods and Operators
+
         public override TextureContent Import(string filename, BuildContext context)
         {
             Texture2DContent texture = new Texture2DContent();
@@ -26,6 +35,10 @@ namespace GreenBox3D.ContentPipeline.Importers
 
             return texture;
         }
+
+        #endregion
+
+        #region Methods
 
         private static BitmapContent CreateBitmapContent(SurfaceFormat format, Bitmap input)
         {
@@ -63,25 +76,25 @@ namespace GreenBox3D.ContentPipeline.Importers
                 switch (format)
                 {
                     case SurfaceFormat.Color:
-                        {
-                            byte* ptr = (byte*)data.Scan0;
+                    {
+                        byte* ptr = (byte*)data.Scan0;
 
-                            for (int i = 0; i < bytes.Length; i += 4)
-                            {
-                                bytes[i + 0] = ptr[i + 2];
-                                bytes[i + 1] = ptr[i + 1];
-                                bytes[i + 2] = ptr[i + 0];
-                                bytes[i + 3] = ptr[i + 3];
-                            }
+                        for (int i = 0; i < bytes.Length; i += 4)
+                        {
+                            bytes[i + 0] = ptr[i + 2];
+                            bytes[i + 1] = ptr[i + 1];
+                            bytes[i + 2] = ptr[i + 0];
+                            bytes[i + 3] = ptr[i + 3];
                         }
+                    }
                         break;
                     case SurfaceFormat.Alpha8:
-                        {
-                            byte* ptr = (byte*)data.Scan0;
+                    {
+                        byte* ptr = (byte*)data.Scan0;
 
-                            for (int i = 0; i < bytes.Length; i += 4)
-                                bytes[i / 4] = ptr[i + 3];
-                        }
+                        for (int i = 0; i < bytes.Length; i += 4)
+                            bytes[i / 4] = ptr[i + 3];
+                    }
                         break;
                 }
             }
@@ -91,5 +104,7 @@ namespace GreenBox3D.ContentPipeline.Importers
 
             return content;
         }
+
+        #endregion
     }
 }

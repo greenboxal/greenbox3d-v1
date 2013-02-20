@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,26 +20,54 @@ namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class PixelBitmapContent<T> : BitmapContent where T : struct
     {
+        #region Fields
+
         private readonly T[] _data;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public PixelBitmapContent(int width, int height)
             : base(width, height)
         {
             _data = new T[width * height];
         }
-        
-        public override bool TryGetFormat(out SurfaceFormat format)
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public T GetPixel(int x, int y)
         {
-            format = SurfaceFormat.Color;
+            return _data[y * Width + x];
+        }
 
-            if (typeof(T) == typeof(byte))
-                format = SurfaceFormat.Alpha8;
-            else if (typeof(T) == typeof(Color) || typeof(T) == typeof(Vector4))
-                format = SurfaceFormat.Color;
-            else
-                return false;
+        public override byte[] GetPixelData()
+        {
+            byte[] data = new byte[Marshal.SizeOf(typeof(T)) * _data.Length];
 
-            return true;
+            GCHandle handle = GCHandle.Alloc(_data, GCHandleType.Pinned);
+            Marshal.Copy(handle.AddrOfPinnedObject(), data, 0, data.Length);
+            handle.Free();
+
+            return data;
+        }
+
+        public T[] GetRow(int y)
+        {
+            T[] row = new T[Width];
+            Buffer.BlockCopy(_data, y * Width, row, 0, Width);
+            return row;
+        }
+
+        public void ReplaceColor(T originalColor, T newColor)
+        {
+            for (int i = 0; i < _data.Length; i++)
+            {
+                if (_data[i].Equals(originalColor))
+                    _data[i] = newColor;
+            }
         }
 
         public void SetPixel(int x, int y, T color)
@@ -72,34 +107,20 @@ namespace GreenBox3D.ContentPipeline.Graphics
             handle.Free();
         }
 
-        public T GetPixel(int x, int y)
+        public override bool TryGetFormat(out SurfaceFormat format)
         {
-            return _data[y * Width + x];
+            format = SurfaceFormat.Color;
+
+            if (typeof(T) == typeof(byte))
+                format = SurfaceFormat.Alpha8;
+            else if (typeof(T) == typeof(Color) || typeof(T) == typeof(Vector4))
+                format = SurfaceFormat.Color;
+            else
+                return false;
+
+            return true;
         }
 
-        public T[] GetRow(int y)
-        {
-            T[] row = new T[Width];
-            Buffer.BlockCopy(_data, y * Width, row, 0, Width);
-            return row;
-        }
-
-        public override byte[] GetPixelData()
-        {
-            byte[] data = new byte[Marshal.SizeOf(typeof(T)) * _data.Length];
-
-            GCHandle handle = GCHandle.Alloc(_data, GCHandleType.Pinned);
-            Marshal.Copy(handle.AddrOfPinnedObject(), data, 0, data.Length);
-            handle.Free();
-
-            return data;
-        }
-
-        public void ReplaceColor(T originalColor, T newColor)
-        {
-            for (int i = 0; i < _data.Length; i++)
-                if (_data[i].Equals(originalColor))
-                    _data[i] = newColor;
-        }
+        #endregion
     }
 }

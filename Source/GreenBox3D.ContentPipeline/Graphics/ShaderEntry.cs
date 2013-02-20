@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,17 +14,13 @@ using System.Threading.Tasks;
 
 using GreenBox3D.Graphics;
 
+using IronRuby.Builtins;
+
 namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class ShaderEntry
     {
-        public string Name { get; private set; }
-        public int Version { get; set; }
-        public ShaderEntryInputCollection Input { get; private set; }
-        public ShaderVariableCollection Parameters { get; private set; }
-        public ShaderVariableCollection Globals { get; private set; }
-        public ShaderPassCollection Passes { get; private set; }
-        public string Fallback { get; set; }
+        #region Constructors and Destructors
 
         public ShaderEntry(string name)
         {
@@ -46,12 +49,12 @@ namespace GreenBox3D.ContentPipeline.Graphics
                 if (input.Value.Count >= 3)
                     index = input.Value[2];
 
-                if (type.GetType() == typeof(IronRuby.Builtins.RubyArray))
+                if (type.GetType() == typeof(RubyArray))
                     variable = new ShaderVariable((string)type[0], (string)input.Key, type[1]);
                 else
                     variable = new ShaderVariable((string)type, (string)input.Key);
 
-                if (!VertexElementUsage.TryParse(usage, true, out elementUsage))
+                if (!Enum.TryParse(usage, true, out elementUsage))
                     throw new InvalidDataException("Invalid shader input usage for '" + variable.Name + "'");
 
                 Input.Add(new ShaderEntryInput(elementUsage, index, variable));
@@ -61,7 +64,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
             {
                 ShaderVariable variable;
 
-                if (parameter.Value.GetType() == typeof(IronRuby.Builtins.RubyArray))
+                if (parameter.Value.GetType() == typeof(RubyArray))
                     variable = new ShaderVariable((string)parameter.Value[0], (string)parameter.Key, parameter.Value[1]);
                 else
                     variable = new ShaderVariable((string)parameter.Value, (string)parameter.Key);
@@ -72,8 +75,8 @@ namespace GreenBox3D.ContentPipeline.Graphics
             foreach (dynamic global in shader.global_list)
             {
                 ShaderVariable variable;
-            
-                if (global.Value.GetType() == typeof(IronRuby.Builtins.RubyArray))
+
+                if (global.Value.GetType() == typeof(RubyArray))
                     variable = new ShaderVariable((string)global.Value[0], (string)global.Key, global.Value[1]);
                 else
                     variable = new ShaderVariable((string)global.Value, (string)global.Key);
@@ -86,5 +89,19 @@ namespace GreenBox3D.ContentPipeline.Graphics
 
             Fallback = (string)shader.fallback_shader;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public string Fallback { get; set; }
+        public ShaderVariableCollection Globals { get; private set; }
+        public ShaderEntryInputCollection Input { get; private set; }
+        public string Name { get; private set; }
+        public ShaderVariableCollection Parameters { get; private set; }
+        public ShaderPassCollection Passes { get; private set; }
+        public int Version { get; set; }
+
+        #endregion
     }
 }

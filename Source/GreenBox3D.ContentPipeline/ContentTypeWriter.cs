@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -15,10 +22,13 @@ namespace GreenBox3D.ContentPipeline
 {
     public abstract class ContentTypeWriter<TInput> : IContentTypeWriter
     {
+        #region Public Properties
+
         public bool? ShouldCompress { get; set; }
 
-        protected abstract void Write(ContentWriter stream, TInput input, BuildContext context);
-        protected abstract ContentHeader GetHeader(TInput input, BuildContext context);
+        #endregion
+
+        #region Explicit Interface Methods
 
         void IContentTypeWriter.Write(Stream stream, object input, BuildContext context)
         {
@@ -70,5 +80,14 @@ namespace GreenBox3D.ContentPipeline
 
             stream.Close();
         }
+
+        #endregion
+
+        #region Methods
+
+        protected abstract ContentHeader GetHeader(TInput input, BuildContext context);
+        protected abstract void Write(ContentWriter stream, TInput input, BuildContext context);
+
+        #endregion
     }
 }

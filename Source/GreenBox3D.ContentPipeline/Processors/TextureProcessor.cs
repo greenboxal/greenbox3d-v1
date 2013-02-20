@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -15,14 +22,14 @@ namespace GreenBox3D.ContentPipeline.Processors
     [ContentProcessor(typeof(TextureTypeWriter), Loader = typeof(TextureLoader), DisplayName = "Texture Processor")]
     public class TextureProcessor : ContentProcessor<TextureContent, TextureContent>
     {
+        #region Public Methods and Operators
+
         public override TextureContent Process(TextureContent input, BuildContext context)
         {
             dynamic properties = context.Descriptor.Properties;
 
             if (properties.TransparencyKey != null)
-            {
                 TextureHelpers.MakeTransparent(input, new Color(properties.TransparencyKey[0], properties.TransparencyKey[1], properties.TransparencyKey[2]));
-            }
 
             if (properties.CreateMipmaps == true)
                 input.GenerateMipmaps(true);
@@ -31,5 +38,7 @@ namespace GreenBox3D.ContentPipeline.Processors
 
             return input;
         }
+
+        #endregion
     }
 }

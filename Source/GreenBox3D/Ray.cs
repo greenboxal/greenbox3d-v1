@@ -155,7 +155,7 @@ namespace GreenBox3D
         public void Intersects(ref Plane plane, out float? result)
         {
             var den = Vector3.Dot(Direction, plane.Normal);
-            if (System.Math.Abs(den) < 0.00001f)
+            if (Math.Abs(den) < 0.00001f)
             {
                 result = null;
                 return;
@@ -208,7 +208,7 @@ namespace GreenBox3D
             // if x^2 + z^2 - y^2 < 0, we do not intersect
             float dist = sphereRadiusSquared + distanceAlongRay * distanceAlongRay - differenceLengthSquared;
 
-            result = (dist < 0) ? null : distanceAlongRay - (float?)System.Math.Sqrt(dist);
+            result = (dist < 0) ? null : distanceAlongRay - (float?)Math.Sqrt(dist);
         }
 
         public override string ToString()

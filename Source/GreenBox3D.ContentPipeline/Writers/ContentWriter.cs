@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,11 +14,16 @@ namespace GreenBox3D.ContentPipeline.Writers
 {
     public class ContentWriter : BinaryWriter
     {
+        #region Constructors and Destructors
+
         internal ContentWriter(Stream stream, Encoding encoding)
             : base(stream, encoding, true)
         {
-
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void Write(Vector2 value)
         {
@@ -92,5 +104,7 @@ namespace GreenBox3D.ContentPipeline.Writers
             Write(value.Center);
             Write(value.Radius);
         }
+
+        #endregion
     }
 }

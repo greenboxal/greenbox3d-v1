@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,8 +19,23 @@ namespace GreenBox3D.Graphics
 {
     public static class EffectManager
     {
+        #region Static Fields
+
         private static ContentManager _contentManager;
         private static Dictionary<string, Dictionary<string, Shader>> _shaders;
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static Effect LoadEffect(string name)
+        {
+            return new Effect(LoadShader(name));
+        }
+
+        #endregion
+
+        #region Methods
 
         internal static void Intiailize(GraphicsDevice device)
         {
@@ -57,9 +79,6 @@ namespace GreenBox3D.Graphics
             return s;
         }
 
-        public static Effect LoadEffect(string name)
-        {
-            return new Effect(LoadShader(name));
-        }
+        #endregion
     }
 }

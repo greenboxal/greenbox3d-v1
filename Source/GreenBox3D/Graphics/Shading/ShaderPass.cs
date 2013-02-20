@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +17,7 @@ namespace GreenBox3D.Graphics.Shading
 {
     public class ShaderPass : GraphicsResource
     {
-        public int ProgramID { get; set; }
-        public int VertexShader { get; set; }
-        public string VertexCode { get; private set; }
-        public int PixelShader { get; set; }
-        public string PixelCode { get; private set; }
-
-        public bool Created { get; private set; }
-        public bool IsValid { get; private set; }
+        #region Constructors and Destructors
 
         public ShaderPass(GraphicsDevice device, string vertex, string pixel)
             : base(device)
@@ -29,7 +29,24 @@ namespace GreenBox3D.Graphics.Shading
             PixelCode = pixel;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public bool Created { get; private set; }
+        public bool IsValid { get; private set; }
+        public string PixelCode { get; private set; }
+        public int PixelShader { get; set; }
+        public int ProgramID { get; set; }
+        public string VertexCode { get; private set; }
+        public int VertexShader { get; set; }
+
+        #endregion
+
         // TODO: Error handling and debug
+
+        #region Public Methods and Operators
+
         public void Create()
         {
             int status;
@@ -76,6 +93,10 @@ namespace GreenBox3D.Graphics.Shading
             IsValid = true;
         }
 
+        #endregion
+
+        #region Methods
+
         protected override void Dispose(bool disposing)
         {
             GL.DeleteProgram(ProgramID);
@@ -84,5 +105,7 @@ namespace GreenBox3D.Graphics.Shading
 
             base.Dispose(disposing);
         }
+
+        #endregion
     }
 }

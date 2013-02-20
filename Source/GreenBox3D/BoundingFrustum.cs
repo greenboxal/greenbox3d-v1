@@ -181,7 +181,7 @@ namespace GreenBox3D
                 result = ContainmentType.Disjoint;
                 return;
             }
-            if (System.Math.Abs(dist) < sphere.Radius)
+            if (Math.Abs(dist) < sphere.Radius)
                 result = ContainmentType.Intersects;
 
             Vector3.Dot(ref _Top.Normal, ref sphere.Center, out dist);
@@ -191,7 +191,7 @@ namespace GreenBox3D
                 result = ContainmentType.Disjoint;
                 return;
             }
-            if (System.Math.Abs(dist) < sphere.Radius)
+            if (Math.Abs(dist) < sphere.Radius)
                 result = ContainmentType.Intersects;
 
             Vector3.Dot(ref _Near.Normal, ref sphere.Center, out dist);
@@ -201,7 +201,7 @@ namespace GreenBox3D
                 result = ContainmentType.Disjoint;
                 return;
             }
-            if (System.Math.Abs(dist) < sphere.Radius)
+            if (Math.Abs(dist) < sphere.Radius)
                 result = ContainmentType.Intersects;
 
             Vector3.Dot(ref _Far.Normal, ref sphere.Center, out dist);
@@ -211,7 +211,7 @@ namespace GreenBox3D
                 result = ContainmentType.Disjoint;
                 return;
             }
-            if (System.Math.Abs(dist) < sphere.Radius)
+            if (Math.Abs(dist) < sphere.Radius)
                 result = ContainmentType.Intersects;
 
             Vector3.Dot(ref _Left.Normal, ref sphere.Center, out dist);
@@ -221,7 +221,7 @@ namespace GreenBox3D
                 result = ContainmentType.Disjoint;
                 return;
             }
-            if (System.Math.Abs(dist) < sphere.Radius)
+            if (Math.Abs(dist) < sphere.Radius)
                 result = ContainmentType.Intersects;
 
             Vector3.Dot(ref _Right.Normal, ref sphere.Center, out dist);
@@ -231,7 +231,7 @@ namespace GreenBox3D
                 result = ContainmentType.Disjoint;
                 return;
             }
-            if (System.Math.Abs(dist) < sphere.Radius)
+            if (Math.Abs(dist) < sphere.Radius)
                 result = ContainmentType.Intersects;
         }
 

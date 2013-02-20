@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,19 +18,16 @@ namespace GreenBox3D.Graphics
 {
     public class EffectParameter
     {
-        public string Name { get; private set; }
-
-        public EffectParameterType Type { get { return Parameter.Type; } }
-        public EffectParameterClass Class { get { return Parameter.Class; } }
-
-        public int RowCount { get { return Parameter.RowCount; } }
-        public int ColumnCount { get { return Parameter.ColumnCount; } }
-
-        private readonly Effect _owner;
+        #region Fields
 
         internal bool Dirty;
         internal ShaderParameter Parameter;
         internal Texture[] Textures;
+        private readonly Effect _owner;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         internal EffectParameter(Effect owner, ShaderParameter parameter)
         {
@@ -35,11 +39,19 @@ namespace GreenBox3D.Graphics
             Dirty = true;
         }
 
-        internal unsafe void Apply(byte* ptr)
-        {
-            Parameter.Apply(&ptr[Parameter.Offset]);
-            Dirty = false;
-        }
+        #endregion
+
+        #region Public Properties
+
+        public EffectParameterClass Class { get { return Parameter.Class; } }
+        public int ColumnCount { get { return Parameter.ColumnCount; } }
+        public string Name { get; private set; }
+        public int RowCount { get { return Parameter.RowCount; } }
+        public EffectParameterType Type { get { return Parameter.Type; } }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void SetValue(Texture value)
         {
@@ -138,14 +150,6 @@ namespace GreenBox3D.Graphics
             Dirty = true;
         }
 
-        public unsafe void SetValueTranspose(Matrix value)
-        {
-            fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
-                *(Matrix*)ptr = Matrix.Transpose(value);
-
-            Dirty = true;
-        }
-
         public void SetValue(Texture[] value)
         {
             if (Class != EffectParameterClass.Sampler)
@@ -161,8 +165,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(bool*)&ptr[i * sizeof(bool)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -173,8 +179,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(int*)&ptr[i * sizeof(int)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -185,8 +193,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(float*)&ptr[i * sizeof(float)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -197,8 +207,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(double*)&ptr[i * sizeof(double)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -209,8 +221,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(Vector2*)&ptr[i * sizeof(Vector2)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -221,8 +235,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(Vector3*)&ptr[i * sizeof(Vector3)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -233,8 +249,10 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(Vector4*)&ptr[i * sizeof(Vector4)] = value[i];
+            }
 
             Dirty = true;
         }
@@ -245,8 +263,18 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(Matrix*)&ptr[i * sizeof(Matrix)] = value[i];
+            }
+
+            Dirty = true;
+        }
+
+        public unsafe void SetValueTranspose(Matrix value)
+        {
+            fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+                *(Matrix*)ptr = Matrix.Transpose(value);
 
             Dirty = true;
         }
@@ -257,10 +285,24 @@ namespace GreenBox3D.Graphics
                 throw new InvalidOperationException();
 
             fixed (byte* ptr = &_owner.ParameterData[Parameter.Offset])
+            {
                 for (int i = 0; i < value.Length; i++)
                     *(Matrix*)&ptr[i * sizeof(Matrix)] = Matrix.Transpose(value[i]);
+            }
 
             Dirty = true;
         }
+
+        #endregion
+
+        #region Methods
+
+        internal unsafe void Apply(byte* ptr)
+        {
+            Parameter.Apply(&ptr[Parameter.Offset]);
+            Dirty = false;
+        }
+
+        #endregion
     }
 }

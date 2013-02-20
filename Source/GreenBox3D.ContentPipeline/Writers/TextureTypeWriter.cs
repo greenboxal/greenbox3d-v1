@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +21,8 @@ namespace GreenBox3D.ContentPipeline.Writers
     [ContentTypeWriter(Extension = ".tex")]
     public class TextureTypeWriter : ContentTypeWriter<TextureContent>
     {
+        #region Methods
+
         protected override ContentHeader GetHeader(TextureContent input, BuildContext context)
         {
             Type type = input.GetType();
@@ -42,9 +51,7 @@ namespace GreenBox3D.ContentPipeline.Writers
                 stream.Write(first.Height);
             }
             else
-            {
                 throw new NotSupportedException("Invalid TextureContent type");
-            }
 
             foreach (MipmapChain chain in input.Faces)
             {
@@ -58,5 +65,7 @@ namespace GreenBox3D.ContentPipeline.Writers
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +15,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class ShaderPass
     {
-        public ShaderSourceCollection Headers { get; private set; }
-        public ShaderSourceCollection Include { get; private set; }
-        public ShaderSource Vertex { get; set; }
-        public ShaderSource Pixel { get; set; }
+        #region Constructors and Destructors
 
         public ShaderPass()
         {
@@ -31,5 +35,16 @@ namespace GreenBox3D.ContentPipeline.Graphics
             Vertex = new ShaderSource((string)pass.vertex_code, (string)pass.vertex_fname, pass.vertex_line);
             Pixel = new ShaderSource((string)pass.pixel_code, (string)pass.pixel_fname, pass.pixel_line);
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public ShaderSourceCollection Headers { get; private set; }
+        public ShaderSourceCollection Include { get; private set; }
+        public ShaderSource Pixel { get; set; }
+        public ShaderSource Vertex { get; set; }
+
+        #endregion
     }
 }

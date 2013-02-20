@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,9 +16,45 @@ namespace GreenBox3D.Content
 {
     public class ContentReader : BinaryReader
     {
+        #region Constructors and Destructors
+
         internal ContentReader(Stream input, Encoding encoding)
             : base(input, encoding, true)
         {
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public BoundingBox ReadBoundingBox()
+        {
+            return new BoundingBox(ReadVector3(), ReadVector3());
+        }
+
+        public BoundingSphere ReadBoundingSphere()
+        {
+            return new BoundingSphere(ReadVector3(), ReadSingle());
+        }
+
+        public Color ReadColor()
+        {
+            return new Color(ReadUInt32());
+        }
+
+        public Matrix ReadMatrix()
+        {
+            return new Matrix(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
+        }
+
+        public Point ReadPoint()
+        {
+            return new Point(ReadInt32(), ReadInt32());
+        }
+
+        public Rectangle ReadRectangle()
+        {
+            return new Rectangle(ReadInt32(), ReadInt32(), ReadInt32(), ReadInt32());
         }
 
         public Vector2 ReadVector2()
@@ -29,38 +72,6 @@ namespace GreenBox3D.Content
             return new Vector4(ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
         }
 
-        public Color ReadColor()
-        {
-            return new Color(ReadUInt32());
-        }
-
-        public Point ReadPoint()
-        {
-            return new Point(ReadInt32(), ReadInt32());
-        }
-
-        public Rectangle ReadRectangle()
-        {
-            return new Rectangle(ReadInt32(), ReadInt32(), ReadInt32(), ReadInt32());
-        }
-
-        public Matrix ReadMatrix()
-        {
-            return new Matrix(
-                ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(),
-                ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(),
-                ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle(),
-                ReadSingle(), ReadSingle(), ReadSingle(), ReadSingle());
-        }
-
-        public BoundingBox ReadBoundingBox()
-        {
-            return new BoundingBox(ReadVector3(), ReadVector3());
-        }
-
-        public BoundingSphere ReadBoundingSphere()
-        {
-            return new BoundingSphere(ReadVector3(), ReadSingle());
-        }
+        #endregion
     }
 }

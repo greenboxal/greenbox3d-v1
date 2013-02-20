@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +15,19 @@ namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class Texture2DContent : TextureContent
     {
-        public MipmapChain Mipmaps { get { return Faces[0]; } set { Faces[0] = value; } }
+        #region Constructors and Destructors
 
         public Texture2DContent()
-            : base(new MipmapChainCollection() { new MipmapChain() })
+            : base(new MipmapChainCollection { new MipmapChain() })
         {
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public MipmapChain Mipmaps { get { return Faces[0]; } set { Faces[0] = value; } }
+
+        #endregion
     }
 }

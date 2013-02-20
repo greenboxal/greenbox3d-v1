@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,10 +16,16 @@ namespace GreenBox3D.ContentPipeline
 {
     public class ImporterDescriptor
     {
-        public Type Type;
+        #region Fields
+
+        public ProcessorDescriptor DefaultProcessor;
         public string DisplayName;
         public string[] Extensions;
-        public ProcessorDescriptor DefaultProcessor;
+        public Type Type;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ImporterDescriptor(Type type)
         {
@@ -23,20 +36,32 @@ namespace GreenBox3D.ContentPipeline
             Extensions = info.Extensions;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public IContentImporter Create()
         {
             return (IContentImporter)Activator.CreateInstance(Type);
         }
+
+        #endregion
     }
 
     public class ProcessorDescriptor
     {
-        public Type Type;
-        public Type Input;
-        public Type Output;
+        #region Fields
+
         public string DisplayName;
-        public WriterDescriptor Writer;
+        public Type Input;
         public LoaderDescriptor Loader;
+        public Type Output;
+        public Type Type;
+        public WriterDescriptor Writer;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ProcessorDescriptor(Type type)
         {
@@ -48,16 +73,28 @@ namespace GreenBox3D.ContentPipeline
             DisplayName = info.DisplayName;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public IContentProcessor Create()
         {
             return (IContentProcessor)Activator.CreateInstance(Type);
         }
+
+        #endregion
     }
 
     public class LoaderDescriptor
     {
-        public Type Type;
+        #region Fields
+
         public Type Loadee;
+        public Type Type;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public LoaderDescriptor(Type type)
         {
@@ -65,16 +102,28 @@ namespace GreenBox3D.ContentPipeline
             Loadee = type.BaseType.GenericTypeArguments[0];
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public IContentLoader Create()
         {
             return (IContentLoader)Activator.CreateInstance(Type);
         }
+
+        #endregion
     }
 
     public class WriterDescriptor
     {
-        public Type Type;
+        #region Fields
+
         public string Extension;
+        public Type Type;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public WriterDescriptor(Type type)
         {
@@ -84,9 +133,15 @@ namespace GreenBox3D.ContentPipeline
             Extension = attribute.Extension;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public IContentTypeWriter Create()
         {
             return (IContentTypeWriter)Activator.CreateInstance(Type);
         }
+
+        #endregion
     }
 }

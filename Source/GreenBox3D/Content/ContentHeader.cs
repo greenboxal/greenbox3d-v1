@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +15,7 @@ namespace GreenBox3D.Content
 {
     public class ContentHeader
     {
-        public string Magic { get; private set; }
-        public Version Version { get; private set; }
-        public Encoding Encoding { get; private set; }
+        #region Constructors and Destructors
 
         public ContentHeader(string magic, Version version, Encoding encoding = null)
         {
@@ -18,5 +23,15 @@ namespace GreenBox3D.Content
             Version = version;
             Encoding = encoding ?? Encoding.UTF8;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public Encoding Encoding { get; private set; }
+        public string Magic { get; private set; }
+        public Version Version { get; private set; }
+
+        #endregion
     }
 }

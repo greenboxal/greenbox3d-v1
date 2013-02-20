@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -14,11 +21,21 @@ namespace GreenBox3D.ContentPipeline
 {
     internal class PipelineRuntimeContentLoader : IRuntimeContentLoader, IPipelineProjectConsumer
     {
+        #region Static Fields
+
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(PipelineRuntimeContentLoader));
 
-        private readonly IPipelineProject _project;
+        #endregion
+
+        #region Fields
+
         private readonly Dictionary<string, ContentDescriptor> _fileMap;
         private readonly Dictionary<string, Tuple<LoaderDescriptor, object, BuildContext>> _processorCache;
+        private readonly IPipelineProject _project;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public PipelineRuntimeContentLoader(IPipelineProject project)
         {
@@ -27,6 +44,10 @@ namespace GreenBox3D.ContentPipeline
             _project = project;
             _project.Consume(this);
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public T LoadContent<T>(ContentManager manager, string filename) where T : class
         {
@@ -47,7 +68,26 @@ namespace GreenBox3D.ContentPipeline
             return (T)result;
         }
 
+        #endregion
+
+        #region Explicit Interface Methods
+
+        void IPipelineProjectConsumer.AddContent(ContentDescriptor content)
+        {
+            _fileMap[ContentManager.NormalizePath(Path.Combine(Path.GetDirectoryName(content.RelativePath), Path.GetFileNameWithoutExtension(content.RelativePath)))] = content;
+        }
+
+        void IPipelineProjectConsumer.AddReference(string name)
+        {
+            PipelineManager.ScanAssembly(Assembly.Load(new AssemblyName(name)));
+        }
+
+        #endregion
+
         // TODO: Improve resolving algorithm 
+
+        #region Methods
+
         private object Compile(ContentManager manager, string normalized, ContentDescriptor content)
         {
             string extension = Path.GetExtension(content.Path);
@@ -150,14 +190,6 @@ namespace GreenBox3D.ContentPipeline
             return context;
         }
 
-        void IPipelineProjectConsumer.AddReference(string name)
-        {
-            PipelineManager.ScanAssembly(Assembly.Load(new AssemblyName(name)));
-        }
-
-        void IPipelineProjectConsumer.AddContent(ContentDescriptor content)
-        {
-            _fileMap[ContentManager.NormalizePath(Path.Combine(Path.GetDirectoryName(content.RelativePath), Path.GetFileNameWithoutExtension(content.RelativePath)))] = content;
-        }
+        #endregion
     }
 }

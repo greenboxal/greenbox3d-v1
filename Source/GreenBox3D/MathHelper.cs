@@ -14,13 +14,13 @@ namespace GreenBox3D
     {
         #region Constants
 
-        public const float E = (float)System.Math.E;
+        public const float E = (float)Math.E;
         public const float Log10E = 0.4342945f;
         public const float Log2E = 1.442695f;
-        public const float Pi = (float)System.Math.PI;
-        public const float PiOver2 = (float)(System.Math.PI / 2.0);
-        public const float PiOver4 = (float)(System.Math.PI / 4.0);
-        public const float TwoPi = (float)(System.Math.PI * 2.0);
+        public const float Pi = (float)Math.PI;
+        public const float PiOver2 = (float)(Math.PI / 2.0);
+        public const float PiOver4 = (float)(Math.PI / 4.0);
+        public const float TwoPi = (float)(Math.PI * 2.0);
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace GreenBox3D
 
         public static float Distance(float value1, float value2)
         {
-            return System.Math.Abs(value1 - value2);
+            return Math.Abs(value1 - value2);
         }
 
         public static float Hermite(float value1, float tangent1, float value2, float tangent2, float amount)
@@ -86,12 +86,12 @@ namespace GreenBox3D
 
         public static float Max(float value1, float value2)
         {
-            return System.Math.Max(value1, value2);
+            return Math.Max(value1, value2);
         }
 
         public static float Min(float value1, float value2)
         {
-            return System.Math.Min(value1, value2);
+            return Math.Min(value1, value2);
         }
 
         public static float SmoothStep(float value1, float value2, float amount)
@@ -122,7 +122,7 @@ namespace GreenBox3D
 
         public static float WrapAngle(float angle)
         {
-            angle = (float)System.Math.IEEERemainder(angle, 6.2831854820251465);
+            angle = (float)Math.IEEERemainder(angle, 6.2831854820251465);
             if (angle <= -3.14159274f)
                 angle += 6.28318548f;
             else

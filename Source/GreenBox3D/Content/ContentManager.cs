@@ -18,14 +18,6 @@ namespace GreenBox3D.Content
 {
     public class ContentManager : IDisposable
     {
-        #region Static Fields
-
-        internal static IRuntimeContentLoader Loader { get; set; }
-
-        public static bool CheckContentChecksum { get; set; }
-
-        #endregion
-
         #region Fields
 
         private readonly Dictionary<string, object> _cache;
@@ -63,11 +55,23 @@ namespace GreenBox3D.Content
 
         #region Public Properties
 
+        public static bool CheckContentChecksum { get; set; }
         public GraphicsDevice GraphicsDevice { get { return _graphicsDevice; } }
 
         #endregion
 
+        #region Properties
+
+        internal static IRuntimeContentLoader Loader { get; set; }
+
+        #endregion
+
         #region Public Methods and Operators
+
+        public static string NormalizePath(string path)
+        {
+            return path.Replace('\\', '/');
+        }
 
         public void CacheObject(string filename, object value)
         {
@@ -141,11 +145,6 @@ namespace GreenBox3D.Content
             }
 
             return Loader.LoadContent<T>(this, filename);
-        }
-
-        public static string NormalizePath(string path)
-        {
-            return path.Replace('\\', '/');
         }
 
         #endregion

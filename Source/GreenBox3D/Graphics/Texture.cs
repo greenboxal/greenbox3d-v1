@@ -1,4 +1,11 @@
-﻿using System;
+﻿// GreenBox3D
+// 
+// Copyright (c) 2013 The GreenBox Development Inc.
+// Copyright (c) 2013 Mono.Xna Team and Contributors
+// 
+// Licensed under MIT license terms.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +17,17 @@ namespace GreenBox3D.Graphics
 {
     public abstract class Texture : GraphicsResource
     {
-        internal int TextureID;
-        internal TextureTarget TextureTarget;
+        #region Fields
+
         internal PixelInternalFormat InternalFormat;
         internal PixelFormat PixelFormat;
         internal PixelType PixelType;
+        internal int TextureID;
+        internal TextureTarget TextureTarget;
 
-        public SurfaceFormat Format { get; private set; }
-        public int LevelCount { get; protected set; }
+        #endregion
+
+        #region Constructors and Destructors
 
         protected Texture(GraphicsDevice graphicsDevice, SurfaceFormat format)
             : base(graphicsDevice)
@@ -27,6 +37,17 @@ namespace GreenBox3D.Graphics
             Format = format;
             GetOpenGLTextureFormat(format, out InternalFormat, out PixelFormat, out PixelType);
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public SurfaceFormat Format { get; private set; }
+        public int LevelCount { get; protected set; }
+
+        #endregion
+
+        #region Methods
 
         internal static void GetOpenGLTextureFormat(SurfaceFormat format, out PixelInternalFormat glInternalFormat, out PixelFormat glFormat, out PixelType glType)
         {
@@ -85,5 +106,7 @@ namespace GreenBox3D.Graphics
         }
 
         internal abstract void Create(bool texImage = false);
+
+        #endregion
     }
 }
