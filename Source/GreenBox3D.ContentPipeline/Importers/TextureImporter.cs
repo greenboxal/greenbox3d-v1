@@ -44,7 +44,7 @@ namespace GreenBox3D.ContentPipeline.Importers
             switch (format)
             {
                 case SurfaceFormat.Color:
-                    content = new PixelBitmapContent<GreenBox3D.Math.Color>(input.Width, input.Height);
+                    content = new PixelBitmapContent<Color>(input.Width, input.Height);
                     bpp = 4;
                     break;
                 case SurfaceFormat.Alpha8:
@@ -55,7 +55,7 @@ namespace GreenBox3D.ContentPipeline.Importers
                     throw new NotSupportedException("Unsupported target pixel format.");
             }
 
-            BitmapData data = input.LockBits(new Rectangle(0, 0, input.Width, input.Height), ImageLockMode.ReadOnly, input.PixelFormat);
+            BitmapData data = input.LockBits(new System.Drawing.Rectangle(0, 0, input.Width, input.Height), ImageLockMode.ReadOnly, input.PixelFormat);
             byte[] bytes = new byte[input.Width * input.Height * bpp];
 
             unsafe

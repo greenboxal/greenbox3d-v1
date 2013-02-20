@@ -17,7 +17,6 @@ using GreenBox3D.Content;
 using GreenBox3D.ContentPipeline.Compiler;
 using GreenBox3D.Graphics;
 using GreenBox3D.Input;
-using GreenBox3D.Math;
 
 namespace TestApp
 {
@@ -46,15 +45,42 @@ namespace TestApp
             base.Initialize();
         }
 
-        private Effect effect;
+        private Effect _effect;
+        private IndexBuffer _indices;
+        private VertexBuffer _vertices;
         protected override void LoadContent()
         {
-            effect = EffectManager.LoadEffect("Simple/Simple");
+            _effect = EffectManager.LoadEffect("Simple/Simple");
+            
+            int[] indices = new[] { 0, 1, 2 };
+            VertexPositionNormalColor[] positions = new[]
+            {
+                new VertexPositionNormalColor(new Vector3(0.75f, 0.75f, 0.0f), new Vector3(), new Color(255, 0, 0)), 
+                new VertexPositionNormalColor(new Vector3(0.75f, -0.75f, 0.0f), new Vector3(), new Color(0, 255, 0)),
+                new VertexPositionNormalColor(new Vector3(-0.75f, -0.75f, 0.0f), new Vector3(), new Color(0, 0, 255)),
+            };
+
+            _indices = new IndexBuffer(GraphicsDevice, IndexElementSize.ThirtyTwoBits, indices.Length, BufferUsage.StaticDraw);
+            _indices.SetData(indices);
+
+            _vertices = new VertexBuffer(GraphicsDevice, typeof(VertexPositionNormalColor), positions.Length, BufferUsage.StaticDraw);
+            _vertices.SetData(positions);
         }
 
         protected override void Render(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
+
+            GraphicsDevice.Indices = _indices;
+            GraphicsDevice.SetVertexBuffer(_vertices);
+
+            _effect.Parameters["WorldViewProjection"].SetValue(Matrix.Identity);
+
+            foreach (EffectPass pass in _effect.Passes)
+            {
+                pass.Apply();
+                GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, _indices.ElementCount, 0, 1);
+            }
         }
 
         protected override void Update(GameTime gameTime)

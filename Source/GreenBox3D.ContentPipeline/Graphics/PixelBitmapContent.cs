@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GreenBox3D.Graphics;
-using GreenBox3D.Math;
 
 using IronRuby.Builtins;
 

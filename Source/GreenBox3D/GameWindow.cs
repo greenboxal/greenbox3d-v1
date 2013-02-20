@@ -11,8 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using GreenBox3D.Math;
-
 namespace GreenBox3D
 {
     public abstract class GameWindow

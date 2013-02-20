@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 using GreenBox3D.Graphics;
 using GreenBox3D.Input;
-using GreenBox3D.Math;
 
 using OpenTK;
 

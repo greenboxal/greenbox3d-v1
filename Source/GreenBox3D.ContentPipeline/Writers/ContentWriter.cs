@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-using GreenBox3D.Math;
-
 namespace GreenBox3D.ContentPipeline.Writers
 {
     public class ContentWriter : BinaryWriter

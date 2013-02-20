@@ -62,13 +62,13 @@ namespace GreenBox3D
         public Game()
         {
             _instance = this;
-            _graphicsDeviceManager = new GraphicsDeviceManager(this);
-
-            Content = new ContentManager(_graphicsDeviceManager.GraphicsDevice);
 
             Platform = GamePlatform.Create(this);
             Platform.Activated += OnActivated;
             Platform.Deactivated += OnDeactivated;
+
+            _graphicsDeviceManager = new GraphicsDeviceManager(this);
+            Content = new ContentManager(_graphicsDeviceManager.GraphicsDevice);
 
             // Set the window title.
             // TODO: Get the title from the WindowsPhoneManifest.xml for WP7 projects.

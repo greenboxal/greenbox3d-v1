@@ -85,6 +85,7 @@
     <Compile Include="Audio\AudioEngine.cs" />
     <Compile Include="Audio\AudioListener.cs" />
     <Compile Include="Audio\Sound.cs" />
+    <Compile Include="Graphics\BufferUsage.cs" />
     <Compile Include="Graphics\Effect.cs" />
     <Compile Include="Graphics\EffectParameterType.cs" />
     <Compile Include="Graphics\EffectManager.cs" />
@@ -92,6 +93,11 @@
     <Compile Include="Graphics\EffectParameterCollection.cs" />
     <Compile Include="Graphics\EffectPass.cs" />
     <Compile Include="Graphics\EffectPassCollection.cs" />
+    <Compile Include="Graphics\HardwareBuffer.cs" />
+    <Compile Include="Graphics\IndexBuffer.cs" />
+    <Compile Include="Graphics\IndexElementSize.cs" />
+    <Compile Include="Graphics\IVertexType.cs" />
+    <Compile Include="Graphics\PrimitiveType.cs" />
     <Compile Include="Graphics\Shading\ShaderType.cs" />
     <Compile Include="Graphics\Shading\Shader.cs" />
     <Compile Include="Graphics\Shading\ShaderCollection.cs" />
@@ -100,14 +106,20 @@
     <Compile Include="Graphics\Shading\ShaderPassCollection.cs" />
     <Compile Include="Graphics\Shading\ShaderParameter.cs" />
     <Compile Include="Graphics\EffectParameterClass.cs" />
+    <Compile Include="Graphics\VertexBuffer.cs" />
+    <Compile Include="Graphics\VertexDeclaration.cs" />
+    <Compile Include="Graphics\VertexElement.cs" />
+    <Compile Include="Graphics\VertexElementFormat.cs" />
+    <Compile Include="Graphics\VertexElementUsage.cs" />
+    <Compile Include="Graphics\VertexPositionNormalColor.cs" />
     <Compile Include="ILogRouter.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="LogManager.cs" />
-    <Compile Include="Math\BoundingBox.cs" />
-    <Compile Include="Math\BoundingSphere.cs" />
-    <Compile Include="Math\Color.cs" />
-    <Compile Include="Math\BoundingFrustum.cs" />
-    <Compile Include="Math\ContainmentType.cs" />
+    <Compile Include="BoundingBox.cs" />
+    <Compile Include="BoundingSphere.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="BoundingFrustum.cs" />
+    <Compile Include="ContainmentType.cs" />
     <Compile Include="Content\ContentCachePolicy.cs" />
     <Compile Include="Content\ContentManager.cs" />
     <Compile Include="Content\FileManager.cs" />
@@ -126,7 +138,7 @@
     <Compile Include="Graphics\Texture2D.cs" />
     <Compile Include="Graphics\TextureCollection.cs" />
     <Compile Include="ILogger.cs" />
-    <Compile Include="Math\PlaneHelper.cs" />
+    <Compile Include="PlaneHelper.cs" />
     <Compile Include="Platform\Desktop\DesktopPlatform.cs" />
     <Compile Include="Platform\Desktop\DesktopWindow.cs" />
     <Compile Include="Platform\Desktop\KeyboardUtil.cs" />
@@ -138,27 +150,29 @@
     <Compile Include="Input\Keys.cs" />
     <Compile Include="Input\KeyState.cs" />
     <Compile Include="Input\MouseState.cs" />
-    <Compile Include="Math\MathHelper.cs" />
-    <Compile Include="Math\Matrix.cs" />
-    <Compile Include="Math\Plane.cs" />
-    <Compile Include="Math\PlaneIntersectionType.cs" />
+    <Compile Include="MathHelper.cs" />
+    <Compile Include="Matrix.cs" />
+    <Compile Include="Plane.cs" />
+    <Compile Include="PlaneIntersectionType.cs" />
     <Compile Include="GameWindow.cs" />
     <Compile Include="Platform\GamePlatform.cs" />
-    <Compile Include="Math\Point.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="PresentInterval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Math\Quaternion.cs" />
-    <Compile Include="Math\Ray.cs" />
-    <Compile Include="Math\Rectangle.cs" />
+    <Compile Include="Quaternion.cs" />
+    <Compile Include="Ray.cs" />
+    <Compile Include="Rectangle.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
     <Compile Include="Utilities\ContentCrc32.cs" />
     <Compile Include="Window.cs" />
-    <Compile Include="Math\Vector2.cs" />
-    <Compile Include="Math\Vector3.cs" />
-    <Compile Include="Math\Vector4.cs" />
+    <Compile Include="Vector2.cs" />
+    <Compile Include="Vector3.cs" />
+    <Compile Include="Vector4.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Math\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using GreenBox3D.Math;
-
 namespace GreenBox3D.Content
 {
     public class ContentReader : BinaryReader

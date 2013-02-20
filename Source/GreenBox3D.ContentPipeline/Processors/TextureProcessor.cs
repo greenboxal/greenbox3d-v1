@@ -9,7 +9,6 @@ using GreenBox3D.ContentPipeline.Compiler;
 using GreenBox3D.ContentPipeline.Graphics;
 using GreenBox3D.ContentPipeline.Loaders;
 using GreenBox3D.ContentPipeline.Writers;
-using GreenBox3D.Math;
 
 namespace GreenBox3D.ContentPipeline.Processors
 {

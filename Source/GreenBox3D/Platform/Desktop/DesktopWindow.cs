@@ -24,7 +24,7 @@ using OpenTK.Input;
 
 using Keyboard = GreenBox3D.Input.Keyboard;
 using Mouse = GreenBox3D.Input.Mouse;
-using Rectangle = GreenBox3D.Math.Rectangle;
+using Rectangle = GreenBox3D.Rectangle;
 
 namespace GreenBox3D.Platform.Desktop
 {

@@ -4,20 +4,15 @@ shader "Simple/Simple" do
 	input(
 		:position => :vec3,
 		:normal => :vec3,
-		:texCoord => :vec2
+		:color => :vec4
 	)
 	parameters(
-		:texture => :sampler2D,
-		:matrix => :mat4,
-		:alpha => :float
+		:worldViewProjection => :mat4
 	)
 	globals(
-		:texCoord => :vec2
+		:color => :vec4
 	)
 	pass do
-		state do |s|
-		#	s.blend_state = BlendState::alpha_blend
-		end
 		vertex_file "Simple/Simple.vert"
 		pixel_file "Simple/Simple.frag"
 	end

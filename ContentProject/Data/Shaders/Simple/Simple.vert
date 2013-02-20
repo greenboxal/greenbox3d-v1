@@ -1,6 +1,6 @@
 
 void main()
 {
-	gTexCoord = iTexCoord;
-	gl_Position = uMatrix * vec4(iPosition, 1.0);
+	gColor = iColor;
+	gl_Position = uWorldViewProjection * vec4(iPosition, 1.0);
 }

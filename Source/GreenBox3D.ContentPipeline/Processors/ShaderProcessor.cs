@@ -81,9 +81,9 @@ namespace GreenBox3D.ContentPipeline.Processors
 
             if (type == ShaderType.Vertex)
             {
-                foreach (ShaderVariable input in entry.Input)
+                for (int i = 0; i < entry.Input.Count; i++)
                 {
-                    c.AppendFormat("{0} {1};\n", attribute, BuildVariable(input, "i"));
+                    c.AppendFormat("layout(location = {0}) {1} {2};\n", i, attribute, BuildVariable(entry.Input[i], "i"));
                 }
             }
 

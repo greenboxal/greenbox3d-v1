@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GreenBox3D.Graphics;
-using GreenBox3D.Math;
 
 namespace GreenBox3D.ContentPipeline.Graphics
 {
