@@ -112,18 +112,6 @@ namespace GreenBox3D.Graphics
                 }
             }
 
-            foreach (VertexElement element in _vertexElements)
-            {
-                int index = graphicsDevice.ActiveShader.GetInputIndex(element.VertexElementUsage, element.UsageIndex);
-
-                if (index == -1)
-                {
-                }
-                else
-                {
-                }
-            }
-
             _lastUsed = this;
             _lastUsedPointer = source;
             _lastUsedShader = graphicsDevice.ActiveShader;
