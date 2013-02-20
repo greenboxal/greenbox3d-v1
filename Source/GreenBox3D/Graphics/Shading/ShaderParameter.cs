@@ -8,7 +8,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GreenBox3D.Graphics.Shading
 {
-    internal class ShaderParameter
+    public class ShaderParameter
     {
         public unsafe delegate void ApplyDelegate(byte* ptr);
 

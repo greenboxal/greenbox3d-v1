@@ -27,9 +27,9 @@ namespace GreenBox3D.ContentPipeline.Processors
                 CompiledShaderEntry compiled = new CompiledShaderEntry(entry.Name);
 
                 compiled.Version = entry.Version;
-
-                foreach (ShaderVariable var in entry.Input)
-                    compiled.Input.Add(Captalize(var));
+                
+                foreach (ShaderEntryInput var in entry.Input)
+                    compiled.Input.Add(new ShaderEntryInput(var.Usage, var.UsageIndex, Captalize(var.Variable)));
 
                 foreach (ShaderVariable var in entry.Parameters)
                     compiled.Parameters.Add(Captalize(var));
@@ -83,7 +83,7 @@ namespace GreenBox3D.ContentPipeline.Processors
             {
                 for (int i = 0; i < entry.Input.Count; i++)
                 {
-                    c.AppendFormat("layout(location = {0}) {1} {2};\n", i, attribute, BuildVariable(entry.Input[i], "i"));
+                    c.AppendFormat("layout(location = {0}) {1} {2};\n", i, attribute, BuildVariable(entry.Input[i].Variable, "i"));
                 }
             }
 

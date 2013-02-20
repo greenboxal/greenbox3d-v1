@@ -67,6 +67,7 @@ namespace GreenBox3D.Graphics
             if (applyTextures)
                 _pass.GraphicsDevice.Textures.Apply();
 
+            _pass.GraphicsDevice.ActiveShader = _owner.Shader;
             _lastEffect = _owner;
         }
     }

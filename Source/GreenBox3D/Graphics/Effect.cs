@@ -10,7 +10,7 @@ namespace GreenBox3D.Graphics
 {
     public class Effect
     {
-        private readonly Shader _shader;
+        internal readonly Shader Shader;
 
         public EffectParameterCollection Parameters { get; private set; }
         public EffectPassCollection Passes { get; private set; }
@@ -19,16 +19,16 @@ namespace GreenBox3D.Graphics
 
         internal Effect(Shader shader)
         {
-            _shader = shader;
-            ParameterData = new byte[_shader.ParametersSize];
+            Shader = shader;
+            ParameterData = new byte[Shader.ParametersSize];
 
-            EffectParameter[] parameters = new EffectParameter[_shader.Parameters.Count];
-            for (int i = 0; i < _shader.Parameters.Count; i++)
-                parameters[i] = new EffectParameter(this, _shader.Parameters[i]);
+            EffectParameter[] parameters = new EffectParameter[Shader.Parameters.Count];
+            for (int i = 0; i < Shader.Parameters.Count; i++)
+                parameters[i] = new EffectParameter(this, Shader.Parameters[i]);
 
-            EffectPass[] passes = new EffectPass[_shader.Passes.Count];
-            for (int i = 0; i < _shader.Passes.Count; i++)
-                passes[i] = new EffectPass(this, _shader.Passes[i]);
+            EffectPass[] passes = new EffectPass[Shader.Passes.Count];
+            for (int i = 0; i < Shader.Passes.Count; i++)
+                passes[i] = new EffectPass(this, Shader.Passes[i]);
 
             Parameters = new EffectParameterCollection(parameters);
             Passes = new EffectPassCollection(passes);

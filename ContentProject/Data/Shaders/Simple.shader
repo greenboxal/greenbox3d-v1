@@ -2,9 +2,9 @@
 shader "Simple/Simple" do
 	version 400
 	input(
-		:position => :vec3,
-		:normal => :vec3,
-		:color => :vec4
+		:position => [:vec3, :position],
+		:normal => [:vec3, :normal],
+		:color => [:vec4, :color]
 	)
 	parameters(
 		:worldViewProjection => :mat4

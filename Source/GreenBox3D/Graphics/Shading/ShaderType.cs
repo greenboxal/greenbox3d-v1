@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreenBox3D.Graphics.Shading
 {
-    internal enum ShaderType
+    public enum ShaderType
     {
         Vertex,
         Fragment

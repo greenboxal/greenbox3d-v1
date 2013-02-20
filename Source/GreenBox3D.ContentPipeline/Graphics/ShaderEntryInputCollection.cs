@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenBox3D.Graphics.Shading
+namespace GreenBox3D.ContentPipeline.Graphics
 {
-    public class ShaderCollection : Collection<Shader>
+    public class ShaderEntryInputCollection : Collection<ShaderEntryInput>
     {
     }
 }

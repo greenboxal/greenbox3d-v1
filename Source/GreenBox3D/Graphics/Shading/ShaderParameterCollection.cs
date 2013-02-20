@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GreenBox3D.Graphics.Shading
 {
-    internal class ShaderParameterCollection : Collection<ShaderParameter>
+    public class ShaderParameterCollection : Collection<ShaderParameter>
     {
     }
 }

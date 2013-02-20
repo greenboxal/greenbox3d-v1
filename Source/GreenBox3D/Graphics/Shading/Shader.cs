@@ -8,11 +8,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GreenBox3D.Graphics.Shading
 {
-    internal class Shader : GraphicsResource
+    public class Shader : GraphicsResource
     {
         public string Name { get; private set; }
         public int Version { get; set; }
         public string Fallback { get; set; }
+
+        public ShaderInput[] Input { get; set; }
         public ShaderPassCollection Passes { get; private set; }
 
         public ShaderParameterCollection Parameters { get; private set; }
@@ -27,8 +29,8 @@ namespace GreenBox3D.Graphics.Shading
             Name = name;
             Version = 110;
             Fallback = null;
-            Parameters = new ShaderParameterCollection();
             Passes = new ShaderPassCollection();
+            Parameters = new ShaderParameterCollection();
             Created = false;
             IsValid = false;
         }
@@ -70,6 +72,15 @@ namespace GreenBox3D.Graphics.Shading
             }
 
             Created = true;
+        }
+
+        public int GetInputIndex(VertexElementUsage usage, int usageIndex)
+        {
+            foreach (ShaderInput input in Input)
+                if (input.Usage == usage && input.UsageIndex == usageIndex)
+                    return input.Index;
+
+            return -1;
         }
     }
 }

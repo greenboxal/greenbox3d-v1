@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using GreenBox3D.Graphics;
 
 namespace GreenBox3D.ContentPipeline.Graphics
 {
@@ -10,7 +13,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
     {
         public string Name { get; private set; }
         public int Version { get; set; }
-        public ShaderVariableCollection Input { get; private set; }
+        public ShaderEntryInputCollection Input { get; private set; }
         public ShaderVariableCollection Parameters { get; private set; }
         public ShaderVariableCollection Globals { get; private set; }
         public ShaderPassCollection Passes { get; private set; }
@@ -19,7 +22,7 @@ namespace GreenBox3D.ContentPipeline.Graphics
         public ShaderEntry(string name)
         {
             Name = name;
-            Input = new ShaderVariableCollection();
+            Input = new ShaderEntryInputCollection();
             Parameters = new ShaderVariableCollection();
             Globals = new ShaderVariableCollection();
             Passes = new ShaderPassCollection();
@@ -34,13 +37,24 @@ namespace GreenBox3D.ContentPipeline.Graphics
             foreach (dynamic input in shader.inputs)
             {
                 ShaderVariable variable;
+                VertexElementUsage elementUsage;
 
-                if (input.Value.GetType() == typeof(IronRuby.Builtins.RubyArray))
-                    variable = new ShaderVariable((string)input.Value[0], (string)input.Key, input.Value[1]);
+                dynamic type = input.Value[0];
+                string usage = (string)input.Value[1];
+                int index = 0;
+
+                if (input.Value.Count >= 3)
+                    index = input.Value[2];
+
+                if (type.GetType() == typeof(IronRuby.Builtins.RubyArray))
+                    variable = new ShaderVariable((string)type[0], (string)input.Key, type[1]);
                 else
-                    variable = new ShaderVariable((string)input.Value, (string)input.Key);
+                    variable = new ShaderVariable((string)type, (string)input.Key);
 
-                Input.Add(variable);
+                if (!VertexElementUsage.TryParse(usage, true, out elementUsage))
+                    throw new InvalidDataException("Invalid shader input usage for '" + variable.Name + "'");
+
+                Input.Add(new ShaderEntryInput(elementUsage, index, variable));
             }
 
             foreach (dynamic parameter in shader.pars)

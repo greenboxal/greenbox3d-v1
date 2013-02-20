@@ -33,7 +33,15 @@ namespace GreenBox3D.ContentPipeline.Writers
                 stream.Write(shader.Globals.Count);
                 stream.Write(shader.Passes.Count);
 
-                WriteVariables(stream, shader.Input);
+                foreach (ShaderEntryInput i in shader.Input)
+                {
+                    stream.Write(i.Variable.Type);
+                    stream.Write(i.Variable.Name);
+                    stream.Write(i.Variable.Size);
+                    stream.Write((int)i.Usage);
+                    stream.Write(i.UsageIndex);
+                }
+
                 WriteVariables(stream, shader.Parameters);
                 WriteVariables(stream, shader.Globals);
 

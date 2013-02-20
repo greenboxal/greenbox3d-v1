@@ -98,6 +98,7 @@
     <Compile Include="Graphics\IndexElementSize.cs" />
     <Compile Include="Graphics\IVertexType.cs" />
     <Compile Include="Graphics\PrimitiveType.cs" />
+    <Compile Include="Graphics\Shading\ShaderInput.cs" />
     <Compile Include="Graphics\Shading\ShaderType.cs" />
     <Compile Include="Graphics\Shading\Shader.cs" />
     <Compile Include="Graphics\Shading\ShaderCollection.cs" />

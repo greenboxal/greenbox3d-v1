@@ -26,6 +26,10 @@ namespace GreenBox3D.ContentPipeline.Loaders
 
                 shader.Version = entry.Version;
                 shader.Fallback = entry.Fallback;
+
+                shader.Input = new ShaderInput[entry.Input.Count];
+                for (int i = 0; i < shader.Input.Length; i++)
+                    shader.Input[i] = new ShaderInput(i, entry.Input[i].Usage, entry.Input[i].UsageIndex);
                 
                 foreach (ShaderVariable var in entry.Parameters)
                     shader.Parameters.Add(new ShaderParameter(var.Name, var.Type, var.Size));

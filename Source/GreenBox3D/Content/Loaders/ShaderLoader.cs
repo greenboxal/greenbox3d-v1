@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GreenBox3D.Graphics;
 using GreenBox3D.Graphics.Shading;
 
 namespace GreenBox3D.Content.Loaders
 {
     [ContentTypeReader(Extension = ".fx")]
-    internal class ShaderLoader : ContentTypeReader<ShaderCollection>
+    public class ShaderLoader : ContentTypeReader<ShaderCollection>
     {
         public ShaderLoader()
         {
@@ -34,11 +35,13 @@ namespace GreenBox3D.Content.Loaders
                 int globalCount = reader.ReadInt32();
                 int passCount = reader.ReadInt32();
 
+                shader.Input = new ShaderInput[inputCount];
                 for (int j = 0; j < inputCount; j++)
                 {
                     reader.ReadString();
                     reader.ReadString();
                     reader.ReadInt32();
+                    shader.Input[j] = new ShaderInput(j, (VertexElementUsage)reader.ReadInt32(), reader.ReadInt32());
                 }
 
                 for (int j = 0; j < uniformCount; j++)

@@ -85,6 +85,8 @@
     <Compile Include="Graphics\ShaderCompiler.cs" />
     <Compile Include="Graphics\ShaderContent.cs" />
     <Compile Include="Graphics\ShaderEntry.cs" />
+    <Compile Include="Graphics\ShaderEntryInput.cs" />
+    <Compile Include="Graphics\ShaderEntryInputCollection.cs" />
     <Compile Include="Graphics\ShaderPass.cs" />
     <Compile Include="Graphics\ShaderPassCollection.cs" />
     <Compile Include="Graphics\ShaderSource.cs" />

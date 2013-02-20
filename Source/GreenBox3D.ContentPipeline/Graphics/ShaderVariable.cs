@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GreenBox3D.Graphics.Shading;
+
 namespace GreenBox3D.ContentPipeline.Graphics
 {
     public class ShaderVariable

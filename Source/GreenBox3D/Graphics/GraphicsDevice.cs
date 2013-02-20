@@ -13,6 +13,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using GreenBox3D.Graphics.Shading;
+
 using OpenTK.Graphics.OpenGL;
 
 namespace GreenBox3D.Graphics
@@ -24,7 +26,11 @@ namespace GreenBox3D.Graphics
         private GraphicsDeviceManager _owner;
         private Viewport _viewport;
         private IndexBuffer _indices;
+        private bool _indicesDirty;
         private VertexBuffer _vertices;
+        private bool _verticesDirty;
+
+        internal Shader ActiveShader;
 
         #endregion
 
@@ -73,7 +79,11 @@ namespace GreenBox3D.Graphics
             get { return _indices; }
             set
             {
-                _indices = value;
+                if (_indices != value)
+                {
+                    _indicesDirty = true;
+                    _indices = value;
+                }
             }
         }
 
@@ -124,7 +134,11 @@ namespace GreenBox3D.Graphics
 
         public void SetVertexBuffer(VertexBuffer vertexBuffer)
         {
-            _vertices = vertexBuffer;
+            if (_vertices != vertexBuffer)
+            {
+                _vertices = vertexBuffer;
+                _verticesDirty = true;
+            }
         }
 
         public void DrawIndexedPrimitives(PrimitiveType primitiveType, int baseVertex, int numVertices, int startIndex, int primitiveCount)
@@ -132,9 +146,11 @@ namespace GreenBox3D.Graphics
             if (Indices == null)
                 throw new InvalidOperationException("Vertices must be set before calling this method");
 
-            _indices.Bind();
-            _vertices.Bind();
-            _vertices.VertexDeclaration.Bind(IntPtr.Zero);
+            if (ActiveShader == null)
+                throw new InvalidOperationException("An Effect must be applied before calling this method");
+
+            SetRenderingState();
+            _vertices.VertexDeclaration.Bind(this, IntPtr.Zero);
 
             var indexOffsetInBytes = (IntPtr)(startIndex * _indices.ElementSize);
             var indexElementCount = GetElementCountArray(primitiveType, primitiveCount);
@@ -148,9 +164,11 @@ namespace GreenBox3D.Graphics
             if (_vertices == null)
                 throw new InvalidOperationException("SetVertexBuffer must be called before calling this method");
 
-            _indices.Bind();
-            _vertices.Bind();
-            _vertices.VertexDeclaration.Bind(IntPtr.Zero);
+            if (ActiveShader == null)
+                throw new InvalidOperationException("An Effect must be applied before calling this method");
+
+            SetRenderingState();
+            _vertices.VertexDeclaration.Bind(this, IntPtr.Zero);
 
             GL.DrawArrays(GetBeginMode(primitiveType), startVertex, primitiveCount);
         }
@@ -158,12 +176,11 @@ namespace GreenBox3D.Graphics
 
         public void DrawUserPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int primitiveCount) where T : struct, IVertexType
         {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
-            IndexBuffer.ResetLastUsedBuffer();
-            VertexBuffer.ResetLastUsedBuffer();
+            if (ActiveShader == null)
+                throw new InvalidOperationException("An Effect must be applied before calling this method");
 
             VertexDeclaration vertexDeclaration = VertexDeclaration.FromType(typeof(T));
+            SetRenderingState(false, false);
 
             GCHandle handle = GCHandle.Alloc(vertexData, GCHandleType.Pinned);
             IntPtr arrayStart = Marshal.UnsafeAddrOfPinnedArrayElement(vertexData, 0);
@@ -171,20 +188,20 @@ namespace GreenBox3D.Graphics
             if (vertexOffset > 0)
                 arrayStart = new IntPtr(arrayStart.ToInt32() + (vertexOffset * vertexDeclaration.VertexStride));
 
-            vertexDeclaration.Bind(arrayStart);
+            vertexDeclaration.Bind(this, arrayStart);
 
             GL.DrawArrays(GetBeginMode(primitiveType), vertexOffset, primitiveCount);
+
             handle.Free();
         }
 
         public void DrawUserIndexedPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int vertexCount, int[] indexData, int indexOffset, int primitiveCount) where T : IVertexType
         {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
-            IndexBuffer.ResetLastUsedBuffer();
-            VertexBuffer.ResetLastUsedBuffer();
+            if (ActiveShader == null)
+                throw new InvalidOperationException("An Effect must be applied before calling this method");
 
             VertexDeclaration vertexDeclaration = VertexDeclaration.FromType(typeof(T));
+            SetRenderingState(false, false);
 
             GCHandle handle = GCHandle.Alloc(vertexData, GCHandleType.Pinned);
             IntPtr arrayStart = Marshal.UnsafeAddrOfPinnedArrayElement(vertexData, 0);
@@ -192,7 +209,7 @@ namespace GreenBox3D.Graphics
             if (vertexOffset > 0)
                 arrayStart = new IntPtr(arrayStart.ToInt32() + (vertexOffset * vertexDeclaration.VertexStride));
 
-            vertexDeclaration.Bind(arrayStart);
+            vertexDeclaration.Bind(this, arrayStart);
 
             unsafe
             {
@@ -204,6 +221,19 @@ namespace GreenBox3D.Graphics
         }
 
         #endregion
+
+        private void SetRenderingState(bool setIndex = true, bool setVertex = true)
+        {
+            if (setIndex && _indicesDirty)
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, _indices.BufferID);
+            else
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+
+            if (setVertex && _verticesDirty)
+                GL.BindBuffer(BufferTarget.ArrayBuffer, _vertices.BufferID);
+            else
+                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        }
 
         private static BeginMode GetBeginMode(PrimitiveType primitiveType)
         {
