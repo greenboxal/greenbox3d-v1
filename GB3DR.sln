@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBox3D", "GreenBox3D\GreenBox3D.csproj", "{33B775DD-55E6-402D-BA64-49078EDBC11A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{65159C1E-E651-4070-802B-71F08405787E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535} = {CA17FAA1-57B4-4A07-92D1-F928B5731535}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBox3D.Platform.Windows", "GreenBox3D.Platform.Windows\GreenBox3D.Platform.Windows.csproj", "{CA17FAA1-57B4-4A07-92D1-F928B5731535}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Documentation|Any CPU = Documentation|Any CPU
+		Nsis|Any CPU = Nsis|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Nsis|Any CPU.ActiveCfg = Release|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Nsis|Any CPU.Build.0 = Release|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B775DD-55E6-402D-BA64-49078EDBC11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Nsis|Any CPU.ActiveCfg = Release|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Nsis|Any CPU.Build.0 = Release|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65159C1E-E651-4070-802B-71F08405787E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Nsis|Any CPU.ActiveCfg = Release|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Nsis|Any CPU.Build.0 = Release|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA17FAA1-57B4-4A07-92D1-F928B5731535}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
