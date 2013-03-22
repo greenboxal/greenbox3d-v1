@@ -1,0 +1,3 @@
+Notes:
+
+WindowsPlatform window code is crippled, with exception for bug fixes it won't be touched until next refactoring round.
